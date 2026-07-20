@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Márcia Gorete — 15 Anos | Convite Real</title>
+    
+    <!-- Meta Tags SEO -->
+    <meta name="description" content="Você está convidado para o baile real de 15 anos de Márcia Gorete do Carmo Medeiros. Venha viver uma noite encantada de magia, luxo e romance.">
+    <meta name="keywords" content="15 anos, Marcia Gorete, Debutante, A Bela e a Fera, Baile Real, Convite Digital, 15 anos premium">
+    <meta name="author" content="Antigravity Premium Design">
+    
+    <!-- Open Graph (Compartilhamento) -->
+    <meta property="og:title" content="Márcia Gorete — 15 Anos | Convite Real">
+    <meta property="og:description" content="Entre no castelo encantado e confirme sua presença no grande baile de 15 anos de Márcia Gorete.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1549492423-400259a2e57f?q=80&w=1200&auto=format&fit=crop">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/loading.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    
+    <!-- Favicon (Enchanted Rose SVG favicon) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌹</text></svg>">
+</head>
+<body>
+
+
+
+    <!-- ==========================================
+       B. LOADING SCREEN (Cinematic Intro)
+       ========================================== -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="glass-dome-wrapper">
+            <div class="dome-top-knob"></div>
+            <div class="glass-dome">
+                <div class="dome-glow"></div>
+                <!-- Inline SVG Rose protected under the dome -->
+                <svg class="enchanted-rose-svg" viewBox="0 0 100 150">
+                    <!-- Stem -->
+                    <path d="M50 70 Q50 110 52 140" fill="none" stroke="#2a4d2a" stroke-width="3" stroke-linecap="round"/>
+                    <!-- Leaves -->
+                    <path d="M51 100 Q40 95 36 90 Q42 102 51 108" fill="#2a4d2a"/>
+                    <path d="M52 115 Q65 110 70 105 Q62 118 52 122" fill="#2a4d2a"/>
+                    <!-- Rose Petals Group -->
+                    <g class="rose-petal-bloom">
+                        <!-- Main central bud -->
+                        <path d="M50 45 C40 45 42 70 50 72 C58 70 60 45 50 45 Z" fill="var(--color-rose-red)"/>
+                        <!-- Surrounding petals -->
+                        <path d="M45 48 C30 50 35 68 50 73 C42 62 40 54 45 48 Z" fill="var(--color-rose-dark)" opacity="0.95"/>
+                        <path d="M55 48 C70 50 65 68 50 73 C58 62 60 54 55 48 Z" fill="var(--color-rose-dark)" opacity="0.95"/>
+                        <path d="M48 44 C35 30 65 30 52 44 Z" fill="var(--color-rose-red)"/>
+                    </g>
+                </svg>
+            </div>
+            <div class="dome-base"></div>
+        </div>
+        <div class="loading-text">Carregando o Castelo...</div>
+        
+        <!-- Interactive loading progress bar -->
+        <div class="progress mt-3" style="width: 200px; height: 3px; background: rgba(255,255,255,0.05); border-radius: var(--border-radius-sm);">
+            <div class="progress-bar" id="loading-progress-bar" role="progressbar" style="width: 0%; background: var(--color-gold-primary);" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        <div class="text-muted small mt-1" id="loading-percentage" style="font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 1px;">0%</div>
+    </div>
+
+    <!-- ==========================================
+       C. CASTLE GATES (Split Slide reveal)
+       ========================================== -->
+    <div class="castle-gates" id="castle-gates">
+        <div class="gate-half gate-left">
+            <div class="gate-decor-ring">
+                <div class="gate-handle"></div>
+            </div>
+        </div>
+        <div class="gate-half gate-right">
+            <div class="gate-decor-ring">
+                <div class="gate-handle"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       E. NAVIGATION MENU
+       ========================================== -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <span>🏰 M&G</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">🏰 Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">🌹 Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">📸 Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#retrospective">🎥 Retrospectiva</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gifts">🎁 Presentes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#location">📍 Local</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#rsvp">✅ Confirmação</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#messages">💌 Mensagens</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==========================================
+       1. HERO SECTION
+       ========================================== -->
+    <header class="hero-section" id="home">
+        <div class="hero-overlay"></div>
+        
+        <!-- Moving Fog Drift Container -->
+        <div class="hero-fog-container">
+            <div class="fog-layer fog-1"></div>
+            <div class="fog-layer fog-2"></div>
+        </div>
+
+        <div class="hero-content container">
+            <div class="mb-4">
+                <span class="hero-subtitle">Convidamos para o Baile Real de</span>
+                <h1 class="hero-title gold-text">Márcia Gorete</h1>
+                <span class="hero-subtitle">do Carmo Medeiros</span>
+            </div>
+            
+            <div class="gold-divider"></div>
+            
+            <div>
+                <p class="hero-phrase">"Uma noite encantada espera por você."</p>
+                <div class="hero-date">03 de Outubro de 2026</div>
+            </div>
+
+            <div class="hero-btns mt-3">
+                <a href="#rsvp" class="btn-gold"><i class="fas fa-check-circle"></i> Confirmar Presença</a>
+                <a href="#gifts" class="btn-gold"><i class="fas fa-gift"></i> Lista de Presentes</a>
+                <a href="#location" class="btn-gold"><i class="fas fa-map-marker-alt"></i> Local da Festa</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================
+       2. COUNTDOWN REGRESSIVO
+       ========================================== -->
+    <section class="countdown-section">
+        <div class="container text-center">
+            <div class="clock-container" data-aos="zoom-in">
+                <h3 class="clock-title"><i class="far fa-hourglass-half"></i> O tempo corre para o Grande Baile...</h3>
+                <div class="clock-timer" id="countdown-timer">
+                    <div class="timer-box">
+                        <span class="timer-number" id="days">00</span>
+                        <span class="timer-label">Dias</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="timer-number" id="hours">00</span>
+                        <span class="timer-label">Horas</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="timer-number" id="minutes">00</span>
+                        <span class="timer-label">Minutos</span>
+                    </div>
+                    <div class="timer-box">
+                        <span class="timer-number" id="seconds">00</span>
+                        <span class="timer-label">Segundos</span>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a id="add-to-calendar-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Baile+de+15+Anos+-+M%C3%A1rcia+Gorete&dates=20261003T230000Z/20261004T070000Z&details=Baile+de+15+Anos+de+M%C3%A1rcia+Gorete+do+Carmo+Medeiros.+Sal%C3%A3o+Imperial+Maison+D%27Or.&location=Sal%C3%A3o+Imperial+Maison+D%27Or,+Av.+dos+Nobres+Castelos,+1500,+S%C3%A3o+Paulo+-+SP" target="_blank" rel="noopener noreferrer" class="btn btn-outline-gold btn-sm rounded-pill px-4">
+                        <i class="far fa-calendar-plus me-1"></i> Salvar Data no Meu Calendário
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       3. SOBRE A MÁRCIA & PROGRAMAÇÃO (Timeline)
+       ========================================== -->
+    <section class="section-padding about-section" id="about">
+        <div class="container">
+            <div class="section-title-container" data-aos="fade-up">
+                <span class="section-subtitle">A Debutante</span>
+                <h2 class="section-title gold-text">Sobre a Márcia</h2>
+                <div class="gold-divider"></div>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="book-img-wrapper text-center">
+                        <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?q=80&w=600&auto=format&fit=crop" class="img-fluid rounded border-gold" alt="Salão do Castelo" style="max-height: 380px; width: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="book-container">
+                        <div class="book-page">
+                            <span class="book-corner-decor decor-tl"></span>
+                            <span class="book-corner-decor decor-tr"></span>
+                            <span class="book-corner-decor decor-bl"></span>
+                            <span class="book-corner-decor decor-br"></span>
+                            
+                            <h3>Capítulo I: O Sonho de Menina</h3>
+                            <p><span class="first-letter">E</span>ra uma vez uma menina repleta de sorrisos e sonhos radiantes. Desde muito cedo, Márcia Gorete espalhou alegria e encantamento por onde passou, cultivando uma história cheia de amor ao lado de sua família e amigos queridos.</p>
+                            <p>Ao completar seus 15 anos, ela se prepara para dar um passo mágico. Assim como na clássica história da rosa encantada e do castelo de sonhos, Márcia convida você a abrir este livro e fazer parte de um momento único, onde a fantasia ganha vida e a realidade se transforma em um verdadeiro conto de fadas.</p>
+                            <p class="text-end font-serif font-italic" style="font-size: 1.1rem; color: var(--color-wine-dark);">— Márcia Gorete</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1. Linha do Tempo (Jornada da Debutante) -->
+            <div class="mt-5 pt-4">
+                <div class="section-title-container" data-aos="fade-up">
+                    <span class="section-subtitle">Jornada Inesquecível</span>
+                    <h3 class="gold-text" style="font-family: var(--font-display); text-transform: uppercase;">Linha do Tempo</h3>
+                    <div class="gold-divider"></div>
+                </div>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <!-- Milestone 1 -->
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-icon"><i class="fas fa-baby"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">2011</span>
+                            <h4 class="timeline-title">O Nascimento da Princesa</h4>
+                            <p>Em 03 de Outubro de 2011, o castelo se encheu de luz e alegria com a chegada da pequena Márcia Gorete.</p>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 2 -->
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-icon"><i class="fas fa-child"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">2016</span>
+                            <h4 class="timeline-title">Primeiros Passos e Sorrisos</h4>
+                            <p>Infância repleta de descobertas, gargalhadas, primeiras brincadeiras e laços carinhosos de amizade.</p>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 3 -->
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">2021</span>
+                            <h4 class="timeline-title">Crescendo em Graça e Sonhos</h4>
+                            <p>Anos de aprendizado, amadurecimento e momentos inesquecíveis ao lado da família e amigos.</p>
+                        </div>
+                    </div>
+
+                    <!-- Milestone 4 -->
+                    <div class="timeline-item" data-aos="fade-up">
+                        <div class="timeline-icon"><i class="fas fa-crown"></i></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">2026</span>
+                            <h4 class="timeline-title">O Baile Real de 15 Anos</h4>
+                            <p>O grande momento de celebrar a transformação em uma jovem radiante e selar um novo capítulo de vida.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Cronograma da Festa (Ultra-Compacto em Faixa Mágica) -->
+            <div class="mt-4 pt-3">
+                <div class="section-title-container" data-aos="fade-up">
+                    <span class="section-subtitle">Programação da Noite</span>
+                    <h3 class="gold-text" style="font-family: var(--font-display); text-transform: uppercase;">Cronograma da Festa</h3>
+                    <div class="gold-divider"></div>
+                </div>
+
+                <div class="party-ribbon-container" data-aos="fade-up">
+                    <div class="party-ribbon-track">
+                        <!-- Node 1 -->
+                        <div class="party-ribbon-node">
+                            <span class="party-ribbon-badge"><i class="fas fa-door-open"></i> 20:00</span>
+                            <span class="party-ribbon-title">Recepção</span>
+                        </div>
+                        <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
+
+                        <!-- Node 2 -->
+                        <div class="party-ribbon-node">
+                            <span class="party-ribbon-badge"><i class="fas fa-utensils"></i> 21:30</span>
+                            <span class="party-ribbon-title">Jantar</span>
+                        </div>
+                        <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
+
+                        <!-- Node 3 -->
+                        <div class="party-ribbon-node">
+                            <span class="party-ribbon-badge"><i class="fas fa-crown"></i> 23:00</span>
+                            <span class="party-ribbon-title">Entrada Real</span>
+                        </div>
+                        <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
+
+                        <!-- Node 4 -->
+                        <div class="party-ribbon-node">
+                            <span class="party-ribbon-badge"><i class="fas fa-gem"></i> 23:15</span>
+                            <span class="party-ribbon-title">A Valsa</span>
+                        </div>
+                        <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
+
+                        <!-- Node 5 -->
+                        <div class="party-ribbon-node">
+                            <span class="party-ribbon-badge"><i class="fas fa-heart"></i> 23:45</span>
+                            <span class="party-ribbon-title">Parabéns</span>
+                        </div>
+                        <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
+
+                        <!-- Node 6 -->
+                        <div class="party-ribbon-node">
+                            <span class="party-ribbon-badge"><i class="fas fa-music"></i> 00:00</span>
+                            <span class="party-ribbon-title">Pista DJ</span>
+                        </div>
+                        <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
+
+                        <!-- Node 7 -->
+                        <div class="party-ribbon-node">
+                            <span class="party-ribbon-badge"><i class="fas fa-moon"></i> 04:00</span>
+                            <span class="party-ribbon-title">Encerramento</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       4. GALERIA DE FOTOS (Premium Lightbox)
+       ========================================== -->
+    <section class="section-padding gallery-section text-dark" id="gallery">
+        <div class="container">
+            <div class="section-title-container" data-aos="fade-up">
+                <span class="section-subtitle">Álbum Real</span>
+                <h2 class="section-title gold-text">Galeria de Fotos</h2>
+                <div class="gold-divider mb-3"></div>
+                <div>
+                    <button class="btn btn-gold btn-sm rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#uploadPhotoModal">
+                        <i class="fas fa-camera me-1"></i> Enviar Sua Foto da Festa
+                    </button>
+                </div>
+            </div>
+
+            <!-- Categories Filter -->
+            <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap" id="gallery-filters">
+                <!-- Loaded dynamically -->
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="gallery-grid" id="photo-gallery">
+                <!-- Loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox-modal">
+        <div class="lightbox-content-wrapper">
+            <span class="lightbox-close" id="lightbox-close">&times;</span>
+            <img class="lightbox-img" id="lightbox-img" src="" alt="Imagem ampliada">
+            <button class="lightbox-nav lightbox-prev" id="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-nav lightbox-next" id="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Upload Guest Photo Modal -->
+    <div class="modal fade" id="uploadPhotoModal" tabindex="-1" aria-labelledby="uploadPhotoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title gold-text" id="uploadPhotoModalLabel"><i class="fas fa-camera"></i> Compartilhar Foto no Álbum</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="upload-guest-photo-form">
+                    <div class="modal-body bg-castle-dark rounded-bottom p-4 text-light">
+                        <div class="mb-3 text-start">
+                            <label for="upload-author-name" class="form-label font-serif" style="color: var(--color-gold-light);">Seu Nome / Família</label>
+                            <input type="text" class="form-control admin-form-control text-light" id="upload-author-name" placeholder="Ex: Prima Amanda" required style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="upload-photo-caption" class="form-label font-serif" style="color: var(--color-gold-light);">Legenda da Foto (Opcional)</label>
+                            <input type="text" class="form-control admin-form-control text-light" id="upload-photo-caption" placeholder="Ex: Momento inesquecível na pista!" style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="upload-photo-file" class="form-label font-serif" style="color: var(--color-gold-light);">Escolha a Foto do Seu Celular/Computador</label>
+                            <input type="file" class="form-control admin-form-control text-light" id="upload-photo-file" accept="image/*" required style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                        </div>
+                        <div id="photo-preview-container" class="text-center mt-2 d-none">
+                            <img id="upload-photo-preview" src="" alt="Prévia" style="max-height: 140px; border-radius: 8px; border: 1px solid var(--color-gold-primary);">
+                        </div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom justify-content-between">
+                        <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-cloud-upload-alt me-1"></i> Publicar no Álbum</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       5. RETROSPECTIVA
+       ========================================== -->
+    <section class="section-padding video-section" id="retrospective">
+        <div class="container">
+            <div class="section-title-container" data-aos="fade-up">
+                <span class="section-subtitle">Lembranças do Reino</span>
+                <h2 class="section-title gold-text">Retrospectiva</h2>
+                <div class="gold-divider"></div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10" data-aos="zoom-in">
+                    <div class="video-frame-container">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Retrospectiva Real" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="text-center mt-4 font-serif font-italic text-muted" style="font-size: 1.15rem;">
+                        Assista aos melhores momentos que marcaram a jornada de Márcia até seus 15 anos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding gifts-section bg-castle-dark text-light" id="gifts">
+        <div class="container">
+            <div class="section-title-container" data-aos="fade-up">
+                <span class="section-subtitle">Sugestões de Presente</span>
+                <h2 class="section-title gold-text">Lista de Presentes</h2>
+                <div class="gold-divider"></div>
+                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-light" style="font-size: 1.2rem; font-weight: 500; color: rgba(253, 251, 247, 0.8) !important;">
+                    Sua presença é o maior presente. Mas, caso deseje nos presentear, separamos algumas sugestões abaixo (físicas ou em forma de contribuição virtual Pix).
+                </p>
+            </div>
+
+            <!-- Gifts Cards Grid -->
+            <div class="row g-4" id="gift-list-grid">
+                <!-- Loaded dynamically -->
+            </div>
+
+            <!-- Virtual PIX cards -->
+            <div class="mt-5 pt-5" data-aos="fade-up">
+                <h3 class="text-center gold-text mb-4" style="font-family: var(--font-display);"><i class="fas fa-coins"></i> Cota Virtual (Presentes em Pix)</h3>
+                
+                <div class="virtual-pix-grid">
+                    <div class="pix-card" data-pix-value="30" data-pix-title="Cota Lembrança">
+                        <i class="fas fa-coffee"></i>
+                        <div class="pix-value">R$ 30</div>
+                        <div class="pix-desc">Cota Lembrança</div>
+                    </div>
+                    <div class="pix-card" data-pix-value="50" data-pix-title="Cota Biblioteca">
+                        <i class="fas fa-book-open"></i>
+                        <div class="pix-value">R$ 50</div>
+                        <div class="pix-desc">Cota Livros</div>
+                    </div>
+                    <div class="pix-card" data-pix-value="100" data-pix-title="Cota Maquiagem">
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <div class="pix-value">R$ 100</div>
+                        <div class="pix-desc">Cota Maquiagem</div>
+                    </div>
+                    <div class="pix-card" data-pix-value="200" data-pix-title="Cota Baile Real">
+                        <i class="fas fa-glass-cheers"></i>
+                        <div class="pix-value">R$ 200</div>
+                        <div class="pix-desc">Cota Baile</div>
+                    </div>
+                    <div class="pix-card" data-pix-value="500" data-pix-title="Cota Viagem Real">
+                        <i class="fas fa-plane-departure"></i>
+                        <div class="pix-value">R$ 500</div>
+                        <div class="pix-desc">Cota Viagem Real</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIX Modal -->
+    <div class="modal fade" id="pixModal" tabindex="-1" aria-labelledby="pixModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title gold-text" id="pixModalLabel"><i class="fas fa-qrcode"></i> Presentear com Pix</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center bg-castle-dark rounded-bottom p-4 text-light">
+                    <h4 class="gold-text fw-bold" id="modal-pix-title">Cota Mágica</h4>
+                    <p class="small" style="color: rgba(253, 251, 247, 0.7);">Escaneie o QR Code abaixo no app do seu banco ou copie a chave Pix.</p>
+                    
+                    <!-- QR Code container -->
+                    <div class="pix-qrcode">
+                        <img id="modal-pix-qr" src="" alt="QR Code Pix" class="w-100 h-100">
+                    </div>
+                    
+                    <div class="pix-key-container">
+                        <span class="pix-key-val" id="pix-key-text">marcia15anos@pix.com.br</span>
+                        <button class="btn btn-outline-light btn-sm" id="copy-pix-btn" aria-label="Copiar chave Pix">
+                            <i class="far fa-copy" style="color: var(--color-gold-light);"></i>
+                        </button>
+                    </div>
+                    <p class="text-success small mt-2 fw-semibold d-none" id="copy-toast">Chave Copiada com Sucesso! ✨</p>
+                </div>
+                <div class="modal-footer modal-footer-custom justify-content-center">
+                    <button type="button" class="btn btn-gold btn-sm rounded-pill px-4" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift Reservation Modal (Physical Gifts) -->
+    <div class="modal fade" id="reserveGiftModal" tabindex="-1" aria-labelledby="reserveGiftModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title gold-text" id="reserveGiftModalLabel"><i class="fas fa-gift"></i> Selar Reserva de Presente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="reserve-gift-form">
+                    <input type="hidden" id="modal-reserve-gift-id">
+                    <div class="modal-body text-center bg-castle-dark rounded-bottom p-4 text-light">
+                        <div class="mb-3">
+                            <img id="modal-reserve-gift-img" src="" alt="Presente" style="max-height: 140px; width: auto; object-fit: cover; border-radius: 12px; border: 2px solid var(--color-gold-primary); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
+                        </div>
+                        <h4 class="gold-text fw-bold mb-1" id="modal-reserve-gift-title">Nome do Presente</h4>
+                        <div class="badge bg-warning text-dark mb-3 font-serif" id="modal-reserve-gift-price" style="font-size: 0.95rem; font-weight: 700;">R$ 0,00</div>
+                        
+                        <div class="text-start mt-2">
+                            <label for="modal-reserve-donor-name" class="form-label font-serif" style="color: var(--color-gold-light);">Seu Nome Completo para a Lista de Reservas</label>
+                            <input type="text" class="form-control admin-form-control text-light" id="modal-reserve-donor-name" placeholder="Ex: Madrinha Sandra" required style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                        </div>
+                    </div>
+                    <div class="modal-footer modal-footer-custom justify-content-between">
+                        <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-crown"></i> Confirmar Reserva Real</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gift Thank You Modal (Physical Gift Success) -->
+    <div class="modal fade" id="giftThankYouModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom text-center">
+                <div class="modal-header modal-header-custom justify-content-center">
+                    <h5 class="modal-title gold-text"><i class="fas fa-crown"></i> Reserva Real Selada</h5>
+                </div>
+                <div class="modal-body bg-castle-dark rounded-bottom p-4 text-light">
+                    <div class="mb-3">
+                        <i class="fas fa-gift fa-3x gold-text"></i>
+                    </div>
+                    <h4 class="gold-text fw-bold mb-2" id="thank-you-donor-name">Obrigado!</h4>
+                    <p class="font-serif text-light mb-0" style="font-size: 1.1rem; line-height: 1.5;" id="thank-you-gift-msg">
+                        Sua reserva foi salva com sucesso no livro de presentes da princesa Márcia Gorete.
+                    </p>
+                </div>
+                <div class="modal-footer modal-footer-custom justify-content-center">
+                    <button type="button" class="btn btn-gold btn-sm rounded-pill px-4" data-bs-dismiss="modal">Concluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Sent Confirmation Modal -->
+    <div class="modal fade" id="messageSentModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom text-center">
+                <div class="modal-header modal-header-custom justify-content-center">
+                    <h5 class="modal-title gold-text"><i class="fas fa-scroll"></i> Carta Enviada ao Castelo</h5>
+                </div>
+                <div class="modal-body bg-castle-dark rounded-bottom p-4 text-light">
+                    <div class="mb-3">
+                        <i class="fas fa-envelope-open-text fa-3x gold-text"></i>
+                    </div>
+                    <h4 class="gold-text fw-bold mb-2">Mensagem Entregue! ✨</h4>
+                    <p class="font-serif text-light mb-0" style="font-size: 1.05rem; line-height: 1.5;">
+                        Sua carinhosa mensagem foi entregue com sucesso e aparecerá no mural real assim que for aprovada pela corte.
+                    </p>
+                </div>
+                <div class="modal-footer modal-footer-custom justify-content-center">
+                    <button type="button" class="btn btn-gold btn-sm rounded-pill px-4" data-bs-dismiss="modal">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       7. LOCALIZAÇÃO E ATRAÇÕES
+       ========================================== -->
+    <section class="section-padding location-section" id="location">
+        <div class="container">
+            <div class="section-title-container" data-aos="fade-up">
+                <span class="section-subtitle">Onde a Magia Acontece</span>
+                <h2 class="section-title gold-text">Local da Festa</h2>
+                <div class="gold-divider"></div>
+            </div>
+
+            <div class="row g-4 align-items-stretch">
+                <!-- Location details -->
+                <div class="col-lg-6" data-aos="fade-right">
+                    <div class="location-invitation-card h-100">
+                        <div class="location-card-decor">🏰</div>
+                        <h3 class="location-title">Salão Imperial Maison D'Or</h3>
+                        
+                        <div class="location-details font-serif text-light">
+                            <p><strong>Endereço:</strong> Av. dos Nobres Castelos, 1500 - Jardim das Rosas, São Paulo - SP</p>
+                            <p><strong>Horário:</strong> Início pontual às 20h00</p>
+                            <p><strong>Estacionamento:</strong> Serviço de valet gratuito no local</p>
+                        </div>
+                        
+                        <div class="attire-card">
+                            <h4 class="attire-title">👔 Traje Recomendado</h4>
+                            <p class="mb-0 text-light font-serif" style="font-size: 1rem;">
+                                <strong>Gala / Esporte Fino:</strong> Venha preparado para um verdadeiro baile real. Solicitamos evitar vestimentas inteiramente nas cores Branco e Amarelo Creme (exclusivas da debutante).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Frame -->
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="map-container">
+                        <iframe class="w-100 h-100" style="border:0;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975870092525!2d-46.658661225574316!3d-23.561349667793466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       8. RSVP (Confirmação de Presença)
+       ========================================== -->
+    <section class="section-padding rsvp-section bg-castle-dark" id="rsvp">
+        <div class="container">
+            <div class="section-title-container" data-aos="fade-up">
+                <span class="section-subtitle">Presença Real</span>
+                <h2 class="section-title gold-text">Confirmação de Presença</h2>
+                <div class="gold-divider"></div>
+                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-light" style="font-size: 1.2rem; font-weight: 500;">
+                    Por favor, confirme sua presença até o dia <strong>15 de Setembro de 2026</strong> para que possamos preparar seu lugar no banquete real.
+                </p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8" data-aos="zoom-in">
+                    <div class="glass-panel-gold p-4 p-md-5">
+                        <form id="rsvp-form">
+                            <div class="row g-3">
+                                <!-- Nome -->
+                                <div class="col-md-6">
+                                    <label for="rsvp-name" class="form-label font-serif" style="color: var(--color-gold-light);">Nome Completo</label>
+                                    <input type="text" class="form-control admin-form-control" id="rsvp-name" placeholder="Digite seu nome completo" required>
+                                </div>
+                                <!-- Telefone -->
+                                <div class="col-md-6">
+                                    <label for="rsvp-phone" class="form-label font-serif" style="color: var(--color-gold-light);">Telefone Celular</label>
+                                    <input type="tel" class="form-control admin-form-control" id="rsvp-phone" placeholder="(11) 99999-9999" required>
+                                </div>
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <label for="rsvp-email" class="form-label font-serif" style="color: var(--color-gold-light);">E-mail</label>
+                                    <input type="email" class="form-control admin-form-control" id="rsvp-email" placeholder="nome@provedor.com" required>
+                                </div>
+                                <!-- Qtd Convidados -->
+                                <div class="col-md-6">
+                                    <label for="rsvp-count" class="form-label font-serif" style="color: var(--color-gold-light);">Ingressos / Convidados</label>
+                                    <select class="form-select admin-form-control" id="rsvp-count" required style="background-image: none;">
+                                        <option value="1">Apenas Eu (1)</option>
+                                        <option value="2">Eu + 1 Acompanhante (2)</option>
+                                        <option value="3">Eu + 2 Acompanhantes (3)</option>
+                                        <option value="4">Eu + 3 Acompanhantes (4)</option>
+                                        <option value="5">Eu + 4 Acompanhantes (5)</option>
+                                    </select>
+                                </div>
+                                <!-- Acompanhantes names -->
+                                <div class="col-12 d-none" id="rsvp-guests-container">
+                                    <label for="rsvp-guests" class="form-label font-serif" style="color: var(--color-gold-light);">Nomes dos Acompanhantes</label>
+                                    <textarea class="form-control admin-form-control" id="rsvp-guests" rows="2" placeholder="Digite o nome completo dos acompanhantes separados por vírgula" style="border-radius: 12px !important;"></textarea>
+                                </div>
+                                <!-- Tipagem Adulto/Crianca -->
+                                <div class="col-md-6">
+                                    <label for="rsvp-adults" class="form-label font-serif" style="color: var(--color-gold-light);">Adultos (Total)</label>
+                                    <input type="number" class="form-control admin-form-control" id="rsvp-adults" min="1" max="5" value="1" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="rsvp-kids" class="form-label font-serif" style="color: var(--color-gold-light);">Crianças (Menores de 10 anos)</label>
+                                    <input type="number" class="form-control admin-form-control" id="rsvp-kids" min="0" max="4" value="0" required>
+                                </div>
+                                <!-- Mensagem -->
+                                <div class="col-12">
+                                    <label for="rsvp-message" class="form-label font-serif" style="color: var(--color-gold-light);">Mensagem para a Debutante</label>
+                                    <textarea class="form-control admin-form-control" id="rsvp-message" rows="3" placeholder="Escreva uma mensagem especial para a Márcia..." style="border-radius: 12px !important;"></textarea>
+                                </div>
+                                <!-- Observacoes -->
+                                <div class="col-12">
+                                    <label for="rsvp-obs" class="form-label font-serif" style="color: var(--color-gold-light);">Restrições Alimentares ou Observações</label>
+                                    <input type="text" class="form-control admin-form-control" id="rsvp-obs" placeholder="Ex: Alérgico a glúten, vegetariano, etc.">
+                                </div>
+                                <!-- Botao Confirmar -->
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-gold btn-lg w-100"><i class="fas fa-feather-alt"></i> Confirmar Minha Presença</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- RSVP Dashboard panel -->
+                    <div class="glass-panel mt-5 text-center" data-aos="fade-up" style="border-color: rgba(212, 175, 55, 0.35); background: rgba(15, 29, 54, 0.75);">
+                        <h4 class="gold-text mb-3" style="font-family: var(--font-display);">Painel Real de Presenças</h4>
+                        <div class="row g-3">
+                            <div class="col-4">
+                                <div class="counter-num" id="total-confirmed" style="color: #ffd700 !important; font-weight: 800; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);">0</div>
+                                <div class="small text-uppercase mt-1" style="color: #ffffff !important; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">Total Geral</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="counter-num" id="adults-confirmed" style="color: #ffffff !important; font-weight: 800; font-size: 2.2rem;">0</div>
+                                <div class="small text-uppercase mt-1" style="color: #ffffff !important; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">Adultos</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="counter-num" id="kids-confirmed" style="color: #ff8fa3 !important; font-weight: 800; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255, 143, 163, 0.3);">0</div>
+                                <div class="small text-uppercase mt-1" style="color: #ffffff !important; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">Crianças</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success RSVP overlay screen -->
+    <div class="rsvp-success-overlay" id="rsvp-rose-overlay">
+        <div class="rose-bloom-container">
+            <svg class="rose-bloom-svg" viewBox="0 0 100 100">
+                <!-- Outer petals blooming layout -->
+                <path class="rose-bloom-path" d="M 50 15 C 30 15 35 55 50 85 C 65 55 70 15 50 15 Z" fill="var(--color-rose-red)"/>
+                <path class="rose-bloom-path" d="M 50 25 C 20 30 30 65 50 85 C 70 65 80 30 50 25 Z" fill="var(--color-rose-dark)" opacity="0.9"/>
+                <path class="rose-bloom-path" d="M 50 35 C 38 40 40 68 50 82 C 60 68 62 40 50 35 Z" fill="var(--color-rose-red)"/>
+                <!-- Gold center details -->
+                <circle cx="50" cy="50" r="4" fill="var(--color-gold-primary)"/>
+            </svg>
+        </div>
+        <h3 class="rose-title gold-text">Presença Confirmada!</h3>
+        <p class="rose-submessage">Seu nome foi selado na lista de convidados do baile real.</p>
+        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-3">
+            <a id="rsvp-whatsapp-share-btn" href="#" target="_blank" class="btn btn-success rounded-pill px-4 fw-bold">
+                <i class="fab fa-whatsapp me-1"></i> Notificar no WhatsApp
+            </a>
+            <button class="btn btn-gold rose-close-btn" id="close-rose-overlay-btn">Voltar ao Convite</button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       9. MENSAGENS / MURAL DE CARINHO
+       ========================================== -->
+    <section class="section-padding messages-section bg-castle-dark text-light" id="messages">
+        <div class="container">
+            <div class="section-title-container" data-aos="fade-up">
+                <span class="section-subtitle">Mural de Carinho</span>
+                <h2 class="section-title gold-text">Livro de Mensagens</h2>
+                <div class="gold-divider"></div>
+                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-light" style="font-size: 1.2rem; font-weight: 500; color: rgba(253, 251, 247, 0.8) !important;">
+                    Deixe suas palavras de afeto, felicitações e conselhos para que Márcia guarde para sempre em seu coração.
+                </p>
+            </div>
+
+            <div class="row">
+                <!-- Submit message form -->
+                <div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="glass-panel-gold p-4">
+                        <h4 class="gold-text mb-3 text-center" style="font-family: var(--font-display); font-size: 1.1rem;">Escrever Mensagem</h4>
+                        <form id="message-form">
+                            <div class="mb-3">
+                                <label for="msg-author" class="form-label font-serif" style="color: var(--color-gold-light);">Seu Nome / Família</label>
+                                <input type="text" class="form-control admin-form-control" id="msg-author" placeholder="Ex: Tio João e Família" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="msg-text" class="form-label font-serif" style="color: var(--color-gold-light);">Mensagem</label>
+                                <textarea class="form-control admin-form-control" id="msg-text" rows="4" placeholder="Escreva aqui seus votos de felicidade..." required style="border-radius: 12px !important;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-gold btn-sm w-100"><i class="fas fa-paper-plane"></i> Enviar ao Livro</button>
+                            <p class="small text-center mt-2 mb-0 font-serif font-italic" style="color: rgba(253, 251, 247, 0.55);">Nota: A mensagem será exibida após moderação.</p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Display message board wall -->
+                <div class="col-lg-8" data-aos="fade-left">
+                    <div class="row g-4" id="message-board-wall">
+                        <!-- Message cards loaded dynamically inside parchment wrappers -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+       10. FOOTER
+       ========================================== -->
+    <footer class="footer-section py-4">
+        <div class="container text-center">
+            <h4 class="gold-text mb-1" style="font-family: var(--font-display);">Márcia Gorete — 15 Anos</h4>
+            <p class="mb-2 small font-serif text-light-muted">03 de Outubro de 2026 • Baile de Gala</p>
+            <p class="mb-2 small font-sans text-muted">&copy; 2026 Márcia Gorete do Carmo Medeiros. Todos os direitos reservados.</p>
+            <div class="mt-2">
+                <a href="admin.html" class="admin-link-pill"><i class="fas fa-lock me-1"></i> Painel Administrativo</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CDN Libraries: Bootstrap, AOS, GSAP, Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Custom Application JS -->
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

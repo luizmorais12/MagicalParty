@@ -1,0 +1,61 @@
+/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* Design Tokens & CSS Variables */
+
+:root {
+    /* Color Palette */
+    --color-wine-primary: #58181A;
+    --color-wine-dark: #3C0D0E;
+    --color-wine-light: #8A2528;
+    --color-wine-rgb: 88, 24, 26;
+
+    --color-gold-primary: #D4AF37;
+    --color-gold-light: #F3E5AB;
+    --color-gold-dark: #AA771C;
+    --color-gold-glow: rgba(212, 175, 55, 0.45);
+    --color-gold-rgb: 212, 175, 55;
+
+    --color-royal-blue: #0F1D36;
+    --color-royal-medium: #1B3B6F;
+    --color-royal-dark: #070E1B;
+    --color-royal-rgb: 15, 29, 54;
+
+    --color-cream-bg: #FDFBF7;
+    --color-wood-brown: #301B10;
+    --color-wood-dark: #1F1008;
+    --color-black-elegant: #0A0A0A;
+    --color-white-pure: #FFFFFF;
+
+    --color-rose-red: #E31837;
+    --color-rose-dark: #8A0412;
+    --color-rose-rgb: 227, 24, 55;
+
+    /* Typographies */
+    --font-display: 'Cinzel Decorative', Georgia, serif;
+    --font-serif: 'Cormorant Garamond', 'Playfair Display', serif;
+    --font-sans: 'Poppins', 'Montserrat', system-ui, -apple-system, sans-serif;
+
+    /* Spacing & Sizing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 5rem;
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --border-radius-pill: 50px;
+
+    /* Shadows & Glows */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --glow-gold: 0 0 15px rgba(212, 175, 55, 0.5);
+    --glow-gold-intense: 0 0 25px rgba(212, 175, 55, 0.8);
+    --glow-rose: 0 0 15px rgba(227, 24, 55, 0.6);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-slow: 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-gate: 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+}

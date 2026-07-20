@@ -1,0 +1,608 @@
+/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* Component-Specific Premium Styles */
+
+/* ==========================================================================
+   1. BUTTONS (Premium Gold & Glass Buttons)
+   ========================================================================== */
+.btn-gold {
+    background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold-primary) 50%, var(--color-gold-dark) 100%);
+    color: #000000 !important;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-pill);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.3s ease;
+}
+
+.btn-gold:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6), var(--glow-gold-intense);
+    color: var(--color-black-elegant) !important;
+}
+
+.btn-gold:active {
+    transform: translateY(-1px);
+}
+
+.btn-glass {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-cream-bg) !important;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 12px 28px;
+    border-radius: var(--border-radius-pill);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                border-color 0.3s ease, 
+                background-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.btn-glass:hover {
+    transform: translateY(-3px) scale(1.03);
+    border-color: var(--color-gold-primary);
+    background-color: rgba(212, 175, 55, 0.08);
+    box-shadow: var(--shadow-md), var(--glow-gold);
+}
+
+/* ==========================================================================
+   2. TIMELINE (Event Schedule)
+   ========================================================================== */
+.timeline-container {
+    position: relative;
+    max-width: 850px;
+    margin: 3rem auto 0;
+    padding: 1rem 0;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 0; bottom: 0; left: 50%;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-wine-primary), var(--color-gold-primary), var(--color-wine-dark));
+    transform: translateX(-50%);
+}
+
+@media (max-width: 767.98px) {
+    .timeline-line {
+        left: 20px;
+        transform: translateX(0);
+    }
+}
+
+.timeline-item {
+    position: relative;
+    width: 100%;
+    margin-bottom: 3.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.timeline-item:nth-child(even) {
+    justify-content: flex-start;
+}
+
+@media (max-width: 767.98px) {
+    .timeline-item, .timeline-item:nth-child(even) {
+        justify-content: flex-start;
+        padding-left: 50px;
+    }
+}
+
+.timeline-icon {
+    position: absolute;
+    top: 15px; left: 50%;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-royal-dark);
+    border: 2px solid var(--color-gold-primary);
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gold-primary);
+    box-shadow: var(--glow-gold);
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.timeline-item:hover .timeline-icon {
+    transform: translateX(-50%) scale(1.15);
+    background-color: var(--color-wine-primary);
+    color: var(--color-gold-light);
+}
+
+@media (max-width: 767.98px) {
+    .timeline-icon {
+        left: 20px;
+        transform: translateX(-50%);
+    }
+    .timeline-item:hover .timeline-icon {
+        transform: translateX(-50%) scale(1.15);
+    }
+}
+
+.timeline-content {
+    width: 42%;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-md);
+    transition: transform var(--transition-medium), border-color var(--transition-medium);
+}
+
+.timeline-item:hover .timeline-content {
+    border-color: var(--color-gold-primary);
+    transform: translateY(-5px);
+}
+
+@media (max-width: 767.98px) {
+    .timeline-content {
+        width: 100%;
+    }
+}
+
+.timeline-time {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    color: var(--color-gold-primary);
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 700;
+}
+
+.timeline-title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    color: var(--color-white-pure);
+    margin-bottom: var(--spacing-xs);
+}
+
+/* ==========================================================================
+   3. GIFT CARDS
+   ========================================================================== */
+.gift-card {
+    background-color: rgba(15, 29, 54, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    box-shadow: var(--shadow-sm);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.gift-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(212, 175, 55, 0.4);
+    border-color: var(--color-gold-primary);
+}
+
+.gift-img-container {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background-color: var(--color-black-elegant);
+}
+
+.gift-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-medium);
+}
+
+.gift-card:hover .gift-img-container img {
+    transform: scale(1.05);
+}
+
+.gift-body {
+    padding: 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.gift-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--color-gold-primary);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+}
+
+.gift-desc {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: rgba(253, 251, 247, 0.75);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.4;
+}
+
+.gift-price {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-gold-light);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+/* Reserved state */
+.gift-card.reserved::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 10, 10, 0.65);
+    z-index: 2;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.gift-card.reserved::before {
+    content: 'Presente Reservado';
+    position: absolute;
+    top: 45%; left: 5%; right: 5%;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-size: 1rem;
+    color: var(--color-gold-light);
+    border: 2px solid var(--color-gold-primary);
+    background-color: var(--color-wine-dark);
+    padding: 8px 12px;
+    border-radius: var(--border-radius-pill);
+    text-align: center;
+    z-index: 3;
+    letter-spacing: 1px;
+    box-shadow: var(--shadow-lg), var(--glow-gold-intense);
+    animation: zoom-in-bounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================================================
+   4. PIX (Cota Virtual)
+   ========================================================================== */
+.virtual-pix-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.pix-card {
+    flex: 1;
+    min-width: 160px;
+    max-width: 200px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.pix-card i {
+    font-size: 2.2rem;
+    color: var(--color-gold-primary);
+    margin-bottom: var(--spacing-sm);
+    transition: transform var(--transition-fast);
+}
+
+.pix-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-white-pure);
+    margin-bottom: var(--spacing-xs);
+}
+
+.pix-desc {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: rgba(253, 251, 247, 0.6);
+}
+
+.pix-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-gold-primary);
+    background-color: rgba(212, 175, 55, 0.05);
+    box-shadow: var(--shadow-md), var(--glow-gold);
+}
+
+.pix-card:hover i {
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* ==========================================================================
+   5. PIX MODAL CUSTOM
+   ========================================================================== */
+.modal-content-custom {
+    background-color: var(--color-royal-dark) !important;
+    border: 2px solid var(--color-gold-primary) !important;
+    border-radius: var(--border-radius-lg) !important;
+    box-shadow: var(--shadow-lg), var(--glow-gold-intense);
+}
+
+.modal-header-custom {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+    padding: 1.25rem 1.5rem !important;
+}
+
+.modal-footer-custom {
+    border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+    padding: 1rem !important;
+}
+
+.pix-qrcode {
+    width: 200px;
+    height: 200px;
+    margin: 1.5rem auto;
+    border: 3px double var(--color-gold-primary);
+    padding: 5px;
+    background-color: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.pix-key-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(7, 14, 27, 0.7);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    padding: 8px 15px;
+    border-radius: var(--border-radius-pill);
+    margin: 1.5rem 0 0.5rem;
+}
+
+.pix-key-val {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gold-light);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 80%;
+}
+
+/* ==========================================================================
+   6. RSVP SUCCESS OVERLAY (Confetti and Blooming Rose)
+   ========================================================================== */
+.rsvp-success-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: var(--color-black-elegant);
+    background-image: radial-gradient(circle at center, rgba(88, 24, 26, 0.45) 0%, rgba(10, 10, 10, 0.98) 100%);
+    z-index: 100000;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.rose-bloom-container {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 2rem;
+    animation: scale-up-bounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rose-bloom-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 20px rgba(227, 24, 55, 0.7));
+}
+
+.rose-bloom-path {
+    transform-origin: center bottom;
+    animation: bloom-effect 4s forwards ease-out;
+}
+
+.rose-title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    color: var(--color-gold-primary);
+    margin-bottom: var(--spacing-sm);
+    text-shadow: var(--glow-gold);
+}
+
+.rose-submessage {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: rgba(253, 251, 247, 0.85);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+}
+
+/* Custom animations */
+@keyframes zoom-in-bounce {
+    0% { transform: translateY(-50%) scale(0.3); opacity: 0; }
+    50% { transform: translateY(-50%) scale(1.1); }
+    70% { transform: translateY(-50%) scale(0.9); }
+    100% { transform: translateY(-50%) scale(1); opacity: 1; }
+}
+
+@keyframes scale-up-bounce {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bloom-effect {
+    0% { transform: scale(0.3) rotate(-15deg); filter: brightness(0.4); }
+    40% { transform: scale(0.8) rotate(10deg); filter: brightness(0.8); }
+    100% { transform: scale(1.15) rotate(0deg); filter: brightness(1.2) drop-shadow(0 0 15px var(--color-rose-red)); }
+}
+
+/* ==========================================================================
+   7. GUESTBOOK MESSAGES CARDS (Dark Luxury Glassmorphism)
+   ========================================================================== */
+.message-card {
+    background: rgba(15, 29, 54, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--border-radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.message-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(212, 175, 55, 0.45);
+    box-shadow: var(--shadow-md), var(--glow-gold);
+}
+
+.message-text {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: rgba(253, 251, 247, 0.9) !important;
+    line-height: 1.5;
+    margin-bottom: var(--spacing-sm);
+}
+
+.message-author {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--color-gold-primary);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.message-date {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: rgba(253, 251, 247, 0.45);
+    margin-top: 3px;
+}
+
+/* ==========================================================================
+   8. PARTY RIBBON TRACK (Ultra-Compact Sleek Party Schedule)
+   ========================================================================== */
+.party-ribbon-container {
+    max-width: 1050px;
+    margin: 1.5rem auto 0;
+    background: rgba(15, 29, 54, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 60px;
+    padding: 1.2rem 1.8rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(212, 175, 55, 0.08);
+}
+
+.party-ribbon-track {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.4rem;
+}
+
+.party-ribbon-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 0 0 auto;
+}
+
+.party-ribbon-badge {
+    background: linear-gradient(135deg, rgba(88, 24, 26, 0.85) 0%, rgba(15, 29, 54, 0.95) 100%);
+    border: 1px solid var(--color-gold-primary);
+    color: var(--color-gold-light);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.party-ribbon-node:hover .party-ribbon-badge {
+    transform: scale(1.08);
+    border-color: #ffffff;
+    box-shadow: 0 0 12px var(--color-gold-primary);
+}
+
+.party-ribbon-title {
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 6px;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+.party-ribbon-arrow {
+    color: var(--color-gold-primary);
+    font-size: 0.85rem;
+    opacity: 0.75;
+    flex-shrink: 0;
+    margin-top: -12px;
+    animation: ribbon-pulse-arrow 2s infinite ease-in-out;
+}
+
+@keyframes ribbon-pulse-arrow {
+    0%, 100% { transform: translateX(0); opacity: 0.5; }
+    50% { transform: translateX(4px); opacity: 1; filter: drop-shadow(0 0 6px var(--color-gold-primary)); }
+}
+
+@media (max-width: 991.98px) {
+    .party-ribbon-container {
+        border-radius: var(--border-radius-lg);
+        padding: 1.25rem 1rem;
+    }
+    .party-ribbon-track {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem 0.6rem;
+    }
+    .party-ribbon-arrow {
+        margin-top: 0;
+    }
+}

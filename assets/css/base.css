@@ -1,0 +1,216 @@
+/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* Base Styles & Resets */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background-color: var(--color-black-elegant);
+    color: var(--color-cream-bg);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-black-elegant);
+    border-left: 1px solid rgba(212, 175, 55, 0.1);
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--color-wine-dark), var(--color-gold-dark));
+    border-radius: var(--border-radius-sm);
+    border: 2px solid var(--color-black-elegant);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-primary);
+}
+
+/* Text Selection */
+::selection {
+    background: var(--color-wine-primary);
+    color: var(--color-gold-light);
+}
+
+/* Base Typographies */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-gold-primary);
+    letter-spacing: 1px;
+    margin-bottom: var(--spacing-sm);
+}
+
+p {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    color: rgba(253, 251, 247, 0.8);
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--color-gold-primary);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+a:hover {
+    color: var(--color-gold-light);
+    text-shadow: 0 0 5px var(--color-gold-glow);
+}
+
+/* Utility Helpers */
+.gold-text {
+    background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold-primary) 50%, var(--color-gold-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+}
+
+.gold-divider {
+    height: 2px;
+    width: 150px;
+    background: linear-gradient(to right, transparent, var(--color-gold-primary), transparent);
+    margin: 1.5rem auto;
+}
+
+.blue-bg {
+    background: var(--color-royal-blue) !important;
+}
+
+.bg-castle-dark {
+    background-color: var(--color-black-elegant);
+    background-image: radial-gradient(circle at center, rgba(15, 29, 54, 0.2) 0%, rgba(10, 10, 10, 0.8) 100%);
+}
+
+.bg-palace-light {
+    background: var(--color-cream-bg) !important;
+    color: var(--color-black-elegant) !important;
+}
+.bg-palace-light p {
+    color: rgba(10, 10, 10, 0.75) !important;
+}
+
+.section-padding {
+    padding: var(--spacing-xl) 0;
+}
+
+.section-title-container {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.section-subtitle {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--color-wine-light);
+    text-transform: lowercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: var(--spacing-xs);
+}
+
+.font-serif {
+    font-family: var(--font-serif);
+}
+
+/* Custom Cursor Elements */
+#custom-cursor {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-gold-primary);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 10000;
+    transition: width 0.1s, height 0.1s, background-color 0.1s;
+    box-shadow: 0 0 10px var(--color-gold-primary), 0 0 20px var(--color-gold-primary);
+}
+
+.cursor-glow {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-gold-primary);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.08s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+}
+
+@media (max-width: 991.98px) {
+    #custom-cursor, .cursor-glow {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Universal High-Contrast & Legibility Overrides
+   ========================================================================== */
+.admin-body, .bg-castle-dark, .glass-panel, .glass-panel-gold, .admin-card, .message-card, .pix-card {
+    color: #ffffff !important;
+}
+
+/* Force all text-muted in dark context to be light cream, not dark gray */
+.admin-body .text-muted,
+.admin-body p.text-muted,
+.bg-castle-dark .text-muted,
+.bg-castle-dark p.text-muted,
+.glass-panel .text-muted,
+.admin-card .text-muted,
+.message-card .text-muted {
+    color: rgba(253, 251, 247, 0.85) !important;
+}
+
+/* Counter labels and numbers */
+.counter-num {
+    color: #ffd700 !important; /* Bright Gold */
+    font-weight: 800 !important;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.4) !important;
+}
+
+/* Form labels in dark context */
+.admin-form-label, 
+.admin-body label,
+.bg-castle-dark label {
+    color: #ffd700 !important; /* Pure gold */
+    font-weight: 700 !important;
+    font-size: 0.9rem !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Force table cells to be white, and names/strong tags to be gold-light */
+.admin-table td {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+.admin-table td strong {
+    color: var(--color-gold-light) !important;
+    font-weight: 600 !important;
+}
+
+/* Modals inside admin */
+.modal-content-custom {
+    background-color: #0c0d13 !important;
+    border: 2px solid #ffd700 !important;
+}
+
+/* General descriptive text in dark sections */
+.bg-castle-dark p,
+.admin-body p {
+    color: rgba(253, 251, 247, 0.9) !important;
+}

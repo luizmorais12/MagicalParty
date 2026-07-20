@@ -1,0 +1,279 @@
+/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* Administrative Dashboard Styles */
+
+.admin-body {
+    background-color: #050508;
+    background-image: radial-gradient(circle at center, #0f1017 0%, #030304 100%);
+    color: #ffffff;
+}
+
+/* 1. Admin Login Panel */
+.admin-login-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: var(--color-black-elegant);
+    background-image: radial-gradient(circle at center, rgba(88, 24, 26, 0.35) 0%, rgba(10, 10, 10, 0.98) 100%);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-login-card {
+    max-width: 420px;
+    width: 90%;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 2px solid var(--color-gold-primary);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg), var(--glow-gold);
+    text-align: center;
+}
+
+.admin-login-logo {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--color-gold-primary);
+    margin-bottom: var(--spacing-xs);
+    text-shadow: var(--glow-gold);
+}
+
+/* Forms general styling inside admin */
+.admin-form-label {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: #dfd5be;
+    margin-bottom: 5px;
+    text-align: left;
+    display: block;
+}
+
+.admin-form-control {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(212, 175, 55, 0.45) !important;
+    color: #ffffff !important;
+    border-radius: var(--border-radius-pill) !important;
+    padding: 10px 20px !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.9rem !important;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast) !important;
+}
+
+.admin-form-control::placeholder {
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.admin-form-control:focus {
+    border-color: var(--color-gold-primary) !important;
+    box-shadow: 0 0 10px var(--color-gold-glow) !important;
+    outline: none !important;
+}
+
+/* 2. Admin Sidebar Navigation */
+.admin-sidebar {
+    background-color: rgba(7, 14, 27, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-right: 1px solid rgba(212, 175, 55, 0.15);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-logo {
+    text-align: center;
+    padding: 0 1.5rem 1.5rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    color: var(--color-gold-primary);
+    text-shadow: var(--glow-gold);
+}
+
+.admin-nav {
+    padding: 0 1rem;
+    gap: 6px;
+    flex-grow: 1;
+}
+
+.admin-nav-item {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: rgba(253, 251, 247, 0.75) !important;
+    border: 1px solid transparent !important;
+    padding: 12px 18px !important;
+    border-radius: var(--border-radius-pill) !important;
+    text-align: left !important;
+    width: 100%;
+    background: transparent !important;
+    transition: all var(--transition-fast) !important;
+}
+
+.admin-nav-item i {
+    width: 20px;
+}
+
+.admin-nav-item:hover {
+    color: var(--color-gold-primary) !important;
+    background-color: rgba(212, 175, 55, 0.05) !important;
+    border-color: rgba(212, 175, 55, 0.15) !important;
+}
+
+.admin-nav-item.active {
+    color: var(--color-royal-dark) !important;
+    background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold-primary) 50%, var(--color-gold-dark) 100%) !important;
+    font-weight: 600;
+    box-shadow: var(--glow-gold);
+}
+
+/* 3. Main content area */
+.admin-content-area {
+    padding: 2.5rem;
+    min-height: 100vh;
+}
+
+.admin-card {
+    background: rgba(15, 20, 32, 0.75);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 16px;
+    padding: 1.75rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.05);
+    margin-bottom: 1.5rem;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-card:hover {
+    border-color: var(--color-gold-primary);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.counter-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-gold-primary);
+    line-height: 1.1;
+    text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
+}
+
+/* 4. Table view inside admin */
+.admin-table {
+    color: #ffffff !important;
+    margin-bottom: 0 !important;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+}
+
+.admin-table th {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--color-gold-light) !important;
+    background-color: rgba(10, 14, 25, 0.9) !important;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.4) !important;
+    padding: 14px 16px !important;
+}
+
+.admin-table td {
+    background-color: rgba(18, 24, 38, 0.6) !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.1) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1) !important;
+    padding: 14px 16px !important;
+    font-size: 0.92rem;
+    color: #ffffff !important;
+    vertical-align: middle;
+}
+
+.admin-table td strong {
+    color: var(--color-gold-light) !important;
+}
+
+.admin-table tr:hover td {
+    background-color: rgba(212, 175, 55, 0.12) !important;
+}
+
+.text-light-muted {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+/* 5. Mobile header & Sidebar slide-in */
+.admin-mobile-header {
+    background-color: var(--color-royal-dark);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 12px 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 767.98px) {
+    .admin-mobile-header {
+        display: flex !important;
+    }
+    .admin-sidebar {
+        position: fixed;
+        top: 0; left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.4s var(--transition-medium);
+        width: 250px;
+        z-index: 1100;
+    }
+    .admin-sidebar.show {
+        transform: translateX(0);
+    }
+    .admin-content-area {
+        padding: 1.5rem;
+        padding-top: 5rem;
+    }
+}
+
+.admin-sidebar-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 1050;
+    display: none;
+    backdrop-filter: blur(3px);
+}
+.admin-sidebar-overlay.show {
+    display: block;
+}
+
+/* Print/PDF layout adjustments */
+@media print {
+    .admin-sidebar, .admin-mobile-header, .btn-glass, .d-flex.gap-2, #search-guests-input, .text-center button {
+        display: none !important;
+    }
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    .admin-content-area {
+        padding: 0 !important;
+    }
+    .admin-card {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: black !important;
+        padding: 0 !important;
+    }
+    .admin-table th {
+        background-color: #f5f5f5 !important;
+        color: black !important;
+        border-bottom: 2px solid black !important;
+    }
+    .admin-table td {
+        color: black !important;
+        border-bottom: 1px solid #ccc !important;
+    }
+}

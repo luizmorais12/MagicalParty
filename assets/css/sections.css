@@ -1,0 +1,637 @@
+/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* Page Sections Specific Styles */
+
+/* ==========================================================================
+   1. HERO SECTION (Cinematic Hero)
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    padding-top: 110px;
+    padding-bottom: 60px;
+    background-color: var(--color-black-elegant);
+    background-image: radial-gradient(circle at center, rgba(15, 29, 54, 0.45) 0%, rgba(10, 10, 10, 0.95) 100%);
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0) 60%, rgba(10,10,10,0.9) 100%);
+    z-index: 2;
+}
+
+/* Background image or video layer */
+.hero-bg-media {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.4;
+}
+
+/* Moving Neblina (Fog Drift Effect) */
+.hero-fog-container {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 60%;
+    overflow: hidden;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.fog-layer {
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1549492423-400259a2e57f?q=80&w=1200&auto=format&fit=crop'); /* Placeholder used for texture masking */
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+    filter: blur(40px);
+}
+
+.fog-1 {
+    animation: fog-drift-slow 60s linear infinite;
+}
+
+.fog-2 {
+    animation: fog-drift-fast 45s linear infinite;
+    opacity: 0.5;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 1.5rem;
+}
+
+.hero-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--color-gold-light);
+    letter-spacing: 2px;
+    margin-bottom: 0.35rem;
+    display: block;
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: 3.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0.35rem;
+    text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+@media (max-width: 767.98px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .hero-subtitle {
+        font-size: 1.05rem;
+    }
+    .hero-section {
+        padding-top: 90px;
+        padding-bottom: 40px;
+    }
+}
+
+.hero-phrase {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    color: rgba(253, 251, 247, 0.9);
+    margin-bottom: 0.75rem;
+}
+
+.hero-date {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    color: var(--color-gold-primary);
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    text-shadow: var(--glow-gold);
+}
+
+.hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+/* Silhouette of Belle and Beast integrated to Hero */
+.hero-receptionist {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 130px;
+    height: 160px;
+    z-index: 5;
+    background: rgba(10, 10, 10, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--border-radius-lg);
+    padding: 10px;
+    box-shadow: var(--shadow-md), var(--glow-gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@media (max-width: 991.98px) {
+    .hero-receptionist {
+        right: calc(50% - 65px);
+        bottom: 2%;
+        width: 130px;
+        height: 155px;
+    }
+}
+
+/* ==========================================================================
+   2. COUNTDOWN SECTION (Countdown Clock)
+   ========================================================================== */
+.countdown-section {
+    background-color: var(--color-black-elegant);
+    background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.9) 0%, rgba(7, 14, 27, 0.95) 100%);
+    padding: var(--spacing-md) 0 var(--spacing-lg);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    position: relative;
+    z-index: 5;
+}
+
+.clock-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(212, 175, 55, 0.05) inset;
+}
+
+.clock-title {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    font-style: italic;
+    color: var(--color-gold-light);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.clock-timer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.timer-box {
+    flex: 1;
+    min-width: 120px;
+    max-width: 150px;
+    background: linear-gradient(135deg, rgba(88, 24, 26, 0.3) 0%, rgba(7, 14, 27, 0.5) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem 1rem;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.timer-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-gold-primary);
+    box-shadow: var(--shadow-md), var(--glow-gold);
+}
+
+.timer-number {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--color-gold-primary);
+    display: block;
+    line-height: 1.1;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.timer-label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(253, 251, 247, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-top: var(--spacing-xs);
+}
+
+/* ==========================================================================
+   3. ABOUT SECTION (Book Pages)
+   ========================================================================== */
+.about-section {
+    background-color: var(--color-royal-dark);
+    position: relative;
+}
+
+/* Book Cover Simulation */
+.book-img-wrapper {
+    position: relative;
+    padding: 10px;
+    border-radius: var(--border-radius-md);
+}
+
+.border-gold {
+    border: 2px solid var(--color-gold-primary) !important;
+}
+
+/* Ancient Book Layout */
+.book-container {
+    background: #faf6eb;
+    border: 1px solid #c8b99b;
+    border-radius: var(--border-radius-md);
+    box-shadow: 10px 10px 40px rgba(0,0,0,0.5), 0 0 20px rgba(170, 119, 28, 0.1) inset;
+    padding: 2.5rem 3rem;
+    position: relative;
+    color: #2b1f13;
+}
+
+.book-page {
+    position: relative;
+}
+
+/* Ornate Corners */
+.book-corner-decor {
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--color-gold-dark);
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.decor-tl { top: 0; left: 0; border-right: none; border-bottom: none; }
+.decor-tr { top: 0; right: 0; border-left: none; border-bottom: none; }
+.decor-bl { bottom: 0; left: 0; border-right: none; border-top: none; }
+.decor-br { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+.book-page h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    color: var(--color-wine-dark);
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid rgba(170, 119, 28, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+.book-page p {
+    color: #443729;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-serif);
+    text-align: justify;
+}
+
+.first-letter {
+    font-family: var(--font-display);
+    font-size: 3.2rem;
+    float: left;
+    line-height: 0.8;
+    padding: 4px 8px 0 0;
+    color: var(--color-wine-primary);
+    text-shadow: 1px 1px var(--color-gold-light);
+}
+
+/* ==========================================================================
+   4. GALLERY SECTION (Masonry / Flex Cards)
+   ========================================================================== */
+.gallery-section {
+    background-color: var(--color-cream-bg);
+}
+
+.gallery-filter-btn {
+    background: rgba(15, 29, 54, 0.9) !important;
+    border: 1.5px solid var(--color-gold-primary) !important;
+    color: #ffffff !important;
+    font-family: var(--font-sans) !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    padding: 8px 22px !important;
+    border-radius: 20px !important;
+    transition: all 0.3s ease !important;
+    text-shadow: 0 1px 2px #000000 !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-filter-btn:hover, .gallery-filter-btn.active {
+    background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold-primary) 100%) !important;
+    color: var(--color-royal-dark) !important;
+    font-weight: 800 !important;
+    border-color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.6) !important;
+    text-shadow: none !important;
+}
+
+.gallery-grid {
+    column-count: 3;
+    column-gap: 1.5rem;
+}
+
+@media (max-width: 991.98px) {
+    .gallery-grid {
+        column-count: 2;
+    }
+}
+@media (max-width: 575.98px) {
+    .gallery-grid {
+        column-count: 1;
+    }
+}
+
+.gallery-item {
+    background-color: var(--color-white-pure);
+    margin-bottom: 1.5rem;
+    break-inside: avoid;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(170, 119, 28, 0.15);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    position: relative;
+    transition: transform var(--transition-medium), box-shadow var(--transition-medium);
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(212, 175, 55, 0.3);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform var(--transition-slow);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.06);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(88, 24, 26, 0.85) 0%, rgba(10, 10, 10, 0.25) 100%);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--transition-fast);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay-text {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    color: var(--color-gold-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 3px black;
+    border: 1px solid var(--color-gold-primary);
+    padding: 8px 16px;
+    border-radius: var(--border-radius-pill);
+    background-color: rgba(10,10,10,0.5);
+    box-shadow: var(--glow-gold);
+}
+
+/* Lightbox Modal custom styled */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: rgba(10, 10, 10, 0.95);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+}
+
+.lightbox-content-wrapper {
+    position: relative;
+    max-width: 90%;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox-img {
+    max-width: 100%;
+    max-height: 75vh;
+    border: 3px double var(--color-gold-primary);
+    box-shadow: var(--shadow-lg), var(--glow-gold-intense);
+    border-radius: var(--border-radius-sm);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -45px;
+    right: 0;
+    font-size: 2.5rem;
+    color: var(--color-gold-light);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+.lightbox-close:hover {
+    color: var(--color-rose-red);
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-gold-light);
+    font-size: 1.5rem;
+    padding: 10px 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.lightbox-nav:hover {
+    background-color: var(--color-wine-primary);
+    border-color: var(--color-gold-primary);
+}
+
+.lightbox-prev { left: -70px; }
+.lightbox-next { right: -70px; }
+
+@media (max-width: 767.98px) {
+    .lightbox-prev { left: 10px; }
+    .lightbox-next { right: 10px; }
+}
+
+.lightbox-caption {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    color: var(--color-gold-light);
+    margin-top: 15px;
+    text-align: center;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   5. VIDEO / RETROSPECTIVE SECTION
+   ========================================================================== */
+.video-section {
+    background-color: var(--color-royal-blue);
+    background-image: linear-gradient(135deg, var(--color-royal-dark) 0%, rgba(15, 29, 54, 0.8) 100%);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.video-frame-container {
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    position: relative;
+    border: 4px double var(--color-gold-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg), var(--glow-gold);
+    overflow: hidden;
+    background-color: var(--color-black-elegant);
+}
+
+.video-frame-container iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border: none;
+}
+
+/* ==========================================================================
+   6. LOCATION & MAPS
+   ========================================================================== */
+.location-section {
+    background-color: var(--color-royal-dark);
+}
+
+.location-invitation-card {
+    background: linear-gradient(135deg, rgba(88, 24, 26, 0.25) 0%, rgba(15, 29, 54, 0.35) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--border-radius-lg);
+    padding: 3rem;
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(212, 175, 55, 0.03) inset;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.location-card-decor {
+    font-size: 3rem;
+    opacity: 0.35;
+    position: absolute;
+    top: 20px; right: 30px;
+}
+
+.location-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--color-gold-primary);
+    margin-bottom: var(--spacing-md);
+}
+
+.location-details p {
+    font-size: 1.15rem;
+    margin-bottom: var(--spacing-sm);
+    color: rgba(253, 251, 247, 0.95);
+}
+
+.location-details strong {
+    color: var(--color-gold-light);
+}
+
+.attire-card {
+    margin-top: var(--spacing-md);
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    padding-top: 1.5rem;
+}
+
+.attire-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    color: var(--color-gold-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    border: 3px double var(--color-gold-primary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+/* Moving fog animation keyframes */
+@keyframes fog-drift-slow {
+    0% { transform: translateX(0) translateY(0) scale(1); }
+    50% { transform: translateX(-25%) translateY(10px) scale(1.05); }
+    100% { transform: translateX(0) translateY(0) scale(1); }
+}
+
+@keyframes fog-drift-fast {
+    0% { transform: translateX(-50%) translateY(0) scale(1.05); }
+    50% { transform: translateX(0) translateY(-15px) scale(1); }
+    100% { transform: translateX(-50%) translateY(0) scale(1.05); }
+}
+
+/* ==========================================================================
+   10. COMPACT CLEAN FOOTER SECTION
+   ========================================================================== */
+.footer-section {
+    background: #05070d;
+    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    padding: 2rem 0;
+}
+
+.admin-link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: var(--color-gold-light);
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.admin-link-pill:hover {
+    background: var(--color-gold-primary);
+    color: var(--color-royal-dark);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+}

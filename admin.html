@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Márcia Gorete — Painel Administrativo</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏰</text></svg>">
+</head>
+<body class="admin-body">
+
+    <!-- ==========================================
+       A. ADMINISTRATIVE LOGIN OVERLAY
+       ========================================== -->
+    <div class="admin-login-overlay" id="admin-login-overlay">
+        <div class="admin-login-card">
+            <div class="mb-3"><i class="fas fa-crown fa-3x text-warning"></i></div>
+            <h1 class="admin-login-logo">Acesso Administrativo</h1>
+            <p class="text-muted small mb-4 font-serif">Digite suas credenciais do reino para autenticar no castelo.</p>
+            
+            <form id="admin-login-form">
+                <div class="mb-3 text-start">
+                    <label for="login-username" class="admin-form-label">Usuário / Email</label>
+                    <input type="text" class="form-control admin-form-control" id="login-username" placeholder="admin" required>
+                </div>
+                <div class="mb-4 text-start">
+                    <label for="login-password" class="admin-form-label">Senha Real</label>
+                    <input type="password" class="form-control admin-form-control" id="login-password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-gold w-100"><i class="fas fa-key"></i> Autenticar Acesso</button>
+            </form>
+            <div class="text-danger small mt-3 d-none" id="login-error-msg">Acesso negado. Credenciais incorretas!</div>
+            <div class="text-muted small mt-2">Dica: offline use 'admin' / 'castelo2026'</div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+       B. MAIN ADMINISTRATIVE CONTAINER
+       ========================================== -->
+    <div id="admin-dashboard-wrapper" class="d-none">
+        
+        <!-- Mobile Top Navigation Header -->
+        <div class="admin-mobile-header d-none">
+            <button class="btn btn-outline-light btn-sm" id="sidebar-toggle-btn" aria-label="Abrir Menu">
+                <i class="fas fa-bars"></i> Menu Real
+            </button>
+            <span class="gold-text fw-bold" style="font-family: var(--font-display); font-size: 0.95rem;">🏰 Painel Real</span>
+            <a href="index.html" class="btn btn-glass btn-sm rounded-pill" title="Ver Convite"><i class="fas fa-eye"></i></a>
+        </div>
+
+        <!-- Mobile Sidebar Dark Overlay -->
+        <div class="admin-sidebar-overlay" id="admin-sidebar-overlay"></div>
+
+        <div class="container-fluid px-0">
+            <div class="row g-0">
+                <!-- SIDEBAR NAVIGATION -->
+                <div class="col-md-3 col-lg-2 px-0">
+                    <aside class="admin-sidebar" id="admin-sidebar">
+                        <div class="text-end p-2 d-md-none">
+                            <button class="btn-close btn-close-white" id="sidebar-close-btn" aria-label="Fechar Menu"></button>
+                        </div>
+                        
+                        <div class="admin-logo">
+                            <span>🏰 Painel Real</span>
+                            <div style="font-size: 0.7rem; letter-spacing: 2px; color: var(--color-gold-light); margin-top: 5px; text-transform: uppercase;">MÁRCIA GORETE</div>
+                        </div>
+                        
+                        <nav class="nav flex-column admin-nav mt-3" id="adminTabs" role="tablist">
+                            <button class="nav-link active admin-nav-item" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard-panel" type="button" role="tab" aria-controls="dashboard-panel" aria-selected="true">
+                                <i class="fas fa-chart-line me-2"></i> Dashboard
+                            </button>
+                            <button class="nav-link admin-nav-item" id="guests-tab" data-bs-toggle="tab" data-bs-target="#guests-panel" type="button" role="tab" aria-controls="guests-panel" aria-selected="false">
+                                <i class="fas fa-users me-2"></i> Convidados
+                            </button>
+                            <button class="nav-link admin-nav-item" id="gifts-tab" data-bs-toggle="tab" data-bs-target="#gifts-panel" type="button" role="tab" aria-controls="gifts-panel" aria-selected="false">
+                                <i class="fas fa-gift me-2"></i> Presentes
+                            </button>
+                            <button class="nav-link admin-nav-item" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages-panel" type="button" role="tab" aria-controls="messages-panel" aria-selected="false">
+                                <i class="fas fa-comments me-2"></i> Mensagens
+                            </button>
+                            <button class="nav-link admin-nav-item" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings-panel" type="button" role="tab" aria-controls="settings-panel" aria-selected="false">
+                                <i class="fas fa-cogs me-2"></i> Configurações
+                            </button>
+                            <hr class="mx-3 border-secondary">
+                            
+                            <!-- Logout action -->
+                            <button class="nav-link admin-nav-item text-danger" id="admin-logout-btn">
+                                <i class="fas fa-sign-out-alt me-2"></i> Encerrar Sessão
+                            </button>
+                            
+                            <a href="index.html" class="nav-link admin-nav-item text-warning">
+                                <i class="fas fa-eye me-2"></i> Ver Convite
+                            </a>
+                        </nav>
+                    </aside>
+                </div>
+
+                <!-- MAIN CONTENT AREA -->
+                <div class="col-md-9 col-lg-10 px-0">
+                    <main class="admin-content-area">
+                        <div class="row mb-4 align-items-center">
+                            <div class="col-md-8">
+                                <h1 class="gold-text mb-2" style="font-family: var(--font-display); font-weight: 700;">Administração do Reino</h1>
+                                <p class="text-muted font-serif mb-0">Controle de RSVP, moderação de mensagens e reservas da lista de presentes.</p>
+                            </div>
+                            <div class="col-md-4 text-end d-none d-md-block">
+                                <a href="index.html" class="btn btn-glass rounded-pill px-4"><i class="fas fa-eye"></i> Ver Convite Real</a>
+                            </div>
+                        </div>
+
+                        <!-- Tab Panels Container -->
+                        <div class="tab-content" id="adminTabsContent">
+                            
+                            <!-- TAB PANEL 0: DASHBOARD -->
+                            <div class="tab-pane fade show active" id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <div class="row g-4">
+                                    <div class="col-lg-8">
+                                        <div class="row g-3">
+                                            <!-- Total Guests -->
+                                            <div class="col-6 col-lg-4">
+                                                <div class="admin-card text-center h-100">
+                                                    <div class="mb-2 text-warning"><i class="fas fa-users fa-2x"></i></div>
+                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Total Geral</h5>
+                                                    <p class="counter-num mb-0" id="stat-total" style="color: #ffffff !important;">0</p>
+                                                </div>
+                                            </div>
+                                            <!-- Adults -->
+                                            <div class="col-6 col-lg-4">
+                                                <div class="admin-card text-center h-100">
+                                                    <div class="mb-2 text-warning"><i class="fas fa-user-friends fa-2x"></i></div>
+                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Adultos</h5>
+                                                    <p class="counter-num mb-0" id="stat-adults" style="color: #ffffff !important;">0</p>
+                                                </div>
+                                            </div>
+                                            <!-- Kids -->
+                                            <div class="col-6 col-lg-4">
+                                                <div class="admin-card text-center h-100">
+                                                    <div class="mb-2 text-warning"><i class="fas fa-child fa-2x"></i></div>
+                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Crianças</h5>
+                                                    <p class="counter-num mb-0" id="stat-kids" style="color: #ff8fa3 !important;">0</p>
+                                                </div>
+                                            </div>
+                                            <!-- Families count -->
+                                            <div class="col-6 col-lg-4">
+                                                <div class="admin-card text-center h-100">
+                                                    <div class="mb-2 text-warning"><i class="fas fa-scroll fa-2x"></i></div>
+                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Famílias</h5>
+                                                    <p class="counter-num mb-0" id="stat-families" style="color: #ffffff !important;">0</p>
+                                                </div>
+                                            </div>
+                                            <!-- Reserved Gifts -->
+                                            <div class="col-6 col-lg-4">
+                                                <div class="admin-card text-center h-100">
+                                                    <div class="mb-2 text-warning"><i class="fas fa-gift fa-2x"></i></div>
+                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Presentes Reservados</h5>
+                                                    <p class="counter-num mb-0" id="stat-gifts" style="color: #ffffff !important;">0</p>
+                                                </div>
+                                            </div>
+                                            <!-- Pending Messages -->
+                                            <div class="col-6 col-lg-4">
+                                                <div class="admin-card text-center h-100">
+                                                    <div class="mb-2 text-warning"><i class="fas fa-envelope-open-text fa-2x"></i></div>
+                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Cartas a Moderar</h5>
+                                                    <p class="counter-num mb-0" id="stat-messages" style="color: #ff8fa3 !important;">0</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Instruction instructions -->
+                                        <div class="admin-card mt-4">
+                                            <h4 class="gold-text mb-3"><i class="fas fa-crown"></i> Instruções Administrativas</h4>
+                                            <p class="mb-2 font-serif">Bem-vindo, soberano(a) do painel administrativo. Aqui você tem controle absoluto das seguintes operações:</p>
+                                            <ul class="text-muted ps-3 mb-0" style="font-size: 0.9rem; line-height: 1.6;">
+                                                <li><strong class="text-light">Lista de Convidados:</strong> Veja os confirmados via RSVP, filtre dados, altere registros ou exclua.</li>
+                                                <li><strong class="text-light">Lista de Presentes:</strong> Libere a cota física de presentes reservados ou cadastre novos itens de desejos.</li>
+                                                <li><strong class="text-light">Moderação de Mural:</strong> Leia e aprove mensagens dos súditos para exibi-las no livro público.</li>
+                                                <li><strong class="text-light">Configuração Supabase:</strong> Digite suas chaves na aba Configurações para persistir os dados remotamente no Supabase.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <!-- Proportions visual chart -->
+                                    <div class="col-lg-4">
+                                        <div class="admin-card h-100 d-flex flex-column justify-content-between">
+                                            <div>
+                                                <h4 class="gold-text text-center mb-2"><i class="fas fa-chart-pie"></i> Proporção Real</h4>
+                                                <p class="text-muted text-center small mb-3">Distribuição de confirmados por tipo de convite.</p>
+                                            </div>
+                                            <div class="chart-wrapper" style="position: relative; height: 260px; width: 100%;">
+                                                <canvas id="admin-chart-canvas"></canvas>
+                                            </div>
+                                            <div class="text-center mt-3 text-muted small">
+                                                <i class="fas fa-sync-alt fa-spin text-warning me-1"></i> Atualizado via banco de dados.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB PANEL 1: GUESTS DETAILS -->
+                            <div class="tab-pane fade" id="guests-panel" role="tabpanel" aria-labelledby="guests-tab">
+                                <div class="admin-card">
+                                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                                        <h4 class="gold-text mb-0"><i class="fas fa-users"></i> Lista de Confirmados</h4>
+                                        
+                                        <!-- Data Export Actions -->
+                                        <div class="d-flex gap-2">
+                                            <button class="btn btn-outline-light btn-sm" id="export-excel-btn">
+                                                <i class="far fa-file-excel text-success me-1"></i> Excel
+                                            </button>
+                                            <button class="btn btn-outline-light btn-sm" id="export-csv-btn">
+                                                <i class="fas fa-file-csv text-info me-1"></i> CSV
+                                            </button>
+                                            <button class="btn btn-outline-light btn-sm" id="export-pdf-btn">
+                                                <i class="far fa-file-pdf text-danger me-1"></i> Imprimir
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-transparent border-secondary text-muted"><i class="fas fa-search"></i></span>
+                                            <input type="text" class="form-control bg-transparent text-light border-secondary" id="search-guests-input" placeholder="Buscar convidado por nome, e-mail ou acompanhante...">
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table admin-table align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th>Nome Principal</th>
+                                                    <th>Contato</th>
+                                                    <th class="text-center">Total</th>
+                                                    <th>Acompanhantes</th>
+                                                    <th>Ingressos</th>
+                                                    <th>Restrições</th>
+                                                    <th>Confirmado em</th>
+                                                    <th class="text-center">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="guests-table-body">
+                                                <!-- Loaded dynamically -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB PANEL 2: GIFTS CONFIG -->
+                            <div class="tab-pane fade" id="gifts-panel" role="tabpanel" aria-labelledby="gifts-tab">
+                                <div class="admin-card">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h4 class="gold-text mb-0"><i class="fas fa-gift"></i> Controle de Presentes</h4>
+                                        <button class="btn btn-gold btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addGiftModal">
+                                            <i class="fas fa-plus"></i> Novo Item
+                                        </button>
+                                    </div>
+                                    <p class="text-muted small mb-4">Veja quais presentes da corte real foram reservados pelos convidados e libere as cotas caso necessário.</p>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table admin-table align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th>Foto</th>
+                                                    <th>Presente</th>
+                                                    <th>Descrição</th>
+                                                    <th>Preço</th>
+                                                    <th>Status / Reservado Por</th>
+                                                    <th class="text-center">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="gifts-table-body">
+                                                <!-- Loaded dynamically -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB PANEL 3: MESSAGES CONTROL -->
+                            <div class="tab-pane fade" id="messages-panel" role="tabpanel" aria-labelledby="messages-tab">
+                                <div class="admin-card">
+                                    <h4 class="gold-text mb-3"><i class="fas fa-comments"></i> Moderação do Livro de Mensagens</h4>
+                                    <p class="text-muted small mb-4">Mensagens enviadas pelos súditos aparecem aqui. Aprove-as para exibi-las no livro público de assinaturas ou remova se necessário.</p>
+                                    
+                                    <div class="table-responsive">
+                                        <table class="table admin-table align-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th>Autor</th>
+                                                    <th>Mensagem</th>
+                                                    <th>Data Envio</th>
+                                                    <th>Status</th>
+                                                    <th class="text-center">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="messages-table-body">
+                                                <!-- Loaded dynamically -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB PANEL 4: SETTINGS CONFIG -->
+                            <div class="tab-pane fade" id="settings-panel" role="tabpanel" aria-labelledby="settings-tab">
+                                <div class="admin-card">
+                                    <h4 class="gold-text mb-3"><i class="fas fa-cogs"></i> Ajustes Gerais do Evento</h4>
+                                    <p class="text-muted small mb-4">Atualize as informações exibidas no convite real e as chaves de conexão do banco de dados Supabase.</p>
+                                    
+                                    <form id="settings-form">
+                                        <div class="row g-3">
+                                            <h5 class="gold-text border-bottom border-secondary pb-2 mb-2">Informações da Festa</h5>
+                                            <div class="col-md-6">
+                                                <label for="cfg-name" class="form-label font-serif" style="color: var(--color-gold-light);">Nome da Debutante</label>
+                                                <input type="text" class="form-control admin-form-control" id="cfg-name" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cfg-date" class="form-label font-serif" style="color: var(--color-gold-light);">Data e Hora (ISO)</label>
+                                                <input type="datetime-local" class="form-control admin-form-control" id="cfg-date" required>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="cfg-location" class="form-label font-serif" style="color: var(--color-gold-light);">Endereço do Salão</label>
+                                                <input type="text" class="form-control admin-form-control" id="cfg-location" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cfg-phrase" class="form-label font-serif" style="color: var(--color-gold-light);">Frase de Abertura (Hero)</label>
+                                                <input type="text" class="form-control admin-form-control" id="cfg-phrase" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cfg-pix-key" class="form-label font-serif" style="color: var(--color-gold-light);">Chave PIX Recebimento</label>
+                                                <input type="text" class="form-control admin-form-control" id="cfg-pix-key" required>
+                                            </div>
+
+                                            <h5 class="gold-text border-bottom border-secondary pb-2 mt-4 mb-2">Supabase Database Keys</h5>
+                                            <div class="col-md-6">
+                                                <label for="cfg-supabase-url" class="form-label font-serif" style="color: var(--color-gold-light);">SUPABASE_URL</label>
+                                                <input type="url" class="form-control admin-form-control" id="cfg-supabase-url" placeholder="https://vossosubdominio.supabase.co">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cfg-supabase-key" class="form-label font-serif" style="color: var(--color-gold-light);">SUPABASE_ANON_KEY</label>
+                                                <input type="password" class="form-control admin-form-control" id="cfg-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+                                            </div>
+                                            <div class="text-muted small">
+                                                Nota: Ao salvar novas credenciais do Supabase, a página será recarregada automaticamente para sincronização.
+                                            </div>
+
+                                            <div class="col-12 mt-4 d-flex justify-content-between align-items-center">
+                                                <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3" id="reset-db-btn"><i class="fas fa-trash-alt me-1"></i> Redefinir Banco Local</button>
+                                                <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-save me-1"></i> Salvar Configurações</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+           C. ADMINISTRATIVE MODALS (EDIT GUEST, ADD GIFT)
+           ========================================== -->
+        <!-- Edit Guest Modal -->
+        <div class="modal fade" id="editGuestModal" tabindex="-1" aria-labelledby="editGuestModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
+                        <h5 class="modal-title gold-text" id="editGuestModalLabel"><i class="fas fa-user-edit"></i> Editar Convidado</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="edit-guest-form">
+                        <input type="hidden" id="edit-guest-id">
+                        <div class="modal-body text-light">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="edit-guest-name" class="form-label font-serif">Nome Completo</label>
+                                    <input type="text" class="form-control admin-form-control text-light" id="edit-guest-name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-guest-phone" class="form-label font-serif">Telefone</label>
+                                    <input type="text" class="form-control admin-form-control text-light" id="edit-guest-phone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-guest-email" class="form-label font-serif">E-mail</label>
+                                    <input type="email" class="form-control admin-form-control text-light" id="edit-guest-email" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="edit-guest-count" class="form-label font-serif">Qtd Convidados</label>
+                                    <input type="number" class="form-control admin-form-control text-light" id="edit-guest-count" min="1" max="10" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="edit-guest-companions" class="form-label font-serif">Nomes Acompanhantes</label>
+                                    <textarea class="form-control admin-form-control text-light" id="edit-guest-companions" rows="2" style="border-radius: 12px !important;"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-guest-adults" class="form-label font-serif">Adultos</label>
+                                    <input type="number" class="form-control admin-form-control text-light" id="edit-guest-adults" min="1" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-guest-kids" class="form-label font-serif">Crianças</label>
+                                    <input type="number" class="form-control admin-form-control text-light" id="edit-guest-kids" min="0" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="edit-guest-obs" class="form-label font-serif">Observações</label>
+                                    <input type="text" class="form-control admin-form-control text-light" id="edit-guest-obs">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-outline-light rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-gold rounded-pill btn-sm px-4 fw-bold">Salvar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Gift Modal -->
+        <div class="modal fade" id="addGiftModal" tabindex="-1" aria-labelledby="addGiftModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
+                        <h5 class="modal-title gold-text" id="addGiftModalLabel"><i class="fas fa-plus-circle"></i> Cadastrar Novo Presente</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="add-gift-form">
+                        <div class="modal-body text-light">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="add-gift-name" class="form-label font-serif">Nome do Presente</label>
+                                    <input type="text" class="form-control admin-form-control text-light" id="add-gift-name" required placeholder="Ex: Relógio de Luxo">
+                                </div>
+                                <div class="col-12">
+                                    <label for="add-gift-desc" class="form-label font-serif">Descrição / Categoria</label>
+                                    <textarea class="form-control admin-form-control text-light" id="add-gift-desc" rows="2" required placeholder="Ex: Detalhe de luxo banhado a ouro" style="border-radius: 12px !important;"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="add-gift-price" class="form-label font-serif">Valor Estimado (R$)</label>
+                                    <input type="number" class="form-control admin-form-control text-light" id="add-gift-price" min="0" step="0.01" required placeholder="350.00">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="add-gift-img" class="form-label font-serif">URL da Imagem</label>
+                                    <input type="url" class="form-control admin-form-control text-light" id="add-gift-img" required placeholder="https://images.unsplash.com/photo-...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-outline-light rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-gold rounded-pill btn-sm px-4 fw-bold">Cadastrar Item</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts: Chart.js, Bootstrap bundle, Supabase JS, jsPDF, Admin Application Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="assets/js/admin-main.js"></script>
+</body>
+</html>
