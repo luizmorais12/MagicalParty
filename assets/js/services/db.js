@@ -25,7 +25,7 @@ const MOCK_TIMELINE = [
     { id: 't-7', time: '04:00', title: 'Encerramento e Lembranças', description: 'Agradecimento especial e entrega de mimos de Nova Orleans para selar esta noite inesquecível.', icon: 'fas fa-moon', order_index: 7 }
 ];
 
-const SEED_VERSION = "v4_tiana_new_venue";
+const SEED_VERSION = "v5_tiana_wa_receipts";
 
 const MOCK_SETTINGS = {
     name: "Márcia Gorete do Carmo Medeiros",
@@ -33,6 +33,7 @@ const MOCK_SETTINGS = {
     location: "Mansão JK - Rua Padre Eustáquio 660 - Biritiba, Poá - SP, 08562-400",
     phrase: "Encontre sua estrela da noite e deixe a magia acontecer.",
     pix_key: "marcia15anos@pix.com.br",
+    contact_phone: "(11) 98765-4321",
     theme: "princess-and-the-frog",
     seed_version: SEED_VERSION
 };
@@ -345,10 +346,31 @@ export const dbService = {
         const client = getSupabaseClient();
         const reservedAt = new Date().toISOString();
         let supaOk = false;
+
+        let currentReservedBy = null;
+        
+        // Fetch current state to append multiple donor names
+        if (client) {
+            const { data, error } = await client.from('gifts').select('reserved_by').eq('id', id).single();
+            if (!error && data) {
+                currentReservedBy = data.reserved_by;
+            }
+        }
+        
+        const gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
+        const index = gifts.findIndex(g => String(g.id) === String(id));
+        if (index !== -1 && !currentReservedBy) {
+            currentReservedBy = gifts[index].reserved_by;
+        }
+
+        const finalReservedBy = currentReservedBy 
+            ? `${currentReservedBy}, ${reservedBy}` 
+            : reservedBy;
+
         if (client) {
             const { error } = await client.from('gifts').update({
                 is_available: false,
-                reserved_by: reservedBy,
+                reserved_by: finalReservedBy,
                 reserved_at: reservedAt
             }).eq('id', id);
             if (!error) supaOk = true;
@@ -357,11 +379,9 @@ export const dbService = {
         if (!supaOk) {
             localStorage.setItem('mb_use_local_fallback_gifts', 'true');
         }
-        const gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
-        const index = gifts.findIndex(g => String(g.id) === String(id));
         if (index !== -1) {
             gifts[index].is_available = false;
-            gifts[index].reserved_by = reservedBy;
+            gifts[index].reserved_by = finalReservedBy;
             gifts[index].reserved_at = reservedAt;
             localStorage.setItem('mb_gifts', JSON.stringify(gifts));
         }

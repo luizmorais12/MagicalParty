@@ -176,6 +176,18 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-lg-6 col-xl-5 mx-auto">
+                                        <div class="admin-card text-center">
+                                            <h4 class="mb-3" style="color: var(--color-wine-dark); font-weight: 700;"><i class="fas fa-chart-pie"></i> Proporção de Confirmados</h4>
+                                            <p class="text-muted text-center small mb-3">Distribuição de convidados (Adultos vs Crianças).</p>
+                                            <div class="chart-wrapper" style="position: relative; height: 240px; width: 100%;">
+                                                <canvas id="admin-chart-canvas"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- TAB PANEL 1: GUESTS DETAILS -->
@@ -309,6 +321,10 @@
                                             <div class="col-md-6">
                                                 <label for="cfg-pix-key" class="form-label font-serif">Chave PIX Recebimento</label>
                                                 <input type="text" class="form-control admin-form-control" id="cfg-pix-key" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="cfg-contact-phone" class="form-label font-serif">WhatsApp para Comprovantes</label>
+                                                <input type="text" class="form-control admin-form-control" id="cfg-contact-phone" placeholder="Ex: (11) 99999-9999" required>
                                             </div>
 
                                             <h5 class="gold-text border-bottom border-secondary pb-2 mt-4 mb-2">Supabase Database Keys</h5>

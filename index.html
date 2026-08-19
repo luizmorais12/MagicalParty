@@ -151,7 +151,7 @@
 
         <div class="hero-content container">
             <div class="mb-4">
-                <span class="hero-subtitle">Convidamos para o Baile Real de</span>
+                <span class="hero-subtitle">Convidamos para a comemoração de</span>
                 <h1 class="hero-title gold-text">Márcia Gorete</h1>
                 <span class="hero-subtitle">do Carmo Medeiros</span>
             </div>
@@ -394,7 +394,7 @@
 
             <!-- Virtual PIX cards -->
             <div class="mt-5 pt-5" data-aos="fade-up">
-                <h3 class="text-center gold-text mb-4" style="font-family: var(--font-display);"><i class="fas fa-coins"></i> Cota Virtual (Presentes em Pix)</h3>
+                <h3 class="text-center gold-text mb-4" style="font-family: var(--font-display);"><i class="fas fa-coins"></i> Presentear em Pix</h3>
                 
                 <div class="virtual-pix-grid">
                     <div class="pix-card" data-pix-value="100" data-pix-title="Maquiagem">
@@ -407,10 +407,10 @@
                         <div class="pix-value">R$ 200</div>
                         <div class="pix-desc">Baile</div>
                     </div>
-                    <div class="pix-card" data-pix-value="500" data-pix-title="Viagem Real">
+                    <div class="pix-card" data-pix-value="500" data-pix-title="Viagem">
                         <i class="fas fa-plane-departure"></i>
                         <div class="pix-value">R$ 500</div>
-                        <div class="pix-desc">Viagem Real</div>
+                        <div class="pix-desc">Viagem</div>
                     </div>
                     <div class="pix-card" id="pix-free-value-card" data-pix-value="0" data-pix-title="Valor Livre">
                         <i class="fas fa-hand-holding-heart"></i>
@@ -428,27 +428,40 @@
             <div class="modal-content modal-content-custom">
                 <div class="modal-header modal-header-custom">
                     <h5 class="modal-title gold-text" id="pixModalLabel"><i class="fas fa-qrcode"></i> Presentear com Pix</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center rounded-bottom p-4 text-dark">
-                    <h4 class="gold-text fw-bold" id="modal-pix-title">Cota Mágica</h4>
-                    <p class="small" style="color: var(--color-wine-dark); opacity: 0.75;">Escaneie o QR Code abaixo no app do seu banco ou copie a chave Pix.</p>
+                    <h4 class="gold-text fw-bold" id="modal-pix-title">Presentear</h4>
+                    
+                    <!-- Custom amount input area for Free Value Card -->
+                    <div id="pix-custom-amount-wrapper" class="d-none mb-3 mx-auto" style="max-width: 220px;">
+                        <label for="pix-custom-input" class="form-label font-serif small text-muted mb-1">Digite o valor desejado:</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-secondary text-dark fw-bold" style="border-radius: 12px 0 0 12px !important;">R$</span>
+                            <input type="number" class="form-control border-secondary text-dark bg-white text-center fw-bold" id="pix-custom-input" min="1" placeholder="150" style="border-radius: 0 12px 12px 0 !important; font-size: 1.15rem;">
+                        </div>
+                    </div>
+                    
+                    <p class="small" id="modal-pix-instructions" style="color: var(--color-wine-dark); opacity: 0.75;">Escaneie o QR Code abaixo no app do seu banco ou copie a chave Pix.</p>
                     
                     <!-- QR Code container -->
                     <div class="pix-qrcode">
                         <img id="modal-pix-qr" src="" alt="QR Code Pix" class="w-100 h-100">
                     </div>
                     
-                    <div class="pix-key-container">
+                    <div class="pix-key-container mb-3">
                         <span class="pix-key-val" id="pix-key-text">marcia15anos@pix.com.br</span>
                         <button class="btn btn-outline-gold btn-sm" id="copy-pix-btn" aria-label="Copiar chave Pix">
                             <i class="far fa-copy"></i>
                         </button>
                     </div>
                     <p class="text-success small mt-2 fw-semibold d-none" id="copy-toast">Chave Copiada com Sucesso! ✨</p>
+                    
+                    <!-- WhatsApp verification link button -->
+                    <a id="modal-pix-wa-btn" href="#" target="_blank" class="btn btn-success btn-sm rounded-pill px-4 d-none w-100 my-2"><i class="fab fa-whatsapp"></i> Enviar Comprovante por WhatsApp</a>
                 </div>
                 <div class="modal-footer modal-footer-custom justify-content-center">
-                    <button type="button" class="btn btn-gold btn-sm rounded-pill px-4" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill px-4" data-bs-dismiss="modal">Fechar</button>
                 </div>
             </div>
         </div>
@@ -460,7 +473,7 @@
             <div class="modal-content modal-content-custom">
                 <div class="modal-header modal-header-custom">
                     <h5 class="modal-title gold-text" id="reserveGiftModalLabel"><i class="fas fa-gift"></i> Selar Reserva de Presente</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="reserve-gift-form">
                     <input type="hidden" id="modal-reserve-gift-id">
@@ -477,7 +490,7 @@
                         </div>
                     </div>
                     <div class="modal-footer modal-footer-custom justify-content-between">
-                        <button type="button" class="btn btn-outline-gold btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline-dark btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-check-circle"></i> Confirmar Reserva</button>
                     </div>
                 </form>
@@ -489,20 +502,23 @@
     <div class="modal fade" id="giftThankYouModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modal-content-custom text-center">
-                <div class="modal-header modal-header-custom justify-content-center">
+                <div class="modal-header modal-header-custom justify-content-between">
                     <h5 class="modal-title gold-text"><i class="fas fa-check-circle"></i> Reserva Confirmada</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body rounded-bottom p-4 text-dark">
                     <div class="mb-3">
                         <i class="fas fa-gift fa-3x gold-text"></i>
                     </div>
                     <h4 class="gold-text fw-bold mb-2" id="thank-you-donor-name">Obrigado!</h4>
-                    <p class="font-serif text-dark mb-0" style="font-size: 1.1rem; line-height: 1.5;" id="thank-you-gift-msg">
+                    <p class="font-serif text-dark mb-3" style="font-size: 1.1rem; line-height: 1.5;" id="thank-you-gift-msg">
                         Sua reserva foi salva com sucesso no livro de presentes de Márcia Gorete.
                     </p>
+                    <!-- WhatsApp receipt submission button -->
+                    <a id="modal-thank-you-wa-btn" href="#" target="_blank" class="btn btn-success btn-sm rounded-pill px-4 d-none w-100 my-2"><i class="fab fa-whatsapp"></i> Enviar Comprovante por WhatsApp</a>
                 </div>
                 <div class="modal-footer modal-footer-custom justify-content-center">
-                    <button type="button" class="btn btn-gold btn-sm rounded-pill px-4" data-bs-dismiss="modal">Concluir</button>
+                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill px-4" data-bs-dismiss="modal">Concluir</button>
                 </div>
             </div>
         </div>

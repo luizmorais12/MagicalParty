@@ -215,7 +215,7 @@ function renderAttendanceChart(adults, kids) {
     const hasData = (adults + kids) > 0;
     const dataSet = hasData ? [adults, kids] : [1];
     const labels = hasData ? ['Adultos', 'Crianças'] : ['Sem Confirmações'];
-    const colors = hasData ? ['#d4af37', '#86198f'] : ['rgba(255,255,255,0.08)'];
+    const colors = hasData ? ['#145c36', '#7c5c8e'] : ['rgba(29, 53, 31, 0.08)'];
 
     chartInstance = new Chart(ctx, {
         type: 'doughnut',
@@ -224,7 +224,7 @@ function renderAttendanceChart(adults, kids) {
             datasets: [{
                 data: dataSet,
                 backgroundColor: colors,
-                borderColor: '#170718',
+                borderColor: '#ffffff',
                 borderWidth: 2
             }]
         },
@@ -234,7 +234,7 @@ function renderAttendanceChart(adults, kids) {
             plugins: {
                 legend: {
                     position: 'bottom',
-                    labels: { color: '#dfd5be', font: { family: 'Montserrat', size: 11 } }
+                    labels: { color: '#1d351f', font: { family: 'Poppins', size: 11 } }
                 }
             },
             cutout: '70%'
@@ -358,7 +358,7 @@ async function handleEditGuestSubmit(e) {
 }
 
 async function deleteGuest(id) {
-    if (confirm('Tem certeza absoluta que deseja remover este convidado do reino?')) {
+    if (confirm('Tem certeza absoluta que deseja remover este convidado?')) {
         const success = await dbService.deleteGuest(id);
         if (success) renderGuestsList();
     }
@@ -387,9 +387,24 @@ async function renderGiftsList() {
         const isReserved = !g.is_available;
         const priceFormatted = Number(g.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         
-        const statusHtml = isReserved 
-            ? `<span class="badge bg-danger"><i class="fas fa-bookmark"></i> Reservado por ${escapeHtml(g.reserved_by)}</span>` 
-            : `<span class="badge bg-success">Disponível</span>`;
+        let statusHtml = '';
+        if (g.reserved_by) {
+            const names = g.reserved_by.split(',').map(n => n.trim()).filter(Boolean);
+            if (names.length > 1) {
+                statusHtml = `
+                    <div class="d-flex flex-column gap-1 align-items-start text-start">
+                        <span class="badge bg-warning text-dark"><i class="fas fa-hand-holding-heart"></i> ${names.length} pessoas</span>
+                        <div class="small text-muted mt-1" style="font-size: 0.78rem; line-height: 1.35; max-width: 200px; max-height: 90px; overflow-y: auto; width: 100%;">
+                            ${names.map(name => `<div class="text-truncate" title="${escapeHtml(name)}"><i class="fas fa-check text-success me-1"></i> ${escapeHtml(name)}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                statusHtml = `<span class="badge bg-danger text-truncate" style="max-width: 180px;" title="Reservado por ${escapeHtml(g.reserved_by)}"><i class="fas fa-bookmark"></i> ${escapeHtml(g.reserved_by)}</span>`;
+            }
+        } else {
+            statusHtml = `<span class="badge bg-success">Disponível</span>`;
+        }
 
         const actionHtml = `
             <div class="d-flex gap-2 justify-content-center">
@@ -572,7 +587,8 @@ async function loadSettingsValues() {
     document.getElementById('cfg-location').value = settings.location || '';
     document.getElementById('cfg-phrase').value = settings.phrase || '';
     document.getElementById('cfg-pix-key').value = settings.pix_key || '';
-
+    document.getElementById('cfg-contact-phone').value = settings.contact_phone || '';
+ 
     // Load Supabase LocalStorage credentials
     document.getElementById('cfg-supabase-url').value = localStorage.getItem('supabase_url') || '';
     document.getElementById('cfg-supabase-key').value = localStorage.getItem('supabase_anon_key') || '';
@@ -586,9 +602,10 @@ async function handleSettingsSubmit(e) {
     const locationVal = document.getElementById('cfg-location').value.trim();
     const phrase = document.getElementById('cfg-phrase').value.trim();
     const pixKey = document.getElementById('cfg-pix-key').value.trim();
-
+    const contactPhone = document.getElementById('cfg-contact-phone').value.trim();
+ 
     const settingsPayload = {
-        name, date, location: locationVal, phrase, pix_key: pixKey,
+        name, date, location: locationVal, phrase, pix_key: pixKey, contact_phone: contactPhone,
         theme: "princess-and-the-frog"
     };
 
@@ -607,7 +624,7 @@ async function handleSettingsSubmit(e) {
 
     const success = await dbService.updateSettings(settingsPayload);
     if (success) {
-        alert('As configurações do reino foram atualizadas com sucesso!');
+        alert('As configurações do evento foram atualizadas com sucesso!');
         if (triggerReload) {
             location.reload();
         } else {
@@ -655,7 +672,7 @@ async function exportToPDF() {
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
     doc.setTextColor(212, 175, 55);
-    doc.text("Márcia Gorete — 15 Anos | Lista Real de Convidados", 14, 18);
+    doc.text("Márcia Gorete — 15 Anos | Lista de Convidados", 14, 18);
 
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
