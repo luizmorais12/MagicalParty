@@ -4,7 +4,7 @@
 import { dbService } from '../services/db.js';
 
 let galleryData = [];
-let activeFilter = 'Todos';
+let activeFilter = 'Debutante';
 
 export async function initGallery() {
     const galleryGrid = document.getElementById('photo-gallery');
@@ -19,6 +19,7 @@ export async function initGallery() {
 
     // 3. Render gallery items
     renderGalleryItems(galleryGrid);
+    filterGrid(); // Apply default filter
 
     // 4. Initialize Custom Lightbox controls
     initLightbox();
@@ -30,8 +31,8 @@ export async function initGallery() {
 function renderFilters(container) {
     if (!container) return;
 
-    // Dynamically extract distinct categories
-    const categories = ['Todos', ...new Set(galleryData.map(item => item.category))];
+    // Only Debutante and Convidados as requested
+    const categories = ['Debutante', 'Convidados'];
     
     container.innerHTML = '';
     categories.forEach(cat => {
@@ -274,6 +275,7 @@ function initGuestPhotoUpload() {
             const filterContainer = document.getElementById('gallery-filters');
             renderFilters(filterContainer);
             renderGalleryItems(galleryGrid);
+            filterGrid();
 
             // Confetti
             if (typeof confetti !== 'undefined') {

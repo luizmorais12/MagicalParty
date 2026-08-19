@@ -25,7 +25,7 @@ const MOCK_TIMELINE = [
     { id: 't-7', time: '04:00', title: 'Encerramento e Lembranças', description: 'Agradecimento especial e entrega de mimos de Nova Orleans para selar esta noite inesquecível.', icon: 'fas fa-moon', order_index: 7 }
 ];
 
-const SEED_VERSION = "v5_tiana_wa_receipts";
+const SEED_VERSION = "v6_tiana_no_ensaio";
 
 const MOCK_SETTINGS = {
     name: "Márcia Gorete do Carmo Medeiros",
@@ -50,11 +50,11 @@ const MOCK_MESSAGES = [
 ];
 
 const MOCK_GALLERY = [
-    { id: 'gal-1', url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop', caption: 'Um ensaio sob a luz suave do entardecer', category: 'Ensaio', order_index: 1 },
-    { id: 'gal-2', url: 'https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=600&auto=format&fit=crop', caption: 'Momentos de pura felicidade e sonhos', category: 'Ensaio', order_index: 2 },
+    { id: 'gal-1', url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop', caption: 'Sob a luz suave do entardecer', category: 'Debutante', order_index: 1 },
+    { id: 'gal-2', url: 'https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=600&auto=format&fit=crop', caption: 'Momentos de pura felicidade e sonhos', category: 'Debutante', order_index: 2 },
     { id: 'gal-3', url: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600&auto=format&fit=crop', caption: 'A elegância de um dia inesquecível', category: 'Debutante', order_index: 3 },
     { id: 'gal-4', url: 'https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?q=80&w=600&auto=format&fit=crop', caption: 'A flor de lótus reflete sua beleza e brilho', category: 'Debutante', order_index: 4 },
-    { id: 'gal-5', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop', caption: 'Caminhos dourados de contos de fadas', category: 'Ensaio', order_index: 5 },
+    { id: 'gal-5', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop', caption: 'Caminhos dourados de contos de fadas', category: 'Debutante', order_index: 5 },
     { id: 'gal-6', url: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=600&auto=format&fit=crop', caption: 'À espera de uma noite espetacular', category: 'Debutante', order_index: 6 }
 ];
 

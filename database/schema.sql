@@ -162,11 +162,11 @@ ON CONFLICT DO NOTHING;
 
 -- Sementes da Galeria de Fotos
 INSERT INTO gallery (url, caption, category, order_index) VALUES
-('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop', 'Um ensaio sob a luz suave do entardecer', 'Ensaio', 1),
-('https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=600&auto=format&fit=crop', 'Momentos de pura felicidade e sonhos', 'Ensaio', 2),
+('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop', 'Sob a luz suave do entardecer', 'Debutante', 1),
+('https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=600&auto=format&fit=crop', 'Momentos de pura felicidade e sonhos', 'Debutante', 2),
 ('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600&auto=format&fit=crop', 'A elegância de um dia inesquecível', 'Debutante', 3),
 ('https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?q=80&w=600&auto=format&fit=crop', 'A flor de lótus reflete sua beleza e brilho', 'Debutante', 4),
-('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop', 'Caminhos dourados de contos de fadas', 'Ensaio', 5),
+('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop', 'Caminhos dourados de contos de fadas', 'Debutante', 5),
 ('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=600&auto=format&fit=crop', 'À espera de uma noite espetacular', 'Debutante', 6)
 ON CONFLICT DO NOTHING;
 
