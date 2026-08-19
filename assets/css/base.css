@@ -206,24 +206,4 @@ a:hover {
     text-shadow: none !important;
 }
 
-/* Force table cells to be white, and names/strong tags to be gold-light */
-.admin-table td {
-    color: #ffffff !important;
-    font-weight: 500 !important;
-}
 
-.admin-table td strong {
-    color: var(--color-gold-light) !important;
-    font-weight: 600 !important;
-}
-
-/* Modals inside admin */
-.admin-body .modal-content-custom {
-    background-color: #0c0d13 !important;
-    border: 2px solid #ffd700 !important;
-}
-
-/* General descriptive text in dark sections */
-.admin-body p {
-    color: rgba(253, 251, 247, 0.9) !important;
-}

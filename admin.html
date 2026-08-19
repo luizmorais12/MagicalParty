@@ -40,7 +40,7 @@
                     <label for="login-password" class="admin-form-label">Senha Real</label>
                     <input type="password" class="form-control admin-form-control" id="login-password" placeholder="••••••••" required>
                 </div>
-                <button type="submit" class="btn btn-gold w-100"><i class="fas fa-key"></i> Autenticar Acesso</button>
+                <button type="submit" class="btn btn-admin-primary w-100"><i class="fas fa-key"></i> Autenticar Acesso</button>
             </form>
             <div class="text-danger small mt-3 d-none" id="login-error-msg">Acesso negado. Credenciais incorretas!</div>
             <div class="text-muted small mt-2">Dica: offline use 'admin' / 'sapo2026'</div>
@@ -109,7 +109,7 @@
                 </div>
 
                 <!-- MAIN CONTENT AREA -->
-                <div class="col-md-9 col-lg-10 px-0">
+                <div class="col-md-9 col-lg-10 offset-md-3 offset-lg-2 px-0">
                     <main class="admin-content-area">
                         <div class="row mb-4 align-items-center">
                             <div class="col-md-8">
@@ -126,85 +126,53 @@
                             
                             <!-- TAB PANEL 0: DASHBOARD -->
                             <div class="tab-pane fade show active" id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab">
-                                <div class="row g-4">
-                                    <div class="col-lg-8">
-                                        <div class="row g-3">
-                                            <!-- Total Guests -->
-                                            <div class="col-6 col-lg-4">
-                                                <div class="admin-card text-center h-100">
-                                                    <div class="mb-2 text-warning"><i class="fas fa-users fa-2x"></i></div>
-                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Total Geral</h5>
-                                                    <p class="counter-num mb-0" id="stat-total" style="color: #ffffff !important;">0</p>
-                                                </div>
-                                            </div>
-                                            <!-- Adults -->
-                                            <div class="col-6 col-lg-4">
-                                                <div class="admin-card text-center h-100">
-                                                    <div class="mb-2 text-warning"><i class="fas fa-user-friends fa-2x"></i></div>
-                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Adultos</h5>
-                                                    <p class="counter-num mb-0" id="stat-adults" style="color: #ffffff !important;">0</p>
-                                                </div>
-                                            </div>
-                                            <!-- Kids -->
-                                            <div class="col-6 col-lg-4">
-                                                <div class="admin-card text-center h-100">
-                                                    <div class="mb-2 text-warning"><i class="fas fa-child fa-2x"></i></div>
-                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Crianças</h5>
-                                                    <p class="counter-num mb-0" id="stat-kids" style="color: #ff8fa3 !important;">0</p>
-                                                </div>
-                                            </div>
-                                            <!-- Families count -->
-                                            <div class="col-6 col-lg-4">
-                                                <div class="admin-card text-center h-100">
-                                                    <div class="mb-2 text-warning"><i class="fas fa-scroll fa-2x"></i></div>
-                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Famílias</h5>
-                                                    <p class="counter-num mb-0" id="stat-families" style="color: #ffffff !important;">0</p>
-                                                </div>
-                                            </div>
-                                            <!-- Reserved Gifts -->
-                                            <div class="col-6 col-lg-4">
-                                                <div class="admin-card text-center h-100">
-                                                    <div class="mb-2 text-warning"><i class="fas fa-gift fa-2x"></i></div>
-                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Presentes Reservados</h5>
-                                                    <p class="counter-num mb-0" id="stat-gifts" style="color: #ffffff !important;">0</p>
-                                                </div>
-                                            </div>
-                                            <!-- Pending Messages -->
-                                            <div class="col-6 col-lg-4">
-                                                <div class="admin-card text-center h-100">
-                                                    <div class="mb-2 text-warning"><i class="fas fa-envelope-open-text fa-2x"></i></div>
-                                                    <h5 class="small text-uppercase mb-1" style="color: #ffd700 !important; font-weight: 700; letter-spacing: 1px;">Cartas a Moderar</h5>
-                                                    <p class="counter-num mb-0" id="stat-messages" style="color: #ff8fa3 !important;">0</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- Instruction instructions -->
-                                        <div class="admin-card mt-4">
-                                            <h4 class="gold-text mb-3"><i class="fas fa-crown"></i> Instruções Administrativas</h4>
-                                            <p class="mb-2 font-serif">Bem-vindo, soberano(a) do painel administrativo. Aqui você tem controle absoluto das seguintes operações:</p>
-                                            <ul class="text-muted ps-3 mb-0" style="font-size: 0.9rem; line-height: 1.6;">
-                                                <li><strong class="text-light">Lista de Convidados:</strong> Veja os confirmados via RSVP, filtre dados, altere registros ou exclua.</li>
-                                                <li><strong class="text-light">Lista de Presentes:</strong> Libere a cota física de presentes reservados ou cadastre novos itens de desejos.</li>
-                                                <li><strong class="text-light">Moderação de Mural:</strong> Leia e aprove mensagens dos súditos para exibi-las no livro público.</li>
-                                                <li><strong class="text-light">Configuração Supabase:</strong> Digite suas chaves na aba Configurações para persistir os dados remotamente no Supabase.</li>
-                                            </ul>
+                                <div class="row g-3">
+                                    <!-- Total Guests -->
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="admin-card text-center h-100">
+                                            <div class="mb-2 text-success"><i class="fas fa-users fa-lg"></i></div>
+                                            <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Total Geral</h5>
+                                            <p class="counter-num mb-0" id="stat-total">0</p>
                                         </div>
                                     </div>
-
-                                    <!-- Proportions visual chart -->
-                                    <div class="col-lg-4">
-                                        <div class="admin-card h-100 d-flex flex-column justify-content-between">
-                                            <div>
-                                                <h4 class="gold-text text-center mb-2"><i class="fas fa-chart-pie"></i> Proporção Real</h4>
-                                                <p class="text-muted text-center small mb-3">Distribuição de confirmados por tipo de convite.</p>
-                                            </div>
-                                            <div class="chart-wrapper" style="position: relative; height: 260px; width: 100%;">
-                                                <canvas id="admin-chart-canvas"></canvas>
-                                            </div>
-                                            <div class="text-center mt-3 text-muted small">
-                                                <i class="fas fa-sync-alt fa-spin text-warning me-1"></i> Atualizado via banco de dados.
-                                            </div>
+                                    <!-- Adults -->
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="admin-card text-center h-100">
+                                            <div class="mb-2 text-success"><i class="fas fa-user-friends fa-lg"></i></div>
+                                            <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Adultos</h5>
+                                            <p class="counter-num mb-0" id="stat-adults">0</p>
+                                        </div>
+                                    </div>
+                                    <!-- Kids -->
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="admin-card text-center h-100">
+                                            <div class="mb-2 text-success"><i class="fas fa-child fa-lg"></i></div>
+                                            <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Crianças</h5>
+                                            <p class="counter-num mb-0" id="stat-kids">0</p>
+                                        </div>
+                                    </div>
+                                    <!-- Families count -->
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="admin-card text-center h-100">
+                                            <div class="mb-2 text-success"><i class="fas fa-scroll fa-lg"></i></div>
+                                            <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Famílias</h5>
+                                            <p class="counter-num mb-0" id="stat-families">0</p>
+                                        </div>
+                                    </div>
+                                    <!-- Reserved Gifts -->
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="admin-card text-center h-100">
+                                            <div class="mb-2 text-success"><i class="fas fa-gift fa-lg"></i></div>
+                                            <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Presentes Reservados</h5>
+                                            <p class="counter-num mb-0" id="stat-gifts">0</p>
+                                        </div>
+                                    </div>
+                                    <!-- Pending Messages -->
+                                    <div class="col-6 col-md-4 col-lg-2">
+                                        <div class="admin-card text-center h-100">
+                                            <div class="mb-2 text-success"><i class="fas fa-envelope-open-text fa-lg"></i></div>
+                                            <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Cartas a Moderar</h5>
+                                            <p class="counter-num mb-0" id="stat-messages">0</p>
                                         </div>
                                     </div>
                                 </div>
@@ -218,13 +186,13 @@
                                         
                                         <!-- Data Export Actions -->
                                         <div class="d-flex gap-2">
-                                            <button class="btn btn-outline-light btn-sm" id="export-excel-btn">
+                                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" id="export-excel-btn">
                                                 <i class="far fa-file-excel text-success me-1"></i> Excel
                                             </button>
-                                            <button class="btn btn-outline-light btn-sm" id="export-csv-btn">
+                                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" id="export-csv-btn">
                                                 <i class="fas fa-file-csv text-info me-1"></i> CSV
                                             </button>
-                                            <button class="btn btn-outline-light btn-sm" id="export-pdf-btn">
+                                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" id="export-pdf-btn">
                                                 <i class="far fa-file-pdf text-danger me-1"></i> Imprimir
                                             </button>
                                         </div>
@@ -232,8 +200,8 @@
 
                                     <div class="mb-3">
                                         <div class="input-group">
-                                            <span class="input-group-text bg-transparent border-secondary text-muted"><i class="fas fa-search"></i></span>
-                                            <input type="text" class="form-control bg-transparent text-light border-secondary" id="search-guests-input" placeholder="Buscar convidado por nome, e-mail ou acompanhante...">
+                                            <span class="input-group-text bg-white border-secondary text-muted"><i class="fas fa-search"></i></span>
+                                            <input type="text" class="form-control border-secondary text-dark bg-white" id="search-guests-input" placeholder="Buscar convidado por nome, e-mail ou acompanhante...">
                                         </div>
                                     </div>
 
@@ -242,12 +210,10 @@
                                             <thead>
                                                 <tr>
                                                     <th>Nome Principal</th>
-                                                    <th>Contato</th>
-                                                    <th class="text-center">Total</th>
+                                                    <th>Contato & Confirmação</th>
+                                                    <th class="text-center">Convidados</th>
                                                     <th>Acompanhantes</th>
-                                                    <th>Ingressos</th>
-                                                    <th>Restrições</th>
-                                                    <th>Confirmado em</th>
+                                                    <th>Observações</th>
                                                     <th class="text-center">Ações</th>
                                                 </tr>
                                             </thead>
@@ -264,7 +230,7 @@
                                 <div class="admin-card">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h4 class="gold-text mb-0"><i class="fas fa-gift"></i> Controle de Presentes</h4>
-                                        <button class="btn btn-gold btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addGiftModal">
+                                        <button class="btn btn-admin-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addGiftModal">
                                             <i class="fas fa-plus"></i> Novo Item
                                         </button>
                                     </div>
@@ -325,33 +291,33 @@
                                         <div class="row g-3">
                                             <h5 class="gold-text border-bottom border-secondary pb-2 mb-2">Informações da Festa</h5>
                                             <div class="col-md-6">
-                                                <label for="cfg-name" class="form-label font-serif" style="color: var(--color-gold-light);">Nome da Debutante</label>
+                                                <label for="cfg-name" class="form-label font-serif">Nome da Debutante</label>
                                                 <input type="text" class="form-control admin-form-control" id="cfg-name" required>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cfg-date" class="form-label font-serif" style="color: var(--color-gold-light);">Data e Hora (ISO)</label>
+                                                <label for="cfg-date" class="form-label font-serif">Data e Hora (ISO)</label>
                                                 <input type="datetime-local" class="form-control admin-form-control" id="cfg-date" required>
                                             </div>
                                             <div class="col-md-12">
-                                                <label for="cfg-location" class="form-label font-serif" style="color: var(--color-gold-light);">Endereço do Salão</label>
+                                                <label for="cfg-location" class="form-label font-serif">Endereço do Salão</label>
                                                 <input type="text" class="form-control admin-form-control" id="cfg-location" required>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cfg-phrase" class="form-label font-serif" style="color: var(--color-gold-light);">Frase de Abertura (Hero)</label>
+                                                <label for="cfg-phrase" class="form-label font-serif">Frase de Abertura (Hero)</label>
                                                 <input type="text" class="form-control admin-form-control" id="cfg-phrase" required>
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cfg-pix-key" class="form-label font-serif" style="color: var(--color-gold-light);">Chave PIX Recebimento</label>
+                                                <label for="cfg-pix-key" class="form-label font-serif">Chave PIX Recebimento</label>
                                                 <input type="text" class="form-control admin-form-control" id="cfg-pix-key" required>
                                             </div>
 
                                             <h5 class="gold-text border-bottom border-secondary pb-2 mt-4 mb-2">Supabase Database Keys</h5>
                                             <div class="col-md-6">
-                                                <label for="cfg-supabase-url" class="form-label font-serif" style="color: var(--color-gold-light);">SUPABASE_URL</label>
+                                                <label for="cfg-supabase-url" class="form-label font-serif">SUPABASE_URL</label>
                                                 <input type="url" class="form-control admin-form-control" id="cfg-supabase-url" placeholder="https://vossosubdominio.supabase.co">
                                             </div>
                                             <div class="col-md-6">
-                                                <label for="cfg-supabase-key" class="form-label font-serif" style="color: var(--color-gold-light);">SUPABASE_ANON_KEY</label>
+                                                <label for="cfg-supabase-key" class="form-label font-serif">SUPABASE_ANON_KEY</label>
                                                 <input type="password" class="form-control admin-form-control" id="cfg-supabase-key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
                                             </div>
                                             <div class="text-muted small">
@@ -360,7 +326,7 @@
 
                                             <div class="col-12 mt-4 d-flex justify-content-between align-items-center">
                                                 <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3" id="reset-db-btn"><i class="fas fa-trash-alt me-1"></i> Redefinir Banco Local</button>
-                                                <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-save me-1"></i> Salvar Configurações</button>
+                                                <button type="submit" class="btn btn-admin-primary btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-save me-1"></i> Salvar Configurações</button>
                                             </div>
                                         </div>
                                     </form>
@@ -382,49 +348,49 @@
                 <div class="modal-content modal-content-custom">
                     <div class="modal-header modal-header-custom">
                         <h5 class="modal-title gold-text" id="editGuestModalLabel"><i class="fas fa-user-edit"></i> Editar Convidado</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="edit-guest-form">
                         <input type="hidden" id="edit-guest-id">
-                        <div class="modal-body text-light">
+                        <div class="modal-body">
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label for="edit-guest-name" class="form-label font-serif">Nome Completo</label>
-                                    <input type="text" class="form-control admin-form-control text-light" id="edit-guest-name" required>
+                                    <input type="text" class="form-control admin-form-control" id="edit-guest-name" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-guest-phone" class="form-label font-serif">Telefone</label>
-                                    <input type="text" class="form-control admin-form-control text-light" id="edit-guest-phone" required>
+                                    <input type="text" class="form-control admin-form-control" id="edit-guest-phone" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-guest-email" class="form-label font-serif">E-mail</label>
-                                    <input type="email" class="form-control admin-form-control text-light" id="edit-guest-email" required>
+                                    <input type="email" class="form-control admin-form-control" id="edit-guest-email" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="edit-guest-count" class="form-label font-serif">Qtd Convidados</label>
-                                    <input type="number" class="form-control admin-form-control text-light" id="edit-guest-count" min="1" max="10" required>
+                                    <input type="number" class="form-control admin-form-control" id="edit-guest-count" min="1" max="10" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="edit-guest-companions" class="form-label font-serif">Nomes Acompanhantes</label>
-                                    <textarea class="form-control admin-form-control text-light" id="edit-guest-companions" rows="2" style="border-radius: 12px !important;"></textarea>
+                                    <textarea class="form-control admin-form-control" id="edit-guest-companions" rows="2" style="border-radius: 12px !important;"></textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-guest-adults" class="form-label font-serif">Adultos</label>
-                                    <input type="number" class="form-control admin-form-control text-light" id="edit-guest-adults" min="1" required>
+                                    <input type="number" class="form-control admin-form-control" id="edit-guest-adults" min="1" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="edit-guest-kids" class="form-label font-serif">Crianças</label>
-                                    <input type="number" class="form-control admin-form-control text-light" id="edit-guest-kids" min="0" required>
+                                    <input type="number" class="form-control admin-form-control" id="edit-guest-kids" min="0" required>
                                 </div>
                                 <div class="col-12">
                                     <label for="edit-guest-obs" class="form-label font-serif">Observações</label>
-                                    <input type="text" class="form-control admin-form-control text-light" id="edit-guest-obs">
+                                    <input type="text" class="form-control admin-form-control" id="edit-guest-obs">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer modal-footer-custom">
-                            <button type="button" class="btn btn-outline-light rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-gold rounded-pill btn-sm px-4 fw-bold">Salvar Alterações</button>
+                            <button type="button" class="btn btn-admin-secondary rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-admin-primary rounded-pill btn-sm px-4 fw-bold">Salvar Alterações</button>
                         </div>
                     </form>
                 </div>
@@ -437,32 +403,71 @@
                 <div class="modal-content modal-content-custom">
                     <div class="modal-header modal-header-custom">
                         <h5 class="modal-title gold-text" id="addGiftModalLabel"><i class="fas fa-plus-circle"></i> Cadastrar Novo Presente</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <form id="add-gift-form">
-                        <div class="modal-body text-light">
+                        <div class="modal-body">
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label for="add-gift-name" class="form-label font-serif">Nome do Presente</label>
-                                    <input type="text" class="form-control admin-form-control text-light" id="add-gift-name" required placeholder="Ex: Relógio de Luxo">
+                                    <input type="text" class="form-control admin-form-control" id="add-gift-name" required placeholder="Ex: Relógio de Luxo">
                                 </div>
                                 <div class="col-12">
                                     <label for="add-gift-desc" class="form-label font-serif">Descrição / Categoria</label>
-                                    <textarea class="form-control admin-form-control text-light" id="add-gift-desc" rows="2" required placeholder="Ex: Detalhe de luxo banhado a ouro" style="border-radius: 12px !important;"></textarea>
+                                    <textarea class="form-control admin-form-control" id="add-gift-desc" rows="2" required placeholder="Ex: Detalhe de luxo banhado a ouro" style="border-radius: 12px !important;"></textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="add-gift-price" class="form-label font-serif">Valor Estimado (R$)</label>
-                                    <input type="number" class="form-control admin-form-control text-light" id="add-gift-price" min="0" step="0.01" required placeholder="350.00">
+                                    <input type="number" class="form-control admin-form-control" id="add-gift-price" min="0" step="0.01" required placeholder="350.00">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="add-gift-img" class="form-label font-serif">URL da Imagem</label>
-                                    <input type="url" class="form-control admin-form-control text-light" id="add-gift-img" required placeholder="https://images.unsplash.com/photo-...">
+                                    <input type="url" class="form-control admin-form-control" id="add-gift-img" required placeholder="https://images.unsplash.com/photo-...">
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer modal-footer-custom">
-                            <button type="button" class="btn btn-outline-light rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-gold rounded-pill btn-sm px-4 fw-bold">Cadastrar Item</button>
+                            <button type="button" class="btn btn-admin-secondary rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-admin-primary rounded-pill btn-sm px-4 fw-bold">Cadastrar Item</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Gift Modal -->
+        <div class="modal fade" id="editGiftModal" tabindex="-1" aria-labelledby="editGiftModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
+                        <h5 class="modal-title gold-text" id="editGiftModalLabel"><i class="fas fa-edit"></i> Editar Presente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="edit-gift-form">
+                        <input type="hidden" id="edit-gift-id">
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="edit-gift-name" class="form-label font-serif">Nome do Presente</label>
+                                    <input type="text" class="form-control admin-form-control" id="edit-gift-name" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="edit-gift-desc" class="form-label font-serif">Descrição / Categoria</label>
+                                    <textarea class="form-control admin-form-control" id="edit-gift-desc" rows="2" required style="border-radius: 12px !important;"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-gift-price" class="form-label font-serif">Valor Estimado (R$)</label>
+                                    <input type="number" class="form-control admin-form-control" id="edit-gift-price" min="0" step="0.01" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="edit-gift-img" class="form-label font-serif">URL da Imagem</label>
+                                    <input type="url" class="form-control admin-form-control" id="edit-gift-img" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer modal-footer-custom">
+                            <button type="button" class="btn btn-admin-secondary rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-admin-primary rounded-pill btn-sm px-4 fw-bold">Salvar Alterações</button>
                         </div>
                     </form>
                 </div>

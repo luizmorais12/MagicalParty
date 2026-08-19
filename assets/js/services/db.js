@@ -318,6 +318,29 @@ export const dbService = {
         return true;
     },
 
+    async updateGift(id, giftData) {
+        const client = getSupabaseClient();
+        let supaOk = false;
+        if (client) {
+            const { error } = await client.from('gifts').update(giftData).eq('id', id);
+            if (!error) supaOk = true;
+            else console.error("Supabase gift update failed, fallback to local storage", error);
+        }
+        if (!supaOk) {
+            localStorage.setItem('mb_use_local_fallback_gifts', 'true');
+        }
+        const gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
+        const index = gifts.findIndex(g => String(g.id) === String(id));
+        if (index !== -1) {
+            gifts[index] = {
+                ...gifts[index],
+                ...giftData
+            };
+            localStorage.setItem('mb_gifts', JSON.stringify(gifts));
+        }
+        return true;
+    },
+
     async reserveGift(id, reservedBy) {
         const client = getSupabaseClient();
         const reservedAt = new Date().toISOString();

@@ -50,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
         addGiftForm.addEventListener('submit', handleAddGiftSubmit);
     }
 
+    const editGiftForm = document.getElementById('edit-gift-form');
+    if (editGiftForm) {
+        editGiftForm.addEventListener('submit', handleEditGiftSubmit);
+    }
+
     const settingsForm = document.getElementById('settings-form');
     if (settingsForm) {
         settingsForm.addEventListener('submit', handleSettingsSubmit);
@@ -277,20 +282,21 @@ async function renderGuestsList(filterQuery = '') {
             <tr>
                 <td><strong>${escapeHtml(g.name)}</strong></td>
                 <td>
-                    <div style="font-size: 0.85rem;"><i class="fas fa-phone me-1" style="color: var(--color-gold-light);"></i> ${escapeHtml(g.phone)}</div>
-                    <div style="font-size: 0.85rem;"><i class="far fa-envelope me-1" style="color: var(--color-gold-light);"></i> ${escapeHtml(g.email)}</div>
+                    <div style="font-size: 0.85rem;"><i class="fas fa-phone me-1 text-muted"></i> ${escapeHtml(g.phone)}</div>
+                    <div style="font-size: 0.85rem;"><i class="far fa-envelope me-1 text-muted"></i> ${escapeHtml(g.email)}</div>
+                    <div class="small text-muted mt-1" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> Confirmado em: ${dateFormatted}</div>
                 </td>
-                <td class="text-center"><span class="badge bg-secondary">${g.guests_count}</span></td>
-                <td><span class="small text-light-muted">${g.guest_names ? escapeHtml(g.guest_names) : '—'}</span></td>
-                <td>
-                    <span class="badge bg-info text-dark">${g.adults_count} Ad.</span>
-                    <span class="badge bg-success">${g.kids_count} Cr.</span>
-                </td>
-                <td><span class="small text-warning fw-semibold">${g.obs ? escapeHtml(g.obs) : '—'}</span></td>
-                <td><span style="font-size: 0.8rem;">${dateFormatted}</span></td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-outline-warning rounded-circle me-1" onclick="openEditGuestModal('${g.id}')" title="Editar"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="deleteGuest('${g.id}')" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                    <span class="badge bg-secondary px-2">${g.guests_count} total</span>
+                    <div class="small text-muted mt-1" style="font-size: 0.75rem;">${g.adults_count} Ad. / ${g.kids_count} Cr.</div>
+                </td>
+                <td style="max-width: 150px; white-space: normal; word-wrap: break-word;"><span class="small text-muted">${g.guest_names ? escapeHtml(g.guest_names) : '—'}</span></td>
+                <td style="max-width: 120px; white-space: normal; word-wrap: break-word;"><span class="small text-muted">${g.obs ? escapeHtml(g.obs) : '—'}</span></td>
+                <td class="text-center">
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="openEditGuestModal('${g.id}')" title="Editar"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="deleteGuest('${g.id}')" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                    </div>
                 </td>
             </tr>
         `;
@@ -365,6 +371,7 @@ window.releaseGift = releaseGift;
 window.deleteGift = deleteGift;
 window.openEditGuestModal = openEditGuestModal;
 window.deleteGuest = deleteGuest;
+window.openEditGiftModal = openEditGiftModal;
 
 // ==========================================
 // RENDER TAB: GIFTS LIST
@@ -384,9 +391,15 @@ async function renderGiftsList() {
             ? `<span class="badge bg-danger"><i class="fas fa-bookmark"></i> Reservado por ${escapeHtml(g.reserved_by)}</span>` 
             : `<span class="badge bg-success">Disponível</span>`;
 
-        const actionHtml = isReserved
-            ? `<button class="btn btn-sm btn-outline-success rounded-pill btn-release-gift" data-gift-id="${g.id}" onclick="window.releaseGift('${g.id}')"><i class="fas fa-undo"></i> Liberar</button>`
-            : `<button class="btn btn-sm btn-outline-danger rounded-circle btn-delete-gift" data-gift-id="${g.id}" onclick="window.deleteGift('${g.id}')"><i class="fas fa-trash-alt"></i></button>`;
+        const actionHtml = `
+            <div class="d-flex gap-2 justify-content-center">
+                <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="window.openEditGiftModal('${g.id}')" title="Editar"><i class="fas fa-edit"></i></button>
+                ${isReserved
+                    ? `<button class="btn btn-sm btn-outline-success rounded-pill btn-release-gift" onclick="window.releaseGift('${g.id}')"><i class="fas fa-undo"></i> Liberar</button>`
+                    : `<button class="btn btn-sm btn-outline-danger rounded-circle btn-delete-gift" onclick="window.deleteGift('${g.id}')"><i class="fas fa-trash-alt"></i></button>`
+                }
+            </div>
+        `;
 
         const row = `
             <tr>
@@ -419,6 +432,44 @@ async function deleteGift(id) {
             await renderGiftsList();
             renderDashboardStats();
         }
+    }
+}
+
+async function openEditGiftModal(id) {
+    const gifts = await dbService.getGifts();
+    const gift = gifts.find(g => String(g.id) === String(id));
+    if (!gift) return;
+
+    document.getElementById('edit-gift-id').value = gift.id;
+    document.getElementById('edit-gift-name').value = gift.name;
+    document.getElementById('edit-gift-desc').value = gift.description || '';
+    document.getElementById('edit-gift-price').value = gift.price;
+    document.getElementById('edit-gift-img').value = gift.image_url || '';
+
+    const modal = new bootstrap.Modal(document.getElementById('editGiftModal'));
+    modal.show();
+}
+
+async function handleEditGiftSubmit(e) {
+    e.preventDefault();
+
+    const id = document.getElementById('edit-gift-id').value;
+    const name = document.getElementById('edit-gift-name').value.trim();
+    const description = document.getElementById('edit-gift-desc').value.trim();
+    const price = parseFloat(document.getElementById('edit-gift-price').value);
+    const imageUrl = document.getElementById('edit-gift-img').value.trim();
+
+    if (!name || isNaN(price)) return;
+
+    const payload = {
+        name, description, price, image_url: imageUrl
+    };
+
+    const success = await dbService.updateGift(id, payload);
+    if (success) {
+        bootstrap.Modal.getInstance(document.getElementById('editGiftModal')).hide();
+        await renderGiftsList();
+        renderDashboardStats();
     }
 }
 

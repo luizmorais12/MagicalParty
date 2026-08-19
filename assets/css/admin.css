@@ -82,6 +82,23 @@
     flex-direction: column;
 }
 
+@media (min-width: 768px) {
+    .admin-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 25%;
+        height: 100vh;
+        z-index: 900;
+    }
+}
+
+@media (min-width: 992px) {
+    .admin-sidebar {
+        width: 16.666667%;
+    }
+}
+
 .admin-logo {
     text-align: center;
     padding: 0 1.5rem 1.5rem;
@@ -217,6 +234,11 @@
 
 /* 5. Mobile header & Sidebar slide-in */
 .admin-mobile-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     background-color: var(--color-wine-dark);
     border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     padding: 12px 20px;
@@ -286,3 +308,71 @@
         border-bottom: 1px solid #ccc !important;
     }
 }
+
+/* Custom primary and secondary buttons for admin panel */
+.btn-admin-primary {
+    background-color: var(--color-leaf-green) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--color-leaf-green) !important;
+    border-radius: var(--border-radius-pill) !important;
+    font-weight: 600 !important;
+    padding: 6px 18px !important;
+    font-size: 0.85rem !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px !important;
+    transition: all var(--transition-fast) !important;
+}
+.btn-admin-primary:hover {
+    background-color: var(--color-wine-dark) !important;
+    border-color: var(--color-wine-dark) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(20, 92, 54, 0.2) !important;
+}
+.btn-admin-secondary {
+    background-color: transparent !important;
+    color: var(--color-wine-dark) !important;
+    border: 1px solid var(--color-wine-dark) !important;
+    border-radius: var(--border-radius-pill) !important;
+    font-weight: 600 !important;
+    padding: 6px 18px !important;
+    font-size: 0.85rem !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px !important;
+    transition: all var(--transition-fast) !important;
+}
+.btn-admin-secondary:hover {
+    background-color: rgba(29, 53, 31, 0.08) !important;
+    color: var(--color-wine-dark) !important;
+}
+
+/* Close button custom fix for light modals */
+.admin-body .btn-close {
+    filter: none !important; /* Dark default icons instead of light close icons */
+    opacity: 0.7;
+}
+.admin-body .btn-close:hover {
+    opacity: 1;
+}
+
+/* Clean title text colors */
+.admin-body .gold-text {
+    color: var(--color-wine-dark) !important;
+    text-shadow: none !important;
+}
+
+/* Spacing and text sizing enhancements (crisp look) */
+.admin-content-area {
+    padding: 1.5rem 2rem !important;
+}
+.admin-card {
+    padding: 1.25rem !important;
+}
+.counter-num {
+    font-size: 2rem !important;
+    color: var(--color-wine-dark) !important;
+}
+.admin-table th, .admin-table td {
+    padding: 8px 10px !important;
+    font-size: 0.82rem !important;
+}
+
