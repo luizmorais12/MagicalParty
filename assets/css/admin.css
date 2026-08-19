@@ -2,9 +2,8 @@
 /* Administrative Dashboard Styles */
 
 .admin-body {
-    background-color: #050508;
-    background-image: radial-gradient(circle at center, #0f1017 0%, #030304 100%);
-    color: #ffffff;
+    background-color: var(--color-cream-bg);
+    color: var(--color-wine-dark);
 }
 
 /* 1. Admin Login Panel */
@@ -12,7 +11,7 @@
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     background-color: var(--color-black-elegant);
-    background-image: radial-gradient(circle at center, rgba(20, 92, 54, 0.45) 0%, rgba(5, 11, 7, 0.98) 100%);
+    background-image: radial-gradient(circle at center, rgba(var(--color-leaf-green-rgb), 0.45) 0%, var(--color-royal-dark) 100%);
     z-index: 100000;
     display: flex;
     align-items: center;
@@ -22,14 +21,13 @@
 .admin-login-card {
     max-width: 420px;
     width: 90%;
-    background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: #ffffff;
     border: 2px solid var(--color-gold-primary);
     border-radius: var(--border-radius-lg);
     padding: 2.5rem;
     box-shadow: var(--shadow-lg), var(--glow-gold);
     text-align: center;
+    color: var(--color-wine-dark);
 }
 
 .admin-login-logo {
@@ -73,9 +71,7 @@
 
 /* 2. Admin Sidebar Navigation */
 .admin-sidebar {
-    background-color: rgba(7, 14, 27, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background-color: var(--color-wine-dark);
     border-right: 1px solid rgba(212, 175, 55, 0.15);
     height: 100vh;
     position: sticky;
@@ -105,7 +101,7 @@
 .admin-nav-item {
     font-family: var(--font-sans);
     font-size: 0.9rem;
-    color: rgba(253, 251, 247, 0.75) !important;
+    color: rgba(253, 251, 247, 0.85) !important;
     border: 1px solid transparent !important;
     padding: 12px 18px !important;
     border-radius: var(--border-radius-pill) !important;
@@ -121,8 +117,8 @@
 
 .admin-nav-item:hover {
     color: var(--color-gold-primary) !important;
-    background-color: rgba(212, 175, 55, 0.05) !important;
-    border-color: rgba(212, 175, 55, 0.15) !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .admin-nav-item.active {
@@ -139,34 +135,32 @@
 }
 
 .admin-card {
-    background: rgba(15, 20, 32, 0.75);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(212, 175, 55, 0.4);
+    background: #ffffff;
+    border: 1px solid rgba(var(--color-leaf-green-rgb), 0.15);
     border-radius: 16px;
     padding: 1.75rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(212, 175, 55, 0.05);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem;
     transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--color-wine-dark);
 }
 
 .admin-card:hover {
     border-color: var(--color-gold-primary);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1), 0 0 15px rgba(212, 175, 55, 0.15);
 }
 
 .counter-num {
     font-family: var(--font-display);
     font-size: 2.4rem;
     font-weight: 700;
-    color: var(--color-gold-primary);
+    color: var(--color-gold-dark);
     line-height: 1.1;
-    text-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
 }
 
 /* 4. Table view inside admin */
 .admin-table {
-    color: #ffffff !important;
+    color: var(--color-wine-dark) !important;
     margin-bottom: 0 !important;
     border-collapse: separate;
     border-spacing: 0 6px;
@@ -178,37 +172,52 @@
     font-size: 0.82rem;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: var(--color-gold-light) !important;
-    background-color: rgba(10, 14, 25, 0.9) !important;
-    border-bottom: 2px solid rgba(212, 175, 55, 0.4) !important;
+    color: var(--color-wine-dark) !important;
+    background-color: var(--color-wine-light) !important;
+    border-bottom: 2px solid var(--color-gold-primary) !important;
     padding: 14px 16px !important;
 }
 
 .admin-table td {
-    background-color: rgba(18, 24, 38, 0.6) !important;
-    border-top: 1px solid rgba(212, 175, 55, 0.1) !important;
-    border-bottom: 1px solid rgba(212, 175, 55, 0.1) !important;
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    border-top: 1px solid rgba(var(--color-leaf-green-rgb), 0.1) !important;
+    border-bottom: 1px solid rgba(var(--color-leaf-green-rgb), 0.1) !important;
     padding: 14px 16px !important;
     font-size: 0.92rem;
-    color: #ffffff !important;
+    color: var(--color-wine-dark) !important;
     vertical-align: middle;
 }
 
 .admin-table td strong {
-    color: var(--color-gold-light) !important;
+    color: var(--color-wine-dark) !important;
 }
 
 .admin-table tr:hover td {
-    background-color: rgba(212, 175, 55, 0.12) !important;
+    background-color: rgba(var(--color-leaf-green-rgb), 0.12) !important;
 }
 
 .text-light-muted {
-    color: rgba(255, 255, 255, 0.75) !important;
+    color: var(--color-wine-dark) !important;
+    opacity: 0.8;
+}
+
+.admin-content-area .text-light, 
+.admin-content-area .text-white, 
+.admin-content-area .text-muted,
+.admin-content-area .text-white-50 {
+    color: var(--color-wine-dark) !important;
+    opacity: 0.85;
+}
+
+.admin-content-area strong.text-light,
+.admin-content-area strong.text-white {
+    color: var(--color-wine-dark) !important;
+    opacity: 1;
 }
 
 /* 5. Mobile header & Sidebar slide-in */
 .admin-mobile-header {
-    background-color: var(--color-royal-dark);
+    background-color: var(--color-wine-dark);
     border-bottom: 1px solid rgba(212, 175, 55, 0.2);
     padding: 12px 20px;
     align-items: center;

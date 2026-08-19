@@ -143,8 +143,21 @@ function initPixCotas(grid) {
         const card = e.target.closest('.pix-card');
         if (!card) return;
 
-        const value = card.getAttribute('data-pix-value');
-        const title = card.getAttribute('data-pix-title');
+        let value = card.getAttribute('data-pix-value');
+        let title = card.getAttribute('data-pix-title');
+
+        if (card.id === 'pix-free-value-card') {
+            const userInput = prompt("Digite o valor do presente em Pix (R$):");
+            if (!userInput) return;
+            const parsed = parseFloat(userInput.replace(/[^\d.,]/g, '').replace(',', '.'));
+            if (isNaN(parsed) || parsed <= 0) {
+                alert("Por favor, insira um valor válido.");
+                return;
+            }
+            value = Math.round(parsed).toString();
+            title = "Presente Livre";
+        }
+
         currentCotaValue = value;
 
         // Fetch current settings for PIX key

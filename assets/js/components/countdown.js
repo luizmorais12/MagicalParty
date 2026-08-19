@@ -25,7 +25,7 @@ export async function initCountdown() {
                 clockTimer.innerHTML = `
                     <div class="col-12 py-3 text-center">
                         <h3 class="gold-text animate-pulse" style="font-size: 2.2rem;">
-                            🏰 O Baile Real Começou! 🌹
+                            ✨ A Magia do Bayou Começou! 🪷
                         </h3>
                     </div>
                 `;
