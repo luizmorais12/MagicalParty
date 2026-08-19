@@ -131,19 +131,34 @@
 
 /* 2. Footer Section */
 .footer-section {
-    background-color: var(--color-black-elegant);
-    background-image: linear-gradient(to top, rgba(7, 14, 27, 0.98), rgba(10, 10, 10, 0.95));
-    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    background: var(--color-wine-light) !important;
+    border-top: 2px solid var(--color-gold-primary);
     padding: var(--spacing-lg) 0;
     position: relative;
     overflow: hidden;
+    color: var(--color-wine-dark) !important;
 }
 
-.footer-section::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 1px;
-    background: linear-gradient(to right, transparent, var(--color-gold-primary), transparent);
+.footer-section p {
+    color: var(--color-wine-dark) !important;
+    opacity: 0.9;
+}
+
+.admin-link-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(29, 53, 31, 0.08) !important;
+    border: 1px solid rgba(29, 53, 31, 0.3) !important;
+    color: var(--color-wine-dark) !important;
+    padding: 5px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.admin-link-pill:hover {
+    background: var(--color-wine-dark) !important;
+    color: var(--color-cream-bg) !important;
 }
 
 .footer-logo {

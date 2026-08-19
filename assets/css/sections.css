@@ -614,28 +614,7 @@
    10. COMPACT CLEAN FOOTER SECTION
    ========================================================================== */
 .footer-section {
-    background: #05070d;
-    border-top: 1px solid rgba(212, 175, 55, 0.25);
+    background: var(--color-wine-light) !important;
+    border-top: 2px solid var(--color-gold-primary) !important;
     padding: 2rem 0;
-}
-
-.admin-link-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    color: var(--color-gold-light);
-    padding: 5px 16px;
-    border-radius: 20px;
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.admin-link-pill:hover {
-    background: var(--color-gold-primary);
-    color: var(--color-royal-dark);
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
 }
