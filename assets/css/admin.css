@@ -378,18 +378,101 @@
 }
 
 /* Spacing and text sizing enhancements (crisp look) */
-.admin-content-area {
-    padding: 1.5rem 2rem !important;
+@media (min-width: 768px) {
+    .admin-content-area {
+        padding: 1.5rem 2rem !important;
+    }
+    .admin-card {
+        padding: 1.25rem !important;
+    }
+    .counter-num {
+        font-size: 2rem !important;
+        color: var(--color-wine-dark) !important;
+    }
+    .admin-table th, .admin-table td {
+        padding: 8px 10px !important;
+        font-size: 0.82rem !important;
+    }
 }
-.admin-card {
-    padding: 1.25rem !important;
-}
-.counter-num {
-    font-size: 2rem !important;
-    color: var(--color-wine-dark) !important;
-}
-.admin-table th, .admin-table td {
-    padding: 8px 10px !important;
-    font-size: 0.82rem !important;
+
+/* Mobile-specific adjustments for dashboard and tables */
+@media (max-width: 767.98px) {
+    .admin-content-area {
+        padding: 0.85rem !important;
+        padding-top: 4.8rem !important; /* Proper gap below fixed mobile header */
+    }
+    
+    .admin-card {
+        padding: 0.85rem !important;
+    }
+    
+    .counter-num {
+        font-size: 1.5rem !important;
+        color: var(--color-wine-dark) !important;
+    }
+
+    /* Convert wide tables into cards to prevent horizontal scrolling */
+    .admin-table {
+        background-color: transparent !important;
+    }
+    
+    .admin-table thead {
+        display: none !important; /* Hide header columns */
+    }
+    
+    .admin-table, 
+    .admin-table tbody, 
+    .admin-table tr, 
+    .admin-table td {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .admin-table tr {
+        margin-bottom: 1.25rem !important;
+        background-color: #ffffff !important;
+        border: 1px solid rgba(170, 119, 28, 0.15) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+        padding: 8px 12px !important;
+    }
+    
+    .admin-table td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        text-align: right !important;
+        padding: 8px 6px !important;
+        border-top: none !important;
+        border-bottom: 1px dashed rgba(170, 119, 28, 0.1) !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+    
+    .admin-table td:last-child {
+        border-bottom: none !important;
+        justify-content: center !important;
+        padding-top: 12px !important;
+    }
+    
+    /* Dynamically present table headers as row keys */
+    .admin-table td::before {
+        content: attr(data-label) ": ";
+        font-weight: 700;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        color: var(--color-wine-primary);
+        text-align: left;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .admin-table td[data-label="Foto"] {
+        justify-content: space-between !important;
+    }
+
+    .admin-table td[data-label="Ações"] {
+        border-bottom: none !important;
+    }
 }
 

@@ -310,7 +310,7 @@ async function renderGuestsList(filterQuery = '') {
 
         const row = `
             <tr>
-                <td>
+                <td data-label="Nome">
                     <div class="d-flex align-items-center gap-2">
                         <div class="guest-avatar d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 36px; height: 36px; border-radius: 50%; background-color: ${avatarBg}; color: #ffffff; font-size: 0.85rem; flex-shrink: 0; font-family: var(--font-sans);">
                             ${getInitials(g.name)}
@@ -320,18 +320,18 @@ async function renderGuestsList(filterQuery = '') {
                         </div>
                     </div>
                 </td>
-                <td>
+                <td data-label="Contato & Confirmação">
                     <div style="font-size: 0.82rem; line-height: 1.3;"><i class="fas fa-phone me-1 text-muted" style="font-size: 0.75rem;"></i> ${escapeHtml(g.phone)}</div>
                     <div style="font-size: 0.82rem; line-height: 1.3;"><i class="far fa-envelope me-1 text-muted" style="font-size: 0.75rem;"></i> ${escapeHtml(g.email)}</div>
                     <div class="small text-muted mt-1" style="font-size: 0.72rem; line-height: 1.2;"><i class="far fa-calendar-alt me-1"></i> Confirmado em: ${dateFormatted}</div>
                 </td>
-                <td class="text-center">
+                <td data-label="Convidados" class="text-center">
                     <span class="badge bg-secondary px-2" style="font-size: 0.78rem;">${g.guests_count} total</span>
                     <div class="small text-muted mt-1" style="font-size: 0.72rem;">${g.adults_count} Ad. / ${g.kids_count} Cr.</div>
                 </td>
-                <td style="max-width: 150px; white-space: normal; word-wrap: break-word; font-size: 0.8rem; line-height: 1.3;"><span class="text-muted">${g.guest_names ? escapeHtml(g.guest_names) : '—'}</span></td>
-                <td style="max-width: 120px; white-space: normal; word-wrap: break-word; font-size: 0.8rem; line-height: 1.3;"><span class="text-muted">${g.obs ? escapeHtml(g.obs) : '—'}</span></td>
-                <td class="text-center">
+                <td data-label="Acompanhantes" style="max-width: 150px; white-space: normal; word-wrap: break-word; font-size: 0.8rem; line-height: 1.3;"><span class="text-muted">${g.guest_names ? escapeHtml(g.guest_names) : '—'}</span></td>
+                <td data-label="Observações" style="max-width: 120px; white-space: normal; word-wrap: break-word; font-size: 0.8rem; line-height: 1.3;"><span class="text-muted">${g.obs ? escapeHtml(g.obs) : '—'}</span></td>
+                <td data-label="Ações" class="text-center">
                     <div class="d-flex gap-2 justify-content-center">
                         <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="openEditGuestModal('${g.id}')" title="Editar"><i class="fas fa-edit"></i></button>
                         <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="deleteGuest('${g.id}')" title="Excluir"><i class="fas fa-trash-alt"></i></button>
@@ -457,12 +457,12 @@ async function renderGiftsList() {
 
         const row = `
             <tr>
-                <td><img src="${g.image_url}" alt="${g.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-gold-primary);"></td>
-                <td><strong>${g.name}</strong></td>
-                <td><span class="small text-light-muted">${g.description}</span></td>
-                <td>${priceFormatted}</td>
-                <td>${statusHtml}</td>
-                <td class="text-center">${actionHtml}</td>
+                <td data-label="Foto"><img src="${g.image_url}" alt="${g.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-gold-primary);"></td>
+                <td data-label="Presente"><strong>${g.name}</strong></td>
+                <td data-label="Descrição"><span class="small text-light-muted">${g.description}</span></td>
+                <td data-label="Preço">${priceFormatted}</td>
+                <td data-label="Status/Reserva">${statusHtml}</td>
+                <td data-label="Ações" class="text-center">${actionHtml}</td>
             </tr>
         `;
         tbody.insertAdjacentHTML('beforeend', row);
@@ -583,11 +583,11 @@ async function renderMessagesList() {
 
         const row = `
             <tr>
-                <td><strong>${escapeHtml(msg.author)}</strong></td>
-                <td><p class="mb-0 text-light-muted font-serif" style="font-size: 0.95rem; line-height: 1.4;">"${escapeHtml(msg.text)}"</p></td>
-                <td><span style="font-size: 0.8rem;">${dateFormatted}</span></td>
-                <td>${statusHtml}</td>
-                <td class="text-center" style="min-width: 100px;">
+                <td data-label="Autor"><strong>${escapeHtml(msg.author)}</strong></td>
+                <td data-label="Mensagem"><p class="mb-0 text-light-muted font-serif" style="font-size: 0.95rem; line-height: 1.4;">"${escapeHtml(msg.text)}"</p></td>
+                <td data-label="Envio"><span style="font-size: 0.8rem;">${dateFormatted}</span></td>
+                <td data-label="Status">${statusHtml}</td>
+                <td data-label="Ações" class="text-center" style="min-width: 100px;">
                     ${approveBtn}
                     <button class="btn btn-sm btn-outline-danger rounded-circle btn-delete-msg" data-msg-id="${msg.id}" onclick="window.deleteMessage('${msg.id}')" title="Remover"><i class="fas fa-trash-alt"></i></button>
                 </td>
