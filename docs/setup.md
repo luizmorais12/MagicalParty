@@ -30,7 +30,7 @@ Você não precisa alterar uma única linha de código para fazer a conexão! O 
 1. Abra o arquivo `admin.html` no seu navegador ou acesse o painel administrativo.
 2. Faça o login utilizando as credenciais padrão de fábrica:
    - **Usuário:** `admin`
-   - **Senha:** `castelo2026`
+   - **Senha:** `sapo2026`
 3. Acesse a aba **Configurações** no menu da lateral esquerda.
 4. No Supabase, vá em **Project Settings > API** e copie:
    - `Project URL`

@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Physical Gift Reservations & Virtual PIX Cotas Controller
 
 import { dbService } from '../services/db.js';
@@ -118,7 +118,7 @@ async function handleReserveFormSubmit(e) {
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.7 },
-                colors: ['#d4af37', '#e31837', '#ffffff']
+                colors: ['#d4af37', '#22c55e', '#86198f']
             });
         }
     } else {

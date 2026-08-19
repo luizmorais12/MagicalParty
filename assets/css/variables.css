@@ -1,33 +1,36 @@
-/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* 15 Anos Márcia Gorete — A Princesa e o Sapo */
 /* Design Tokens & CSS Variables */
 
 :root {
     /* Color Palette */
-    --color-wine-primary: #58181A;
-    --color-wine-dark: #3C0D0E;
-    --color-wine-light: #8A2528;
-    --color-wine-rgb: 88, 24, 26;
+    --color-wine-primary: #7a8c77; /* Verde Sálvia */
+    --color-wine-dark: #1d351f; /* Verde Folha Escuro */
+    --color-wine-light: #a2bba0; /* Verde Sálvia Claro */
+    --color-wine-rgb: 122, 140, 119;
 
-    --color-gold-primary: #D4AF37;
-    --color-gold-light: #F3E5AB;
-    --color-gold-dark: #AA771C;
+    --color-gold-primary: #d4af37; /* Dourado Real */
+    --color-gold-light: #f5e5b8; /* Nude / Dourado Claro */
+    --color-gold-dark: #a67c1e;
     --color-gold-glow: rgba(212, 175, 55, 0.45);
     --color-gold-rgb: 212, 175, 55;
 
-    --color-royal-blue: #0F1D36;
-    --color-royal-medium: #1B3B6F;
-    --color-royal-dark: #070E1B;
-    --color-royal-rgb: 15, 29, 54;
+    --color-royal-blue: #a78fb5; /* Lilás / Roxo */
+    --color-royal-medium: #7c5c8e; /* Lilás Médio */
+    --color-royal-dark: #24152b; /* Lilás Profundo / Ameixa */
+    --color-royal-rgb: 167, 143, 181;
 
-    --color-cream-bg: #FDFBF7;
-    --color-wood-brown: #301B10;
-    --color-wood-dark: #1F1008;
-    --color-black-elegant: #0A0A0A;
-    --color-white-pure: #FFFFFF;
+    --color-leaf-green: #145c36; /* Verde Folha / Floresta */
+    --color-leaf-green-rgb: 20, 92, 54;
 
-    --color-rose-red: #E31837;
-    --color-rose-dark: #8A0412;
-    --color-rose-rgb: 227, 24, 55;
+    --color-cream-bg: #fbf6ee; /* Nude / Creme / Champagne */
+    --color-wood-brown: #574636; /* Madeiras do Bayou */
+    --color-wood-dark: #33271d;
+    --color-black-elegant: #141b13; /* Verde Oliva Ultra Escuro */
+    --color-white-pure: #ffffff;
+
+    --color-lotus-pink: #d99cb9; /* Rosa Antigo / Lilás Suave */
+    --color-lotus-purple: #9c637f;
+    --color-lotus-rgb: 217, 156, 185;
 
     /* Typographies */
     --font-display: 'Cinzel Decorative', Georgia, serif;
@@ -51,7 +54,7 @@
     --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
     --glow-gold: 0 0 15px rgba(212, 175, 55, 0.5);
     --glow-gold-intense: 0 0 25px rgba(212, 175, 55, 0.8);
-    --glow-rose: 0 0 15px rgba(227, 24, 55, 0.6);
+    --glow-lotus: 0 0 15px rgba(217, 156, 185, 0.6);
 
     /* Transitions */
     --transition-fast: 0.2s ease;

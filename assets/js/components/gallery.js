@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Album Gallery, Masonry Grid, Lightbox & Filters Controller
 
 import { dbService } from '../services/db.js';

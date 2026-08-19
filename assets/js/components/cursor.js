@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Performance-Optimized Custom Cursor & Gold Particle Trail (Canvas-based)
 
 export function initCustomCursor() {
@@ -69,10 +69,11 @@ export function initCustomCursor() {
             this.y = y;
             // Spread slightly around cursor
             this.vx = (Math.random() - 0.5) * 1.2;
-            this.vy = (Math.random() - 0.5) * 1.2 - 0.5; // Slight upward draft (fairy dust)
+            this.vy = (Math.random() - 0.5) * 1.2 - 0.5; // Slight upward draft (fireflies)
             this.alpha = 1.0;
             this.decay = Math.random() * 0.02 + 0.015;
             this.size = Math.random() * 2.5 + 0.8;
+            this.colorType = Math.random() < 0.5 ? 'gold' : 'green';
         }
 
         update() {
@@ -84,12 +85,17 @@ export function initCustomCursor() {
         draw() {
             ctx.save();
             ctx.globalAlpha = this.alpha;
-            // Radial gold glow style
+            // Radial gold/green glow style (fireflies)
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+            if (this.colorType === 'gold') {
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+                ctx.shadowColor = '#d4af37';
+            } else {
+                ctx.fillStyle = `rgba(34, 197, 94, ${this.alpha})`;
+                ctx.shadowColor = '#22c55e';
+            }
             ctx.shadowBlur = 4;
-            ctx.shadowColor = '#d4af37';
             ctx.fill();
             ctx.restore();
         }
@@ -128,10 +134,10 @@ export function initCustomCursor() {
     document.addEventListener('mouseover', (e) => {
         if (e.target.closest(clickables)) {
             cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
-            cursor.style.backgroundColor = 'var(--color-rose-red)';
-            cursor.style.boxShadow = '0 0 15px var(--color-rose-red)';
+            cursor.style.backgroundColor = 'var(--color-lotus-pink)';
+            cursor.style.boxShadow = '0 0 15px var(--color-lotus-pink)';
             glow.style.transform = 'translate(-50%, -50%) scale(1.4)';
-            glow.style.borderColor = 'var(--color-rose-red)';
+            glow.style.borderColor = 'var(--color-lotus-pink)';
         }
     });
 

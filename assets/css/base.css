@@ -1,4 +1,4 @@
-/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* 15 Anos Márcia Gorete — A Princesa e o Sapo */
 /* Base Styles & Resets */
 
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
@@ -13,8 +13,8 @@ html, body {
     width: 100%;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    background-color: var(--color-black-elegant);
-    color: var(--color-cream-bg);
+    background-color: var(--color-cream-bg);
+    color: var(--color-wine-dark);
     font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.6;
@@ -25,13 +25,13 @@ html, body {
     width: 10px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--color-black-elegant);
-    border-left: 1px solid rgba(212, 175, 55, 0.1);
+    background: var(--color-cream-bg);
+    border-left: 1px solid rgba(122, 140, 119, 0.1);
 }
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, var(--color-wine-dark), var(--color-gold-dark));
+    background: linear-gradient(to bottom, var(--color-wine-primary), var(--color-gold-primary));
     border-radius: var(--border-radius-sm);
-    border: 2px solid var(--color-black-elegant);
+    border: 2px solid var(--color-cream-bg);
 }
 ::-webkit-scrollbar-thumb:hover {
     background: var(--color-gold-primary);
@@ -39,41 +39,42 @@ html, body {
 
 /* Text Selection */
 ::selection {
-    background: var(--color-wine-primary);
-    color: var(--color-gold-light);
+    background: var(--color-royal-blue);
+    color: var(--color-white-pure);
 }
 
 /* Base Typographies */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    color: var(--color-gold-primary);
+    color: var(--color-wine-dark);
     letter-spacing: 1px;
     margin-bottom: var(--spacing-sm);
 }
 
 p {
     font-family: var(--font-sans);
-    font-weight: 300;
-    color: rgba(253, 251, 247, 0.8);
+    font-weight: 400;
+    color: var(--color-wine-dark);
+    opacity: 0.85;
     margin-bottom: var(--spacing-md);
 }
 
 a {
-    color: var(--color-gold-primary);
+    color: var(--color-wine-primary);
     text-decoration: none;
     transition: var(--transition-fast);
 }
 a:hover {
-    color: var(--color-gold-light);
+    color: var(--color-gold-dark);
     text-shadow: 0 0 5px var(--color-gold-glow);
 }
 
 /* Utility Helpers */
 .gold-text {
-    background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold-primary) 50%, var(--color-gold-dark) 100%);
+    background: linear-gradient(135deg, var(--color-wine-dark) 0%, var(--color-gold-dark) 50%, var(--color-gold-primary) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.15));
 }
 
 .gold-divider {
@@ -88,16 +89,17 @@ a:hover {
 }
 
 .bg-castle-dark {
-    background-color: var(--color-black-elegant);
-    background-image: radial-gradient(circle at center, rgba(15, 29, 54, 0.2) 0%, rgba(10, 10, 10, 0.8) 100%);
+    background-color: #faf3ea;
+    background-image: radial-gradient(circle at center, rgba(122, 140, 119, 0.15) 0%, rgba(251, 246, 238, 0.98) 100%);
 }
 
 .bg-palace-light {
     background: var(--color-cream-bg) !important;
-    color: var(--color-black-elegant) !important;
+    color: var(--color-wine-dark) !important;
 }
 .bg-palace-light p {
-    color: rgba(10, 10, 10, 0.75) !important;
+    color: var(--color-wine-dark) !important;
+    opacity: 0.85;
 }
 
 .section-padding {
@@ -160,19 +162,25 @@ a:hover {
 /* ==========================================================================
    Universal High-Contrast & Legibility Overrides
    ========================================================================== */
-.admin-body, .bg-castle-dark, .glass-panel, .glass-panel-gold, .admin-card, .message-card, .pix-card {
+.admin-body, .admin-card {
     color: #ffffff !important;
+}
+.bg-castle-dark, .glass-panel, .glass-panel-gold, .message-card, .pix-card {
+    color: var(--color-wine-dark) !important;
 }
 
 /* Force all text-muted in dark context to be light cream, not dark gray */
 .admin-body .text-muted,
 .admin-body p.text-muted,
+.admin-card .text-muted {
+    color: rgba(253, 251, 247, 0.85) !important;
+}
 .bg-castle-dark .text-muted,
 .bg-castle-dark p.text-muted,
 .glass-panel .text-muted,
-.admin-card .text-muted,
-.message-card .text-muted {
-    color: rgba(253, 251, 247, 0.85) !important;
+.message-card .text-muted,
+.pix-card .text-muted {
+    color: rgba(46, 59, 44, 0.7) !important;
 }
 
 /* Counter labels and numbers */
@@ -182,14 +190,20 @@ a:hover {
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.4) !important;
 }
 
-/* Form labels in dark context */
+/* Form labels styling */
 .admin-form-label, 
-.admin-body label,
-.bg-castle-dark label {
-    color: #ffd700 !important; /* Pure gold */
+.admin-body label {
+    color: #ffd700 !important; /* Pure gold in admin context */
     font-weight: 700 !important;
     font-size: 0.9rem !important;
     text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.bg-castle-dark label {
+    color: var(--color-wine-dark) !important; /* Dark olive green in client light panels */
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    text-shadow: none !important;
 }
 
 /* Force table cells to be white, and names/strong tags to be gold-light */
@@ -204,13 +218,12 @@ a:hover {
 }
 
 /* Modals inside admin */
-.modal-content-custom {
+.admin-body .modal-content-custom {
     background-color: #0c0d13 !important;
     border: 2px solid #ffd700 !important;
 }
 
 /* General descriptive text in dark sections */
-.bg-castle-dark p,
 .admin-body p {
     color: rgba(253, 251, 247, 0.9) !important;
 }

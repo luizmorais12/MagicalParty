@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Client-Side Main Application Entrypoint
 
 import { initLoadingScreen } from './components/loading.js';

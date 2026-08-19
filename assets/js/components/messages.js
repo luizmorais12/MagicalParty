@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Guestbook Board and Moderation Submissions Controller
 
 import { dbService } from '../services/db.js';
@@ -29,10 +29,10 @@ export async function initMessageBoard() {
                     const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
                     bsModal.show();
                 } else {
-                    alert("Sua carta foi enviada ao castelo! Ela aparecerá no mural assim que for aprovada pela corte. ✨");
+                    alert("Sua mensagem foi enviada ao bayou! Ela aparecerá no mural assim que for aprovada pela organização. ✨");
                 }
             } else {
-                alert("Ocorreu um erro ao enviar sua carta. Tente novamente.");
+                alert("Ocorreu um erro ao enviar sua mensagem. Tente novamente.");
             }
         });
     }

@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Administrative Panel Core Application Entrypoint & Business Logic
 
 import { dbService } from './services/db.js';
@@ -114,9 +114,9 @@ async function handleLogin(e) {
         }
     }
 
-    // Local / Offline credential check (admin / castelo2026)
+    // Local / Offline credential check (admin / sapo2026)
     if (!authenticated) {
-        if (username === 'admin' && password === 'castelo2026') {
+        if (username === 'admin' && password === 'sapo2026') {
             authenticated = true;
         }
     }
@@ -210,7 +210,7 @@ function renderAttendanceChart(adults, kids) {
     const hasData = (adults + kids) > 0;
     const dataSet = hasData ? [adults, kids] : [1];
     const labels = hasData ? ['Adultos', 'Crianças'] : ['Sem Confirmações'];
-    const colors = hasData ? ['#d4af37', '#e31837'] : ['rgba(255,255,255,0.08)'];
+    const colors = hasData ? ['#d4af37', '#86198f'] : ['rgba(255,255,255,0.08)'];
 
     chartInstance = new Chart(ctx, {
         type: 'doughnut',
@@ -219,7 +219,7 @@ function renderAttendanceChart(adults, kids) {
             datasets: [{
                 data: dataSet,
                 backgroundColor: colors,
-                borderColor: '#0f1d36',
+                borderColor: '#170718',
                 borderWidth: 2
             }]
         },
@@ -538,7 +538,7 @@ async function handleSettingsSubmit(e) {
 
     const settingsPayload = {
         name, date, location: locationVal, phrase, pix_key: pixKey,
-        theme: "beauty-and-the-beast"
+        theme: "princess-and-the-frog"
     };
 
     // Grab Supabase URLs from fields
@@ -628,7 +628,7 @@ async function exportToPDF() {
         startY: 30,
         theme: 'grid',
         headStyles: {
-            fillColor: [15, 29, 54],
+            fillColor: [20, 92, 54],
             textColor: [212, 175, 55],
             fontStyle: 'bold'
         },

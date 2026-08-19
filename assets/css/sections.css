@@ -1,4 +1,4 @@
-/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* 15 Anos Márcia Gorete — A Princesa e o Sapo */
 /* Page Sections Specific Styles */
 
 /* ==========================================================================
@@ -14,8 +14,8 @@
     overflow: visible;
     padding-top: 110px;
     padding-bottom: 60px;
-    background-color: var(--color-black-elegant);
-    background-image: radial-gradient(circle at center, rgba(15, 29, 54, 0.45) 0%, rgba(10, 10, 10, 0.95) 100%);
+    background-color: var(--color-cream-bg);
+    background-image: linear-gradient(135deg, #fbf6ee 0%, #d5e5d1 100%);
 }
 
 .hero-overlay {
@@ -50,7 +50,7 @@
     left: 0;
     width: 200%;
     height: 100%;
-    background-image: url('https://images.unsplash.com/photo-1549492423-400259a2e57f?q=80&w=1200&auto=format&fit=crop'); /* Placeholder used for texture masking */
+    background-image: url('https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?q=80&w=1200&auto=format&fit=crop'); /* Placeholder used for texture masking */
     background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 60%);
     filter: blur(40px);
 }
@@ -76,7 +76,7 @@
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 1.25rem;
-    color: var(--color-gold-light);
+    color: var(--color-wine-primary);
     letter-spacing: 2px;
     margin-bottom: 0.35rem;
     display: block;
@@ -87,8 +87,9 @@
     font-size: 3.8rem;
     font-weight: 700;
     line-height: 1.1;
+    color: var(--color-wine-dark);
     margin-bottom: 0.35rem;
-    text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 @media (max-width: 767.98px) {
@@ -108,17 +109,17 @@
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 1.15rem;
-    color: rgba(253, 251, 247, 0.9);
+    color: var(--color-wine-dark);
     margin-bottom: 0.75rem;
 }
 
 .hero-date {
     font-family: var(--font-display);
     font-size: 1.35rem;
-    color: var(--color-gold-primary);
+    color: var(--color-gold-dark);
     letter-spacing: 2px;
     margin-bottom: 1.5rem;
-    text-shadow: var(--glow-gold);
+    text-shadow: 0 1px 1px rgba(0,0,0,0.05);
 }
 
 .hero-btns {
@@ -205,8 +206,8 @@
     flex: 1;
     min-width: 120px;
     max-width: 150px;
-    background: linear-gradient(135deg, rgba(88, 24, 26, 0.3) 0%, rgba(7, 14, 27, 0.5) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(212, 175, 55, 0.15) 100%);
+    border: 1px solid rgba(122, 140, 119, 0.3);
     border-radius: var(--border-radius-md);
     padding: 1.5rem 1rem;
     box-shadow: var(--shadow-sm);
@@ -216,25 +217,26 @@
 
 .timer-box:hover {
     transform: translateY(-5px);
-    border-color: var(--color-gold-primary);
-    box-shadow: var(--shadow-md), var(--glow-gold);
+    border-color: var(--color-wine-primary);
+    box-shadow: var(--shadow-md), 0 0 10px rgba(122, 140, 119, 0.2);
 }
 
 .timer-number {
     font-family: var(--font-display);
     font-size: 2.8rem;
     font-weight: 700;
-    color: var(--color-gold-primary);
+    color: var(--color-wine-dark);
     display: block;
     line-height: 1.1;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
 .timer-label {
     font-family: var(--font-sans);
     font-size: 0.75rem;
-    font-weight: 500;
-    color: rgba(253, 251, 247, 0.6);
+    font-weight: 600;
+    color: var(--color-wine-dark);
+    opacity: 0.7;
     text-transform: uppercase;
     letter-spacing: 2px;
     display: block;
@@ -245,7 +247,7 @@
    3. ABOUT SECTION (Book Pages)
    ========================================================================== */
 .about-section {
-    background-color: var(--color-royal-dark);
+    background-color: var(--color-cream-bg);
     position: relative;
 }
 
@@ -262,13 +264,12 @@
 
 /* Ancient Book Layout */
 .book-container {
-    background: #faf6eb;
-    border: 1px solid #c8b99b;
-    border-radius: var(--border-radius-md);
-    box-shadow: 10px 10px 40px rgba(0,0,0,0.5), 0 0 20px rgba(170, 119, 28, 0.1) inset;
+    background-color: var(--color-cream-bg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 15px 35px rgba(122, 140, 119, 0.15), 0 0 10px rgba(212, 175, 55, 0.05) inset;
     padding: 2.5rem 3rem;
     position: relative;
-    color: #2b1f13;
+    color: var(--color-wine-dark);
 }
 
 .book-page {
@@ -326,7 +327,7 @@
 }
 
 .gallery-filter-btn {
-    background: rgba(15, 29, 54, 0.9) !important;
+    background: rgba(var(--color-leaf-green-rgb), 0.9) !important;
     border: 1.5px solid var(--color-gold-primary) !important;
     color: #ffffff !important;
     font-family: var(--font-sans) !important;
@@ -397,7 +398,7 @@
 .gallery-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to top, rgba(88, 24, 26, 0.85) 0%, rgba(10, 10, 10, 0.25) 100%);
+    background: linear-gradient(to top, rgba(var(--color-leaf-green-rgb), 0.85) 0%, rgba(5, 11, 7, 0.25) 100%);
     opacity: 0;
     display: flex;
     align-items: center;
@@ -461,7 +462,7 @@
     transition: color var(--transition-fast);
 }
 .lightbox-close:hover {
-    color: var(--color-rose-red);
+    color: var(--color-gold-primary);
 }
 
 .lightbox-nav {
@@ -505,7 +506,7 @@
    ========================================================================== */
 .video-section {
     background-color: var(--color-royal-blue);
-    background-image: linear-gradient(135deg, var(--color-royal-dark) 0%, rgba(15, 29, 54, 0.8) 100%);
+    background-image: linear-gradient(135deg, var(--color-royal-dark) 0%, rgba(var(--color-leaf-green-rgb), 0.4) 100%);
     border-top: 1px solid rgba(212, 175, 55, 0.15);
     border-bottom: 1px solid rgba(212, 175, 55, 0.15);
 }
@@ -531,15 +532,16 @@
    6. LOCATION & MAPS
    ========================================================================== */
 .location-section {
-    background-color: var(--color-royal-dark);
+    background-color: #f3ecf5;
+    background-image: radial-gradient(circle at center, rgba(163, 144, 176, 0.15) 0%, rgba(251, 246, 238, 0.98) 100%);
 }
 
 .location-invitation-card {
-    background: linear-gradient(135deg, rgba(88, 24, 26, 0.25) 0%, rgba(15, 29, 54, 0.35) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(122, 140, 119, 0.3);
     border-radius: var(--border-radius-lg);
     padding: 3rem;
-    box-shadow: var(--shadow-lg), 0 0 15px rgba(212, 175, 55, 0.03) inset;
+    box-shadow: 0 10px 30px rgba(122, 140, 119, 0.08);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -548,7 +550,8 @@
 
 .location-card-decor {
     font-size: 3rem;
-    opacity: 0.35;
+    opacity: 0.25;
+    color: var(--color-wine-primary);
     position: absolute;
     top: 20px; right: 30px;
 }
@@ -556,30 +559,31 @@
 .location-title {
     font-family: var(--font-display);
     font-size: 1.6rem;
-    color: var(--color-gold-primary);
+    color: var(--color-wine-dark);
     margin-bottom: var(--spacing-md);
 }
 
 .location-details p {
     font-size: 1.15rem;
     margin-bottom: var(--spacing-sm);
-    color: rgba(253, 251, 247, 0.95);
+    color: var(--color-wine-dark);
+    opacity: 0.9;
 }
 
 .location-details strong {
-    color: var(--color-gold-light);
+    color: var(--color-wine-primary);
 }
 
 .attire-card {
     margin-top: var(--spacing-md);
-    border-top: 1px solid rgba(212, 175, 55, 0.15);
+    border-top: 1px solid rgba(122, 140, 119, 0.25);
     padding-top: 1.5rem;
 }
 
 .attire-title {
     font-family: var(--font-display);
     font-size: 1.05rem;
-    color: var(--color-gold-primary);
+    color: var(--color-gold-dark);
     margin-bottom: var(--spacing-xs);
 }
 
@@ -587,9 +591,9 @@
     width: 100%;
     height: 100%;
     min-height: 380px;
-    border: 3px double var(--color-gold-primary);
+    border: 3px double var(--color-wine-primary);
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 30px rgba(122, 140, 119, 0.12);
     overflow: hidden;
 }
 

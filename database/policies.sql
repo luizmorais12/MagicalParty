@@ -1,4 +1,4 @@
--- 15 Anos Márcia Gorete — A Bela e a Fera
+-- 15 Anos Márcia Gorete — A Princesa e o Sapo
 -- Configuração de Row Level Security (RLS) e Políticas no Supabase
 
 -- Habilitar RLS em todas as tabelas

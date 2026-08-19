@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Cinematic Loading Screen and Split Gates Transitions Controller
 
 import { initMusicPlayer } from './music.js';
@@ -37,17 +37,17 @@ export function initLoadingScreen() {
     function triggerCinematicReveal() {
         const timeline = gsap.timeline();
 
-        // Step A: Bloom the rose inside the glass dome
-        timeline.to(".rose-petal-bloom", {
+        // Step A: Bloom the lotus inside the pond portal
+        timeline.to(".lotus-petal-bloom", {
             scale: 1.15,
             rotation: 0,
-            filter: "brightness(1.2) drop-shadow(0 0 15px #e31837)",
+            filter: "brightness(1.2) drop-shadow(0 0 15px #d672a9)",
             duration: 2.2,
             ease: "power2.out"
         });
 
-        // Step B: Fade out the glass dome and text
-        timeline.to([".glass-dome", ".dome-top-knob", ".dome-base", ".dome-glow", ".loading-text"], {
+        // Step B: Fade out the lotus pond portal and text
+        timeline.to([".lotus-pond-portal", ".dome-glow", ".loading-text"], {
             opacity: 0,
             duration: 0.8,
             stagger: 0.1,

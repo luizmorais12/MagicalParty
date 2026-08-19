@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // RSVP Form Validation, Database submissions & Success Animations
 
 import { dbService } from '../services/db.js';
@@ -7,8 +7,8 @@ export function initRSVPSystem() {
     const form = document.getElementById('rsvp-form');
     const countSelect = document.getElementById('rsvp-count');
     const guestsContainer = document.getElementById('rsvp-guests-container');
-    const rsvpOverlay = document.getElementById('rsvp-rose-overlay');
-    const closeOverlayBtn = document.getElementById('close-rose-overlay-btn');
+    const rsvpOverlay = document.getElementById('rsvp-lotus-overlay');
+    const closeOverlayBtn = document.getElementById('close-lotus-overlay-btn');
 
     if (!form) return;
 
@@ -128,7 +128,7 @@ function triggerRSVPConfetti() {
         particleCount: 80,
         spread: 60,
         origin: { x: 0.1, y: 0.65 },
-        colors: ['#e31837', '#d4af37', '#ffffff']
+        colors: ['#22c55e', '#d4af37', '#86198f']
     });
 
     // Burst 2 (right side)
@@ -136,7 +136,7 @@ function triggerRSVPConfetti() {
         particleCount: 80,
         spread: 60,
         origin: { x: 0.9, y: 0.65 },
-        colors: ['#e31837', '#d4af37', '#ffffff']
+        colors: ['#22c55e', '#d4af37', '#86198f']
     });
 
     // Central splash delayed
@@ -145,7 +145,7 @@ function triggerRSVPConfetti() {
             particleCount: 120,
             spread: 90,
             origin: { x: 0.5, y: 0.6 },
-            colors: ['#d4af37', '#e31837']
+            colors: ['#d4af37', '#22c55e']
         });
     }, 1500);
 }

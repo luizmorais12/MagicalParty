@@ -1,4 +1,4 @@
-/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* 15 Anos Márcia Gorete — A Princesa e o Sapo */
 /* Administrative Dashboard Styles */
 
 .admin-body {
@@ -12,7 +12,7 @@
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     background-color: var(--color-black-elegant);
-    background-image: radial-gradient(circle at center, rgba(88, 24, 26, 0.35) 0%, rgba(10, 10, 10, 0.98) 100%);
+    background-image: radial-gradient(circle at center, rgba(20, 92, 54, 0.45) 0%, rgba(5, 11, 7, 0.98) 100%);
     z-index: 100000;
     display: flex;
     align-items: center;
@@ -51,9 +51,9 @@
 }
 
 .admin-form-control {
-    background-color: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(212, 175, 55, 0.45) !important;
-    color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border: 1px solid rgba(122, 140, 119, 0.4) !important;
+    color: var(--color-wine-dark) !important;
     border-radius: var(--border-radius-pill) !important;
     padding: 10px 20px !important;
     font-family: var(--font-sans) !important;
@@ -62,12 +62,12 @@
 }
 
 .admin-form-control::placeholder {
-    color: rgba(255, 255, 255, 0.45) !important;
+    color: rgba(46, 59, 44, 0.5) !important;
 }
 
 .admin-form-control:focus {
-    border-color: var(--color-gold-primary) !important;
-    box-shadow: 0 0 10px var(--color-gold-glow) !important;
+    border-color: var(--color-wine-primary) !important;
+    box-shadow: 0 0 10px rgba(122, 140, 119, 0.2) !important;
     outline: none !important;
 }
 

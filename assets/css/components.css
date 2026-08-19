@@ -1,4 +1,4 @@
-/* 15 Anos Márcia Gorete — A Bela e a Fera */
+/* 15 Anos Márcia Gorete — A Princesa e o Sapo */
 /* Component-Specific Premium Styles */
 
 /* ==========================================================================
@@ -115,21 +115,21 @@
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: var(--color-royal-dark);
+    background: var(--color-wine-primary);
     border: 2px solid var(--color-gold-primary);
     transform: translateX(-50%);
     z-index: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-gold-primary);
-    box-shadow: var(--glow-gold);
+    color: var(--color-white-pure);
+    box-shadow: 0 0 10px rgba(122, 140, 119, 0.3);
     transition: transform var(--transition-fast), background-color var(--transition-fast);
 }
 
 .timeline-item:hover .timeline-icon {
     transform: translateX(-50%) scale(1.15);
-    background-color: var(--color-wine-primary);
+    background-color: var(--color-wine-dark);
     color: var(--color-gold-light);
 }
 
@@ -145,18 +145,18 @@
 
 .timeline-content {
     width: 42%;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(122, 140, 119, 0.3);
     border-radius: var(--border-radius-lg);
     padding: 1.5rem;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     transition: transform var(--transition-medium), border-color var(--transition-medium);
 }
 
 .timeline-item:hover .timeline-content {
-    border-color: var(--color-gold-primary);
+    border-color: var(--color-wine-primary);
     transform: translateY(-5px);
 }
 
@@ -169,7 +169,7 @@
 .timeline-time {
     font-family: var(--font-display);
     font-size: 1.15rem;
-    color: var(--color-gold-primary);
+    color: var(--color-gold-dark);
     display: block;
     margin-bottom: var(--spacing-xs);
     font-weight: 700;
@@ -178,7 +178,7 @@
 .timeline-title {
     font-family: var(--font-serif);
     font-size: 1.35rem;
-    color: var(--color-white-pure);
+    color: var(--color-wine-dark);
     margin-bottom: var(--spacing-xs);
 }
 
@@ -186,7 +186,7 @@
    3. GIFT CARDS
    ========================================================================== */
 .gift-card {
-    background-color: rgba(15, 29, 54, 0.6);
+    background-color: rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: var(--border-radius-lg);
@@ -235,7 +235,7 @@
 .gift-title {
     font-family: var(--font-serif);
     font-size: 1.25rem;
-    color: var(--color-gold-primary);
+    color: var(--color-wine-dark);
     margin-bottom: var(--spacing-xs);
     font-weight: 600;
 }
@@ -243,7 +243,7 @@
 .gift-desc {
     font-family: var(--font-sans);
     font-size: 0.85rem;
-    color: rgba(253, 251, 247, 0.75);
+    color: rgba(46, 59, 44, 0.75);
     margin-bottom: var(--spacing-md);
     line-height: 1.4;
 }
@@ -251,7 +251,7 @@
 .gift-price {
     font-family: var(--font-display);
     font-size: 1.1rem;
-    color: var(--color-gold-light);
+    color: var(--color-gold-dark);
     font-weight: 700;
     margin-bottom: var(--spacing-sm);
     display: block;
@@ -301,19 +301,19 @@
     flex: 1;
     min-width: 160px;
     max-width: 200px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(122, 140, 119, 0.3);
     border-radius: var(--border-radius-lg);
     padding: 2rem 1rem;
     text-align: center;
     cursor: pointer;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 5px 15px rgba(122, 140, 119, 0.05);
     transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
 }
 
 .pix-card i {
     font-size: 2.2rem;
-    color: var(--color-gold-primary);
+    color: var(--color-wine-primary);
     margin-bottom: var(--spacing-sm);
     transition: transform var(--transition-fast);
 }
@@ -322,7 +322,7 @@
     font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--color-white-pure);
+    color: var(--color-wine-dark);
     margin-bottom: var(--spacing-xs);
 }
 
@@ -330,14 +330,14 @@
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 0.95rem;
-    color: rgba(253, 251, 247, 0.6);
+    color: rgba(46, 59, 44, 0.75);
 }
 
 .pix-card:hover {
     transform: translateY(-5px);
-    border-color: var(--color-gold-primary);
-    background-color: rgba(212, 175, 55, 0.05);
-    box-shadow: var(--shadow-md), var(--glow-gold);
+    border-color: var(--color-wine-primary);
+    background-color: rgba(122, 140, 119, 0.1);
+    box-shadow: 0 10px 25px rgba(122, 140, 119, 0.15);
 }
 
 .pix-card:hover i {
@@ -348,19 +348,20 @@
    5. PIX MODAL CUSTOM
    ========================================================================== */
 .modal-content-custom {
-    background-color: var(--color-royal-dark) !important;
-    border: 2px solid var(--color-gold-primary) !important;
+    background-color: var(--color-cream-bg) !important;
+    border: 2px solid var(--color-wine-primary) !important;
     border-radius: var(--border-radius-lg) !important;
-    box-shadow: var(--shadow-lg), var(--glow-gold-intense);
+    box-shadow: 0 15px 35px rgba(122, 140, 119, 0.15) !important;
+    color: var(--color-wine-dark) !important;
 }
 
 .modal-header-custom {
-    border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+    border-bottom: 1px solid rgba(122, 140, 119, 0.2) !important;
     padding: 1.25rem 1.5rem !important;
 }
 
 .modal-footer-custom {
-    border-top: 1px solid rgba(212, 175, 55, 0.15) !important;
+    border-top: 1px solid rgba(122, 140, 119, 0.2) !important;
     padding: 1rem !important;
 }
 
@@ -368,7 +369,7 @@
     width: 200px;
     height: 200px;
     margin: 1.5rem auto;
-    border: 3px double var(--color-gold-primary);
+    border: 3px double var(--color-wine-primary);
     padding: 5px;
     background-color: white;
     border-radius: var(--border-radius-md);
@@ -379,8 +380,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgba(7, 14, 27, 0.7);
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    background-color: rgba(122, 140, 119, 0.1);
+    border: 1px solid rgba(122, 140, 119, 0.35);
     padding: 8px 15px;
     border-radius: var(--border-radius-pill);
     margin: 1.5rem 0 0.5rem;
@@ -390,7 +391,7 @@
     font-family: var(--font-sans);
     font-size: 0.85rem;
     font-weight: 600;
-    color: var(--color-gold-light);
+    color: var(--color-wine-dark);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -398,13 +399,13 @@
 }
 
 /* ==========================================================================
-   6. RSVP SUCCESS OVERLAY (Confetti and Blooming Rose)
+   6. RSVP SUCCESS OVERLAY (Confetti and Blooming Lotus)
    ========================================================================== */
 .rsvp-success-overlay {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
     background-color: var(--color-black-elegant);
-    background-image: radial-gradient(circle at center, rgba(88, 24, 26, 0.45) 0%, rgba(10, 10, 10, 0.98) 100%);
+    background-image: radial-gradient(circle at center, rgba(var(--color-leaf-green-rgb), 0.45) 0%, rgba(5, 11, 7, 0.98) 100%);
     z-index: 100000;
     display: none;
     flex-direction: column;
@@ -414,25 +415,25 @@
     text-align: center;
 }
 
-.rose-bloom-container {
+.lotus-bloom-container {
     width: 200px;
     height: 200px;
     margin-bottom: 2rem;
     animation: scale-up-bounce 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.rose-bloom-svg {
+.lotus-bloom-svg {
     width: 100%;
     height: 100%;
-    filter: drop-shadow(0 0 20px rgba(227, 24, 55, 0.7));
+    filter: drop-shadow(0 0 20px rgba(var(--color-lotus-rgb), 0.7));
 }
 
-.rose-bloom-path {
+.lotus-bloom-path {
     transform-origin: center bottom;
     animation: bloom-effect 4s forwards ease-out;
 }
 
-.rose-title {
+.lotus-title {
     font-family: var(--font-display);
     font-size: 2.2rem;
     color: var(--color-gold-primary);
@@ -440,7 +441,7 @@
     text-shadow: var(--glow-gold);
 }
 
-.rose-submessage {
+.lotus-submessage {
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 1.3rem;
@@ -467,34 +468,34 @@
 @keyframes bloom-effect {
     0% { transform: scale(0.3) rotate(-15deg); filter: brightness(0.4); }
     40% { transform: scale(0.8) rotate(10deg); filter: brightness(0.8); }
-    100% { transform: scale(1.15) rotate(0deg); filter: brightness(1.2) drop-shadow(0 0 15px var(--color-rose-red)); }
+    100% { transform: scale(1.15) rotate(0deg); filter: brightness(1.2) drop-shadow(0 0 15px var(--color-lotus-pink)); }
 }
 
 /* ==========================================================================
    7. GUESTBOOK MESSAGES CARDS (Dark Luxury Glassmorphism)
    ========================================================================== */
 .message-card {
-    background: rgba(15, 29, 54, 0.55);
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(122, 140, 119, 0.35);
     border-radius: var(--border-radius-lg);
     padding: 1.5rem;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 5px 15px rgba(122, 140, 119, 0.05);
     transition: transform var(--transition-fast), border-color var(--transition-fast);
 }
 
 .message-card:hover {
     transform: translateY(-3px);
-    border-color: rgba(212, 175, 55, 0.45);
-    box-shadow: var(--shadow-md), var(--glow-gold);
+    border-color: var(--color-wine-primary);
+    box-shadow: 0 10px 25px rgba(122, 140, 119, 0.15);
 }
 
 .message-text {
     font-family: var(--font-serif);
     font-style: italic;
     font-size: 1.05rem;
-    color: rgba(253, 251, 247, 0.9) !important;
+    color: var(--color-wine-dark) !important;
     line-height: 1.5;
     margin-bottom: var(--spacing-sm);
 }
@@ -502,7 +503,7 @@
 .message-author {
     font-family: var(--font-display);
     font-size: 0.85rem;
-    color: var(--color-gold-primary);
+    color: var(--color-gold-dark);
     font-weight: 600;
     letter-spacing: 1px;
 }
@@ -510,7 +511,7 @@
 .message-date {
     font-family: var(--font-sans);
     font-size: 0.7rem;
-    color: rgba(253, 251, 247, 0.45);
+    color: rgba(46, 59, 44, 0.6);
     margin-top: 3px;
 }
 
@@ -520,7 +521,7 @@
 .party-ribbon-container {
     max-width: 1050px;
     margin: 1.5rem auto 0;
-    background: rgba(15, 29, 54, 0.55);
+    background: rgba(var(--color-leaf-green-rgb), 0.45);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(212, 175, 55, 0.35);
@@ -545,7 +546,7 @@
 }
 
 .party-ribbon-badge {
-    background: linear-gradient(135deg, rgba(88, 24, 26, 0.85) 0%, rgba(15, 29, 54, 0.95) 100%);
+    background: linear-gradient(135deg, rgba(var(--color-leaf-green-rgb), 0.85) 0%, rgba(49, 20, 50, 0.95) 100%);
     border: 1px solid var(--color-gold-primary);
     color: var(--color-gold-light);
     font-family: var(--font-display);
@@ -605,4 +606,83 @@
     .party-ribbon-arrow {
         margin-top: 0;
     }
+}
+
+/* ==========================================================================
+   9. TIANA & JAZZ ENCHANTED DECORATIONS
+   ========================================================================== */
+.fireflies-container {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 3;
+}
+.firefly {
+    position: absolute;
+    width: 6px; height: 6px;
+    background-color: #ffd700;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #22c55e;
+    opacity: 0;
+    animation: float-firefly 12s infinite ease-in-out;
+}
+.firefly:nth-child(1) { left: 10%; top: 80%; animation-delay: 0s; animation-duration: 14s; }
+.firefly:nth-child(2) { left: 30%; top: 75%; animation-delay: 2s; animation-duration: 9s; background-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
+.firefly:nth-child(3) { left: 50%; top: 90%; animation-delay: 1.5s; animation-duration: 16s; }
+.firefly:nth-child(4) { left: 70%; top: 85%; animation-delay: 3s; animation-duration: 11s; background-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
+.firefly:nth-child(5) { left: 90%; top: 70%; animation-delay: 4.5s; animation-duration: 13s; }
+.firefly:nth-child(6) { left: 20%; top: 95%; animation-delay: 6s; animation-duration: 15s; }
+.firefly:nth-child(7) { left: 40%; top: 80%; animation-delay: 0.5s; animation-duration: 10s; }
+.firefly:nth-child(8) { left: 60%; top: 75%; animation-delay: 7s; animation-duration: 17s; background-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
+.firefly:nth-child(9) { left: 80%; top: 90%; animation-delay: 5s; animation-duration: 13s; }
+.firefly:nth-child(10) { left: 15%; top: 65%; animation-delay: 8s; animation-duration: 12s; }
+
+@keyframes float-firefly {
+    0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; }
+    30% { opacity: 0.8; }
+    70% { opacity: 0.8; }
+    100% { transform: translateY(-200px) scale(0.4) rotate(45deg); opacity: 0; }
+}
+
+.bg-jazz-decor-left {
+    position: absolute;
+    left: -40px;
+    bottom: 5%;
+    font-size: 15rem;
+    color: var(--color-wine-primary);
+    opacity: 0.04;
+    pointer-events: none;
+    transform: rotate(-15deg);
+    z-index: 1;
+}
+.bg-jazz-decor-right {
+    position: absolute;
+    right: -40px;
+    top: 5%;
+    font-size: 15rem;
+    color: var(--color-wine-primary);
+    opacity: 0.04;
+    pointer-events: none;
+    transform: rotate(15deg);
+    z-index: 1;
+}
+
+/* Art Deco framing for Sobre */
+.book-container {
+    padding: 10px;
+    border-radius: var(--border-radius-lg);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: var(--shadow-md);
+}
+.book-page {
+    border: 2px solid var(--color-gold-primary);
+    border-radius: 4px;
+    padding: 2.5rem !important;
+}
+.book-corner-decor {
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--color-gold-primary);
+    opacity: 0.85;
 }

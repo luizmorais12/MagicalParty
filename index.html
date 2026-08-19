@@ -6,15 +6,15 @@
     <title>Márcia Gorete — 15 Anos | Convite Real</title>
     
     <!-- Meta Tags SEO -->
-    <meta name="description" content="Você está convidado para o baile real de 15 anos de Márcia Gorete do Carmo Medeiros. Venha viver uma noite encantada de magia, luxo e romance.">
-    <meta name="keywords" content="15 anos, Marcia Gorete, Debutante, A Bela e a Fera, Baile Real, Convite Digital, 15 anos premium">
+    <meta name="description" content="Você está convidado para o baile de 15 anos de Márcia Gorete do Carmo Medeiros. Venha viver uma noite encantada de jazz, sonhos e a magia do bayou.">
+    <meta name="keywords" content="15 anos, Marcia Gorete, Debutante, A Princesa e o Sapo, Baile Real, Convite Digital, 15 anos premium">
     <meta name="author" content="Antigravity Premium Design">
     
     <!-- Open Graph (Compartilhamento) -->
     <meta property="og:title" content="Márcia Gorete — 15 Anos | Convite Real">
-    <meta property="og:description" content="Entre no castelo encantado e confirme sua presença no grande baile de 15 anos de Márcia Gorete.">
+    <meta property="og:description" content="Entre na magia do pântano sob as estrelas e confirme sua presença no grande baile de 15 anos de Márcia Gorete.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1549492423-400259a2e57f?q=80&w=1200&auto=format&fit=crop">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?q=80&w=1200&auto=format&fit=crop">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,15 +26,15 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- CSS Modules -->
-    <link rel="stylesheet" href="assets/css/variables.css">
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/loading.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/sections.css">
-    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/variables.css?v=tiana_v4">
+    <link rel="stylesheet" href="assets/css/base.css?v=tiana_v4">
+    <link rel="stylesheet" href="assets/css/loading.css?v=tiana_v4">
+    <link rel="stylesheet" href="assets/css/layout.css?v=tiana_v4">
+    <link rel="stylesheet" href="assets/css/sections.css?v=tiana_v4">
+    <link rel="stylesheet" href="assets/css/components.css?v=tiana_v4">
     
-    <!-- Favicon (Enchanted Rose SVG favicon) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌹</text></svg>">
+    <!-- Favicon (Lotus SVG favicon) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪷</text></svg>">
 </head>
 <body>
 
@@ -44,31 +44,35 @@
        B. LOADING SCREEN (Cinematic Intro)
        ========================================== -->
     <div class="loading-screen" id="loading-screen">
-        <div class="glass-dome-wrapper">
-            <div class="dome-top-knob"></div>
-            <div class="glass-dome">
+        <div class="lotus-pond-wrapper">
+            <div class="lotus-pond-portal">
                 <div class="dome-glow"></div>
-                <!-- Inline SVG Rose protected under the dome -->
-                <svg class="enchanted-rose-svg" viewBox="0 0 100 150">
+                <!-- Inline SVG Lotus blooming on a pond -->
+                <svg class="magical-lotus-svg" viewBox="0 0 100 100">
+                    <!-- Lily Pad -->
+                    <ellipse cx="50" cy="85" rx="38" ry="10" fill="#092a18" stroke="#145c36" stroke-width="1.5" />
+                    <!-- Water reflections/ripples -->
+                    <ellipse cx="50" cy="90" rx="45" ry="5" fill="none" stroke="#22c55e" opacity="0.25" stroke-width="1" />
                     <!-- Stem -->
-                    <path d="M50 70 Q50 110 52 140" fill="none" stroke="#2a4d2a" stroke-width="3" stroke-linecap="round"/>
-                    <!-- Leaves -->
-                    <path d="M51 100 Q40 95 36 90 Q42 102 51 108" fill="#2a4d2a"/>
-                    <path d="M52 115 Q65 110 70 105 Q62 118 52 122" fill="#2a4d2a"/>
-                    <!-- Rose Petals Group -->
-                    <g class="rose-petal-bloom">
-                        <!-- Main central bud -->
-                        <path d="M50 45 C40 45 42 70 50 72 C58 70 60 45 50 45 Z" fill="var(--color-rose-red)"/>
-                        <!-- Surrounding petals -->
-                        <path d="M45 48 C30 50 35 68 50 73 C42 62 40 54 45 48 Z" fill="var(--color-rose-dark)" opacity="0.95"/>
-                        <path d="M55 48 C70 50 65 68 50 73 C58 62 60 54 55 48 Z" fill="var(--color-rose-dark)" opacity="0.95"/>
-                        <path d="M48 44 C35 30 65 30 52 44 Z" fill="var(--color-rose-red)"/>
+                    <path d="M50 82 Q48 72 50 65" fill="none" stroke="#092a18" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- Lotus Flower petals group (this group gets scaled by GSAP loading animation) -->
+                    <g class="lotus-petal-bloom">
+                        <!-- Outer petals (Purple/Lotus Pink) -->
+                        <path d="M50 68 C32 68 30 42 50 32 C70 42 68 68 50 68 Z" fill="var(--color-lotus-pink)" />
+                        <path d="M50 68 C20 62 25 48 44 38 C40 52 45 64 50 68 Z" fill="var(--color-lotus-purple)" opacity="0.9" />
+                        <path d="M50 68 C80 62 75 48 56 38 C60 52 55 64 50 68 Z" fill="var(--color-lotus-purple)" opacity="0.9" />
+                        <!-- Inner petals (Gold/Cream) -->
+                        <path d="M50 68 C40 68 38 48 50 40 C62 48 60 68 50 68 Z" fill="var(--color-gold-primary)" />
+                        <!-- Tiny gold crown in the center of the lotus -->
+                        <path d="M44 52 L45 44 L48 46.5 L50 41.5 L52 46.5 L55 44 L56 52 Z" fill="var(--color-gold-light)" stroke="var(--color-gold-dark)" stroke-width="0.5"/>
+                        <circle cx="50" cy="41.5" r="1" fill="#ffffff" />
+                        <circle cx="45" cy="44" r="0.7" fill="#ffffff" />
+                        <circle cx="55" cy="44" r="0.7" fill="#ffffff" />
                     </g>
                 </svg>
             </div>
-            <div class="dome-base"></div>
         </div>
-        <div class="loading-text">Carregando o Castelo...</div>
+        <div class="loading-text">Preparando a Magia do Bayou...</div>
         
         <!-- Interactive loading progress bar -->
         <div class="progress mt-3" style="width: 200px; height: 3px; background: rgba(255,255,255,0.05); border-radius: var(--border-radius-sm);">
@@ -99,15 +103,15 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
             <a class="navbar-brand" href="#home">
-                <span>🏰 M&G</span>
+                <span>🪷 M&G</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarContent">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#home">🏰 Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">🌹 Sobre</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#home">🪷 Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">👑 Sobre</a></li>
                     <li class="nav-item"><a class="nav-link" href="#gallery">📸 Galeria</a></li>
                     <li class="nav-item"><a class="nav-link" href="#retrospective">🎥 Retrospectiva</a></li>
                     <li class="nav-item"><a class="nav-link" href="#gifts">🎁 Presentes</a></li>
@@ -131,6 +135,20 @@
             <div class="fog-layer fog-2"></div>
         </div>
 
+        <!-- Fireflies effect -->
+        <div class="fireflies-container">
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+        </div>
+
         <div class="hero-content container">
             <div class="mb-4">
                 <span class="hero-subtitle">Convidamos para o Baile Real de</span>
@@ -141,7 +159,7 @@
             <div class="gold-divider"></div>
             
             <div>
-                <p class="hero-phrase">"Uma noite encantada espera por você."</p>
+                <p class="hero-phrase">"Encontre sua estrela da noite e deixe a magia acontecer."</p>
                 <div class="hero-date">03 de Outubro de 2026</div>
             </div>
 
@@ -179,7 +197,7 @@
                     </div>
                 </div>
                 <div class="mt-3">
-                    <a id="add-to-calendar-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Baile+de+15+Anos+-+M%C3%A1rcia+Gorete&dates=20261003T230000Z/20261004T070000Z&details=Baile+de+15+Anos+de+M%C3%A1rcia+Gorete+do+Carmo+Medeiros.+Sal%C3%A3o+Imperial+Maison+D%27Or.&location=Sal%C3%A3o+Imperial+Maison+D%27Or,+Av.+dos+Nobres+Castelos,+1500,+S%C3%A3o+Paulo+-+SP" target="_blank" rel="noopener noreferrer" class="btn btn-outline-gold btn-sm rounded-pill px-4">
+                    <a id="add-to-calendar-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Baile+de+15+Anos+-+M%C3%A1rcia+Gorete&dates=20261003T230000Z/20261004T070000Z&details=Baile+de+15+Anos+de+M%C3%A1rcia+Gorete+do+Carmo+Medeiros.+Mans%C3%A3o+JK.&location=Mans%C3%A3o+JK,+Rua+Padre+Eust%C3%A1quio+660+-+Biritiba,+Po%C3%A1+-+SP,+08562-400" target="_blank" rel="noopener noreferrer" class="btn btn-outline-gold btn-sm rounded-pill px-4">
                         <i class="far fa-calendar-plus me-1"></i> Salvar Data no Meu Calendário
                     </a>
                 </div>
@@ -190,7 +208,10 @@
     <!-- ==========================================
        3. SOBRE A MÁRCIA & PROGRAMAÇÃO (Timeline)
        ========================================== -->
-    <section class="section-padding about-section" id="about">
+    <section class="section-padding about-section position-relative" id="about">
+        <!-- Background Jazz Watermarks -->
+        <div class="bg-jazz-decor-left"><i class="fas fa-guitar"></i></div>
+        <div class="bg-jazz-decor-right"><i class="fas fa-music"></i></div>
         <div class="container">
             <div class="section-title-container" data-aos="fade-up">
                 <span class="section-subtitle">A Debutante</span>
@@ -201,7 +222,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
                     <div class="book-img-wrapper text-center">
-                        <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?q=80&w=600&auto=format&fit=crop" class="img-fluid rounded border-gold" alt="Salão do Castelo" style="max-height: 380px; width: 100%; object-fit: cover;">
+                        <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop" class="img-fluid rounded border-gold" alt="Jardim Mágico" style="max-height: 380px; width: 100%; object-fit: cover;">
                     </div>
                 </div>
                 
@@ -214,8 +235,8 @@
                             <span class="book-corner-decor decor-br"></span>
                             
                             <h3>Capítulo I: O Sonho de Menina</h3>
-                            <p><span class="first-letter">E</span>ra uma vez uma menina repleta de sorrisos e sonhos radiantes. Desde muito cedo, Márcia Gorete espalhou alegria e encantamento por onde passou, cultivando uma história cheia de amor ao lado de sua família e amigos queridos.</p>
-                            <p>Ao completar seus 15 anos, ela se prepara para dar um passo mágico. Assim como na clássica história da rosa encantada e do castelo de sonhos, Márcia convida você a abrir este livro e fazer parte de um momento único, onde a fantasia ganha vida e a realidade se transforma em um verdadeiro conto de fadas.</p>
+                            <p><span class="first-letter">E</span>ra uma vez uma menina repleta de determinação e sonhos radiantes. Desde muito cedo, Márcia Gorete espalhou alegria e inspiração por onde passou, cultivando uma história cheia de esforço, música e amor ao lado de sua família e amigos queridos.</p>
+                            <p>Ao completar seus 15 anos, ela se prepara para dar um passo mágico. Guiada pela estrela da noite e pela certeza de que os sonhos se realizam com dedicação e fé, Márcia convida você a abrir este livro e fazer parte de um momento único, onde a fantasia ganha vida e a realidade se transforma em um verdadeiro conto sob as luzes do bayou.</p>
                             <p class="text-end font-serif font-italic" style="font-size: 1.1rem; color: var(--color-wine-dark);">— Márcia Gorete</p>
                         </div>
                     </div>
@@ -239,7 +260,7 @@
                         <div class="timeline-content">
                             <span class="timeline-time">2011</span>
                             <h4 class="timeline-title">O Nascimento da Princesa</h4>
-                            <p>Em 03 de Outubro de 2011, o castelo se encheu de luz e alegria com a chegada da pequena Márcia Gorete.</p>
+                            <p>Em 25 de Setembro de 2011, o pântano e as estrelas se encheram de luz e alegria com a chegada da pequena Márcia Gorete.</p>
                         </div>
                     </div>
 
@@ -265,11 +286,11 @@
 
                     <!-- Milestone 4 -->
                     <div class="timeline-item" data-aos="fade-up">
-                        <div class="timeline-icon"><i class="fas fa-crown"></i></div>
+                        <div class="timeline-icon"><i class="fas fa-star"></i></div>
                         <div class="timeline-content">
                             <span class="timeline-time">2026</span>
-                            <h4 class="timeline-title">O Baile Real de 15 Anos</h4>
-                            <p>O grande momento de celebrar a transformação em uma jovem radiante e selar um novo capítulo de vida.</p>
+                            <h4 class="timeline-title">A Celebração do Sonho</h4>
+                            <p>O grande momento de celebrar a transformação em uma jovem cheia de brilho e iniciar um novo capítulo sob as estrelas do bayou.</p>
                         </div>
                     </div>
                 </div>
@@ -287,50 +308,50 @@
                     <div class="party-ribbon-track">
                         <!-- Node 1 -->
                         <div class="party-ribbon-node">
-                            <span class="party-ribbon-badge"><i class="fas fa-door-open"></i> 20:00</span>
-                            <span class="party-ribbon-title">Recepção</span>
+                            <span class="party-ribbon-badge"><i class="fas fa-music"></i> 20:00</span>
+                            <span class="party-ribbon-title">Jazz Lounge</span>
                         </div>
                         <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
 
                         <!-- Node 2 -->
                         <div class="party-ribbon-node">
-                            <span class="party-ribbon-badge"><i class="fas fa-utensils"></i> 21:30</span>
-                            <span class="party-ribbon-title">Jantar</span>
+                            <span class="party-ribbon-badge"><i class="fas fa-cookie"></i> 21:30</span>
+                            <span class="party-ribbon-title">Beignets</span>
                         </div>
                         <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
 
                         <!-- Node 3 -->
                         <div class="party-ribbon-node">
                             <span class="party-ribbon-badge"><i class="fas fa-crown"></i> 23:00</span>
-                            <span class="party-ribbon-title">Entrada Real</span>
+                            <span class="party-ribbon-title">Visual Anos 20</span>
                         </div>
                         <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
 
                         <!-- Node 4 -->
                         <div class="party-ribbon-node">
-                            <span class="party-ribbon-badge"><i class="fas fa-gem"></i> 23:15</span>
-                            <span class="party-ribbon-title">A Valsa</span>
+                            <span class="party-ribbon-badge"><i class="fas fa-star"></i> 23:15</span>
+                            <span class="party-ribbon-title">Valsa Sálvia</span>
                         </div>
                         <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
 
                         <!-- Node 5 -->
                         <div class="party-ribbon-node">
-                            <span class="party-ribbon-badge"><i class="fas fa-heart"></i> 23:45</span>
-                            <span class="party-ribbon-title">Parabéns</span>
+                            <span class="party-ribbon-badge"><i class="fas fa-birthday-cake"></i> 23:45</span>
+                            <span class="party-ribbon-title">Doces de Lótus</span>
                         </div>
                         <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
 
                         <!-- Node 6 -->
                         <div class="party-ribbon-node">
-                            <span class="party-ribbon-badge"><i class="fas fa-music"></i> 00:00</span>
-                            <span class="party-ribbon-title">Pista DJ</span>
+                            <span class="party-ribbon-badge"><i class="fas fa-compact-disc"></i> 00:00</span>
+                            <span class="party-ribbon-title">Pista Jazz</span>
                         </div>
                         <div class="party-ribbon-arrow"><i class="fas fa-chevron-right"></i></div>
 
                         <!-- Node 7 -->
                         <div class="party-ribbon-node">
-                            <span class="party-ribbon-badge"><i class="fas fa-moon"></i> 04:00</span>
-                            <span class="party-ribbon-title">Encerramento</span>
+                            <span class="party-ribbon-badge"><i class="fas fa-gift"></i> 04:00</span>
+                            <span class="party-ribbon-title">Lembranças</span>
                         </div>
                     </div>
                 </div>
@@ -386,25 +407,25 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="upload-guest-photo-form">
-                    <div class="modal-body bg-castle-dark rounded-bottom p-4 text-light">
+                    <div class="modal-body rounded-bottom p-4 text-dark">
                         <div class="mb-3 text-start">
-                            <label for="upload-author-name" class="form-label font-serif" style="color: var(--color-gold-light);">Seu Nome / Família</label>
-                            <input type="text" class="form-control admin-form-control text-light" id="upload-author-name" placeholder="Ex: Prima Amanda" required style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                            <label for="upload-author-name" class="form-label font-serif">Seu Nome / Família</label>
+                            <input type="text" class="form-control admin-form-control" id="upload-author-name" placeholder="Ex: Prima Amanda" required style="border-radius: 12px !important;">
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="upload-photo-caption" class="form-label font-serif" style="color: var(--color-gold-light);">Legenda da Foto (Opcional)</label>
-                            <input type="text" class="form-control admin-form-control text-light" id="upload-photo-caption" placeholder="Ex: Momento inesquecível na pista!" style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                            <label for="upload-photo-caption" class="form-label font-serif">Legenda da Foto (Opcional)</label>
+                            <input type="text" class="form-control admin-form-control" id="upload-photo-caption" placeholder="Ex: Momento inesquecível na pista!" style="border-radius: 12px !important;">
                         </div>
                         <div class="mb-3 text-start">
-                            <label for="upload-photo-file" class="form-label font-serif" style="color: var(--color-gold-light);">Escolha a Foto do Seu Celular/Computador</label>
-                            <input type="file" class="form-control admin-form-control text-light" id="upload-photo-file" accept="image/*" required style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                            <label for="upload-photo-file" class="form-label font-serif">Escolha a Foto do Seu Celular/Computador</label>
+                            <input type="file" class="form-control admin-form-control" id="upload-photo-file" accept="image/*" required style="border-radius: 12px !important;">
                         </div>
                         <div id="photo-preview-container" class="text-center mt-2 d-none">
-                            <img id="upload-photo-preview" src="" alt="Prévia" style="max-height: 140px; border-radius: 8px; border: 1px solid var(--color-gold-primary);">
+                            <img id="upload-photo-preview" src="" alt="Prévia" style="max-height: 140px; border-radius: 8px; border: 1px solid var(--color-wine-primary);">
                         </div>
                     </div>
                     <div class="modal-footer modal-footer-custom justify-content-between">
-                        <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-outline-gold btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-cloud-upload-alt me-1"></i> Publicar no Álbum</button>
                     </div>
                 </form>
@@ -436,13 +457,13 @@
         </div>
     </section>
 
-    <section class="section-padding gifts-section bg-castle-dark text-light" id="gifts">
+    <section class="section-padding gifts-section bg-castle-dark text-dark" id="gifts">
         <div class="container">
             <div class="section-title-container" data-aos="fade-up">
                 <span class="section-subtitle">Sugestões de Presente</span>
                 <h2 class="section-title gold-text">Lista de Presentes</h2>
                 <div class="gold-divider"></div>
-                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-light" style="font-size: 1.2rem; font-weight: 500; color: rgba(253, 251, 247, 0.8) !important;">
+                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-dark" style="font-size: 1.2rem; font-weight: 500; color: var(--color-wine-dark) !important;">
                     Sua presença é o maior presente. Mas, caso deseje nos presentear, separamos algumas sugestões abaixo (físicas ou em forma de contribuição virtual Pix).
                 </p>
             </div>
@@ -495,9 +516,9 @@
                     <h5 class="modal-title gold-text" id="pixModalLabel"><i class="fas fa-qrcode"></i> Presentear com Pix</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center bg-castle-dark rounded-bottom p-4 text-light">
+                <div class="modal-body text-center rounded-bottom p-4 text-dark">
                     <h4 class="gold-text fw-bold" id="modal-pix-title">Cota Mágica</h4>
-                    <p class="small" style="color: rgba(253, 251, 247, 0.7);">Escaneie o QR Code abaixo no app do seu banco ou copie a chave Pix.</p>
+                    <p class="small" style="color: var(--color-wine-dark); opacity: 0.75;">Escaneie o QR Code abaixo no app do seu banco ou copie a chave Pix.</p>
                     
                     <!-- QR Code container -->
                     <div class="pix-qrcode">
@@ -506,8 +527,8 @@
                     
                     <div class="pix-key-container">
                         <span class="pix-key-val" id="pix-key-text">marcia15anos@pix.com.br</span>
-                        <button class="btn btn-outline-light btn-sm" id="copy-pix-btn" aria-label="Copiar chave Pix">
-                            <i class="far fa-copy" style="color: var(--color-gold-light);"></i>
+                        <button class="btn btn-outline-gold btn-sm" id="copy-pix-btn" aria-label="Copiar chave Pix">
+                            <i class="far fa-copy"></i>
                         </button>
                     </div>
                     <p class="text-success small mt-2 fw-semibold d-none" id="copy-toast">Chave Copiada com Sucesso! ✨</p>
@@ -529,21 +550,21 @@
                 </div>
                 <form id="reserve-gift-form">
                     <input type="hidden" id="modal-reserve-gift-id">
-                    <div class="modal-body text-center bg-castle-dark rounded-bottom p-4 text-light">
+                    <div class="modal-body text-center rounded-bottom p-4 text-dark">
                         <div class="mb-3">
-                            <img id="modal-reserve-gift-img" src="" alt="Presente" style="max-height: 140px; width: auto; object-fit: cover; border-radius: 12px; border: 2px solid var(--color-gold-primary); box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
+                            <img id="modal-reserve-gift-img" src="" alt="Presente" style="max-height: 140px; width: auto; object-fit: cover; border-radius: 12px; border: 2px solid var(--color-wine-primary); box-shadow: 0 4px 15px rgba(122, 140, 119, 0.25);">
                         </div>
                         <h4 class="gold-text fw-bold mb-1" id="modal-reserve-gift-title">Nome do Presente</h4>
                         <div class="badge bg-warning text-dark mb-3 font-serif" id="modal-reserve-gift-price" style="font-size: 0.95rem; font-weight: 700;">R$ 0,00</div>
                         
                         <div class="text-start mt-2">
-                            <label for="modal-reserve-donor-name" class="form-label font-serif" style="color: var(--color-gold-light);">Seu Nome Completo para a Lista de Reservas</label>
-                            <input type="text" class="form-control admin-form-control text-light" id="modal-reserve-donor-name" placeholder="Ex: Madrinha Sandra" required style="border-radius: 12px !important; background: rgba(255, 255, 255, 0.06);">
+                            <label for="modal-reserve-donor-name" class="form-label font-serif">Seu Nome Completo para a Lista de Reservas</label>
+                            <input type="text" class="form-control admin-form-control" id="modal-reserve-donor-name" placeholder="Ex: Madrinha Sandra" required style="border-radius: 12px !important;">
                         </div>
                     </div>
                     <div class="modal-footer modal-footer-custom justify-content-between">
-                        <button type="button" class="btn btn-outline-light btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-crown"></i> Confirmar Reserva Real</button>
+                        <button type="button" class="btn btn-outline-gold btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-check-circle"></i> Confirmar Reserva</button>
                     </div>
                 </form>
             </div>
@@ -555,15 +576,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modal-content-custom text-center">
                 <div class="modal-header modal-header-custom justify-content-center">
-                    <h5 class="modal-title gold-text"><i class="fas fa-crown"></i> Reserva Real Selada</h5>
+                    <h5 class="modal-title gold-text"><i class="fas fa-check-circle"></i> Reserva Confirmada</h5>
                 </div>
-                <div class="modal-body bg-castle-dark rounded-bottom p-4 text-light">
+                <div class="modal-body rounded-bottom p-4 text-dark">
                     <div class="mb-3">
                         <i class="fas fa-gift fa-3x gold-text"></i>
                     </div>
                     <h4 class="gold-text fw-bold mb-2" id="thank-you-donor-name">Obrigado!</h4>
-                    <p class="font-serif text-light mb-0" style="font-size: 1.1rem; line-height: 1.5;" id="thank-you-gift-msg">
-                        Sua reserva foi salva com sucesso no livro de presentes da princesa Márcia Gorete.
+                    <p class="font-serif text-dark mb-0" style="font-size: 1.1rem; line-height: 1.5;" id="thank-you-gift-msg">
+                        Sua reserva foi salva com sucesso no livro de presentes de Márcia Gorete.
                     </p>
                 </div>
                 <div class="modal-footer modal-footer-custom justify-content-center">
@@ -578,15 +599,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modal-content-custom text-center">
                 <div class="modal-header modal-header-custom justify-content-center">
-                    <h5 class="modal-title gold-text"><i class="fas fa-scroll"></i> Carta Enviada ao Castelo</h5>
+                    <h5 class="modal-title gold-text"><i class="fas fa-envelope-open-text"></i> Mensagem Enviada</h5>
                 </div>
-                <div class="modal-body bg-castle-dark rounded-bottom p-4 text-light">
+                <div class="modal-body rounded-bottom p-4 text-dark">
                     <div class="mb-3">
                         <i class="fas fa-envelope-open-text fa-3x gold-text"></i>
                     </div>
                     <h4 class="gold-text fw-bold mb-2">Mensagem Entregue! ✨</h4>
-                    <p class="font-serif text-light mb-0" style="font-size: 1.05rem; line-height: 1.5;">
-                        Sua carinhosa mensagem foi entregue com sucesso e aparecerá no mural real assim que for aprovada pela corte.
+                    <p class="font-serif text-dark mb-0" style="font-size: 1.05rem; line-height: 1.5;">
+                        Sua carinhosa mensagem foi entregue com sucesso e aparecerá no mural assim que for moderada.
                     </p>
                 </div>
                 <div class="modal-footer modal-footer-custom justify-content-center">
@@ -600,6 +621,20 @@
        7. LOCALIZAÇÃO E ATRAÇÕES
        ========================================== -->
     <section class="section-padding location-section" id="location">
+        <!-- Fireflies effect -->
+        <div class="fireflies-container">
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+        </div>
+
         <div class="container">
             <div class="section-title-container" data-aos="fade-up">
                 <span class="section-subtitle">Onde a Magia Acontece</span>
@@ -611,18 +646,18 @@
                 <!-- Location details -->
                 <div class="col-lg-6" data-aos="fade-right">
                     <div class="location-invitation-card h-100">
-                        <div class="location-card-decor">🏰</div>
-                        <h3 class="location-title">Salão Imperial Maison D'Or</h3>
+                        <div class="location-card-decor">🎷</div>
+                        <h3 class="location-title">Mansão JK</h3>
                         
-                        <div class="location-details font-serif text-light">
-                            <p><strong>Endereço:</strong> Av. dos Nobres Castelos, 1500 - Jardim das Rosas, São Paulo - SP</p>
+                        <div class="location-details font-serif text-dark">
+                            <p><strong>Endereço:</strong> Rua Padre Eustáquio 660 - Biritiba, Poá - SP, 08562-400</p>
                             <p><strong>Horário:</strong> Início pontual às 20h00</p>
                             <p><strong>Estacionamento:</strong> Serviço de valet gratuito no local</p>
                         </div>
                         
                         <div class="attire-card">
                             <h4 class="attire-title">👔 Traje Recomendado</h4>
-                            <p class="mb-0 text-light font-serif" style="font-size: 1rem;">
+                            <p class="mb-0 text-dark font-serif" style="font-size: 1rem;">
                                 <strong>Gala / Esporte Fino:</strong> Venha preparado para um verdadeiro baile real. Solicitamos evitar vestimentas inteiramente nas cores Branco e Amarelo Creme (exclusivas da debutante).
                             </p>
                         </div>
@@ -642,13 +677,26 @@
     <!-- ==========================================
        8. RSVP (Confirmação de Presença)
        ========================================== -->
-    <section class="section-padding rsvp-section bg-castle-dark" id="rsvp">
+    <section class="section-padding rsvp-section text-dark position-relative" id="rsvp">
+        <!-- Fireflies effect -->
+        <div class="fireflies-container">
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+        </div>
         <div class="container">
             <div class="section-title-container" data-aos="fade-up">
                 <span class="section-subtitle">Presença Real</span>
                 <h2 class="section-title gold-text">Confirmação de Presença</h2>
                 <div class="gold-divider"></div>
-                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-light" style="font-size: 1.2rem; font-weight: 500;">
+                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-dark" style="font-size: 1.2rem; font-weight: 500; color: var(--color-wine-dark) !important;">
                     Por favor, confirme sua presença até o dia <strong>15 de Setembro de 2026</strong> para que possamos preparar seu lugar no banquete real.
                 </p>
             </div>
@@ -660,22 +708,22 @@
                             <div class="row g-3">
                                 <!-- Nome -->
                                 <div class="col-md-6">
-                                    <label for="rsvp-name" class="form-label font-serif" style="color: var(--color-gold-light);">Nome Completo</label>
+                                    <label for="rsvp-name" class="form-label font-serif">Nome Completo</label>
                                     <input type="text" class="form-control admin-form-control" id="rsvp-name" placeholder="Digite seu nome completo" required>
                                 </div>
                                 <!-- Telefone -->
                                 <div class="col-md-6">
-                                    <label for="rsvp-phone" class="form-label font-serif" style="color: var(--color-gold-light);">Telefone Celular</label>
+                                    <label for="rsvp-phone" class="form-label font-serif">Telefone Celular</label>
                                     <input type="tel" class="form-control admin-form-control" id="rsvp-phone" placeholder="(11) 99999-9999" required>
                                 </div>
                                 <!-- Email -->
                                 <div class="col-md-6">
-                                    <label for="rsvp-email" class="form-label font-serif" style="color: var(--color-gold-light);">E-mail</label>
+                                    <label for="rsvp-email" class="form-label font-serif">E-mail</label>
                                     <input type="email" class="form-control admin-form-control" id="rsvp-email" placeholder="nome@provedor.com" required>
                                 </div>
                                 <!-- Qtd Convidados -->
                                 <div class="col-md-6">
-                                    <label for="rsvp-count" class="form-label font-serif" style="color: var(--color-gold-light);">Ingressos / Convidados</label>
+                                    <label for="rsvp-count" class="form-label font-serif">Ingressos / Convidados</label>
                                     <select class="form-select admin-form-control" id="rsvp-count" required style="background-image: none;">
                                         <option value="1">Apenas Eu (1)</option>
                                         <option value="2">Eu + 1 Acompanhante (2)</option>
@@ -686,26 +734,26 @@
                                 </div>
                                 <!-- Acompanhantes names -->
                                 <div class="col-12 d-none" id="rsvp-guests-container">
-                                    <label for="rsvp-guests" class="form-label font-serif" style="color: var(--color-gold-light);">Nomes dos Acompanhantes</label>
+                                    <label for="rsvp-guests" class="form-label font-serif">Nomes dos Acompanhantes</label>
                                     <textarea class="form-control admin-form-control" id="rsvp-guests" rows="2" placeholder="Digite o nome completo dos acompanhantes separados por vírgula" style="border-radius: 12px !important;"></textarea>
                                 </div>
                                 <!-- Tipagem Adulto/Crianca -->
                                 <div class="col-md-6">
-                                    <label for="rsvp-adults" class="form-label font-serif" style="color: var(--color-gold-light);">Adultos (Total)</label>
+                                    <label for="rsvp-adults" class="form-label font-serif">Adultos (Total)</label>
                                     <input type="number" class="form-control admin-form-control" id="rsvp-adults" min="1" max="5" value="1" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="rsvp-kids" class="form-label font-serif" style="color: var(--color-gold-light);">Crianças (Menores de 10 anos)</label>
+                                    <label for="rsvp-kids" class="form-label font-serif">Crianças (Menores de 10 anos)</label>
                                     <input type="number" class="form-control admin-form-control" id="rsvp-kids" min="0" max="4" value="0" required>
                                 </div>
                                 <!-- Mensagem -->
                                 <div class="col-12">
-                                    <label for="rsvp-message" class="form-label font-serif" style="color: var(--color-gold-light);">Mensagem para a Debutante</label>
+                                    <label for="rsvp-message" class="form-label font-serif">Mensagem para a Debutante</label>
                                     <textarea class="form-control admin-form-control" id="rsvp-message" rows="3" placeholder="Escreva uma mensagem especial para a Márcia..." style="border-radius: 12px !important;"></textarea>
                                 </div>
                                 <!-- Observacoes -->
                                 <div class="col-12">
-                                    <label for="rsvp-obs" class="form-label font-serif" style="color: var(--color-gold-light);">Restrições Alimentares ou Observações</label>
+                                    <label for="rsvp-obs" class="form-label font-serif">Restrições Alimentares ou Observações</label>
                                     <input type="text" class="form-control admin-form-control" id="rsvp-obs" placeholder="Ex: Alérgico a glúten, vegetariano, etc.">
                                 </div>
                                 <!-- Botao Confirmar -->
@@ -717,8 +765,8 @@
                     </div>
 
                     <!-- RSVP Dashboard panel -->
-                    <div class="glass-panel mt-5 text-center" data-aos="fade-up" style="border-color: rgba(212, 175, 55, 0.35); background: rgba(15, 29, 54, 0.75);">
-                        <h4 class="gold-text mb-3" style="font-family: var(--font-display);">Painel Real de Presenças</h4>
+                    <div class="glass-panel mt-5 text-center" data-aos="fade-up" style="border-color: rgba(212, 175, 55, 0.35); background: rgba(20, 92, 54, 0.55);">
+                        <h4 class="gold-text mb-3" style="font-family: var(--font-display);">Painel do Bayou de Presenças</h4>
                         <div class="row g-3">
                             <div class="col-4">
                                 <div class="counter-num" id="total-confirmed" style="color: #ffd700 !important; font-weight: 800; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);">0</div>
@@ -740,37 +788,55 @@
     </section>
 
     <!-- Success RSVP overlay screen -->
-    <div class="rsvp-success-overlay" id="rsvp-rose-overlay">
-        <div class="rose-bloom-container">
-            <svg class="rose-bloom-svg" viewBox="0 0 100 100">
-                <!-- Outer petals blooming layout -->
-                <path class="rose-bloom-path" d="M 50 15 C 30 15 35 55 50 85 C 65 55 70 15 50 15 Z" fill="var(--color-rose-red)"/>
-                <path class="rose-bloom-path" d="M 50 25 C 20 30 30 65 50 85 C 70 65 80 30 50 25 Z" fill="var(--color-rose-dark)" opacity="0.9"/>
-                <path class="rose-bloom-path" d="M 50 35 C 38 40 40 68 50 82 C 60 68 62 40 50 35 Z" fill="var(--color-rose-red)"/>
-                <!-- Gold center details -->
-                <circle cx="50" cy="50" r="4" fill="var(--color-gold-primary)"/>
+    <div class="rsvp-success-overlay" id="rsvp-lotus-overlay">
+        <div class="lotus-bloom-container">
+            <svg class="lotus-bloom-svg" viewBox="0 0 100 100">
+                <!-- Outer petals blooming layout (lotus shape) -->
+                <path class="lotus-bloom-path" d="M 50 85 C 10 85 20 25 50 15 C 80 25 90 85 50 85 Z" fill="var(--color-lotus-pink)"/>
+                <path class="lotus-bloom-path" d="M 50 85 C 25 80 30 40 50 25 C 70 40 75 80 50 85 Z" fill="var(--color-lotus-purple)" opacity="0.9"/>
+                <path class="lotus-bloom-path" d="M 50 85 C 35 75 38 50 50 38 C 62 50 65 75 50 85 Z" fill="var(--color-gold-primary)"/>
+                <!-- Tiny crown in center -->
+                <path class="lotus-bloom-path" d="M42 62 L44 52 L48 55 L50 49 L52 55 L56 52 L58 62 Z" fill="var(--color-gold-light)" stroke="var(--color-gold-dark)" stroke-width="0.5"/>
             </svg>
         </div>
-        <h3 class="rose-title gold-text">Presença Confirmada!</h3>
-        <p class="rose-submessage">Seu nome foi selado na lista de convidados do baile real.</p>
+        <h3 class="lotus-title gold-text">Presença Confirmada!</h3>
+        <p class="lotus-submessage">Seu nome foi selado sob as estrelas do bayou!</p>
         <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center mt-3">
             <a id="rsvp-whatsapp-share-btn" href="#" target="_blank" class="btn btn-success rounded-pill px-4 fw-bold">
                 <i class="fab fa-whatsapp me-1"></i> Notificar no WhatsApp
             </a>
-            <button class="btn btn-gold rose-close-btn" id="close-rose-overlay-btn">Voltar ao Convite</button>
+            <button class="btn btn-gold lotus-close-btn" id="close-lotus-overlay-btn">Voltar ao Convite</button>
         </div>
     </div>
 
     <!-- ==========================================
        9. MENSAGENS / MURAL DE CARINHO
        ========================================== -->
-    <section class="section-padding messages-section bg-castle-dark text-light" id="messages">
+    <section class="section-padding messages-section bg-castle-dark text-dark position-relative" id="messages">
+        <!-- Background Jazz Watermarks -->
+        <div class="bg-jazz-decor-left"><i class="fas fa-drum"></i></div>
+        <div class="bg-jazz-decor-right"><i class="fas fa-music"></i></div>
+
+        <!-- Fireflies effect -->
+        <div class="fireflies-container">
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+            <div class="firefly"></div>
+        </div>
+
         <div class="container">
             <div class="section-title-container" data-aos="fade-up">
                 <span class="section-subtitle">Mural de Carinho</span>
                 <h2 class="section-title gold-text">Livro de Mensagens</h2>
                 <div class="gold-divider"></div>
-                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-light" style="font-size: 1.2rem; font-weight: 500; color: rgba(253, 251, 247, 0.8) !important;">
+                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-dark" style="font-size: 1.2rem; font-weight: 500; color: var(--color-wine-dark) !important;">
                     Deixe suas palavras de afeto, felicitações e conselhos para que Márcia guarde para sempre em seu coração.
                 </p>
             </div>
@@ -782,15 +848,15 @@
                         <h4 class="gold-text mb-3 text-center" style="font-family: var(--font-display); font-size: 1.1rem;">Escrever Mensagem</h4>
                         <form id="message-form">
                             <div class="mb-3">
-                                <label for="msg-author" class="form-label font-serif" style="color: var(--color-gold-light);">Seu Nome / Família</label>
+                                <label for="msg-author" class="form-label font-serif">Seu Nome / Família</label>
                                 <input type="text" class="form-control admin-form-control" id="msg-author" placeholder="Ex: Tio João e Família" required>
                             </div>
                             <div class="mb-3">
-                                <label for="msg-text" class="form-label font-serif" style="color: var(--color-gold-light);">Mensagem</label>
+                                <label for="msg-text" class="form-label font-serif">Mensagem</label>
                                 <textarea class="form-control admin-form-control" id="msg-text" rows="4" placeholder="Escreva aqui seus votos de felicidade..." required style="border-radius: 12px !important;"></textarea>
                             </div>
                             <button type="submit" class="btn btn-gold btn-sm w-100"><i class="fas fa-paper-plane"></i> Enviar ao Livro</button>
-                            <p class="small text-center mt-2 mb-0 font-serif font-italic" style="color: rgba(253, 251, 247, 0.55);">Nota: A mensagem será exibida após moderação.</p>
+                            <p class="small text-center mt-2 mb-0 font-serif font-italic" style="color: rgba(46, 59, 44, 0.65);">Nota: A mensagem será exibida após moderação.</p>
                         </form>
                     </div>
                 </div>

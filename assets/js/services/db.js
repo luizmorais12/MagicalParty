@@ -1,37 +1,40 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Database Service Layer (Supabase with LocalStorage Transparent Fallback)
 
 import { getSupabaseClient } from '../config/supabase.js';
 
 // Default Seed Data for local storage fallback and initial state
 const MOCK_GIFTS = [
-    { id: 'gift-1', name: 'Fragrância Imperial', description: 'Perfume sofisticado e marcante para a debutante.', price: 350.00, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-2', name: 'Brincos Dourados', description: 'Um detalhe banhado a ouro para complementar o visual mágico do grande baile.', price: 280.00, image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400&auto=format&fit=crop', is_available: false, reserved_by: 'Madrinha Sandra', reserved_at: '2026-07-19T10:00:00Z' },
+    { id: 'gift-1', name: 'Fragrância Imperial', description: 'Perfume sofisticado com notas de jasmim e lírio d\'água para a debutante.', price: 350.00, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
+    { id: 'gift-2', name: 'Brincos Dourados', description: 'Um detalhe banhado a ouro para complementar o visual do grande baile.', price: 280.00, image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400&auto=format&fit=crop', is_available: false, reserved_by: 'Madrinha Sandra', reserved_at: '2026-07-19T10:00:00Z' },
     { id: 'gift-3', name: 'Bolsa Tiracolo', description: 'Bolsa clutch elegante para ocasiões festivas e saídas inesquecíveis.', price: 180.00, image_url: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-4', name: 'Sapato de Cristal', description: 'Salto moderno e confortável para dançar a valsa e aproveitar a festa ao máximo.', price: 320.00, image_url: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
+    { id: 'gift-4', name: 'Tiara de Lótus', description: 'Um adereço reluzente em formato de vitória-régia para coroar a noite.', price: 320.00, image_url: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
     { id: 'gift-5', name: 'Kit de Beleza', description: 'Paleta de cores elegantes e maquiagens finas para realçar seu brilho natural.', price: 150.00, image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-6', name: 'Biblioteca Clássica', description: 'Coleção de livros encadernados de romance e aventuras imperiais.', price: 200.00, image_url: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
+    { id: 'gift-6', name: 'Livro de Receitas da Tiana', description: 'Livro clássico com as melhores receitas cajun e creole de New Orleans.', price: 200.00, image_url: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
     { id: 'gift-7', name: 'Câmera Instantânea', description: 'Para fotografar na hora os melhores momentos e guardar no mural físico.', price: 450.00, image_url: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
     { id: 'gift-8', name: 'Experiência Dia de SPA', description: 'Um dia inteiro de massagens e tratamentos relaxantes antes do grande baile.', price: 500.00, image_url: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null }
 ];
 
 const MOCK_TIMELINE = [
-    { id: 't-1', time: '20:00', title: 'Recepção Real', description: 'Abertura dos portões do castelo para acolhimento dos convidados com música suave instrumental.', icon: 'fas fa-door-open', order_index: 1 },
-    { id: 't-2', time: '21:30', title: 'Jantar Imperial', description: 'Banquete especialmente preparado com os melhores sabores para celebrar esta data especial.', icon: 'fas fa-utensils', order_index: 2 },
-    { id: 't-3', time: '23:00', title: 'Entrada da Debutante', description: 'O momento mais esperado da noite: a apresentação de Márcia em seu belo vestido de gala.', icon: 'fas fa-crown', order_index: 3 },
-    { id: 't-4', time: '23:15', title: 'A Grande Valsa', description: 'Márcia dança a valsa tradicional no centro do salão com seu pai e príncipes, abrindo a pista.', icon: 'fas fa-gem', order_index: 4 },
-    { id: 't-5', time: '23:45', title: 'Homenagens e Parabéns', description: 'Momento de emoção com retrospectiva, discursos e o tradicional parabéns ao redor do bolo real.', icon: 'fas fa-heart', order_index: 5 },
-    { id: 't-6', time: '00:00', title: 'Abertura da Pista', description: 'Muita música, dança e alegria. A comemoração continua pela madrugada com coquetéis mágicos.', icon: 'fas fa-music', order_index: 6 },
-    { id: 't-7', time: '04:00', title: 'Encerramento do Conto', description: 'Agradecimento final e despedida dos convidados com lembranças especiais do castelo.', icon: 'fas fa-moon', order_index: 7 }
+    { id: 't-1', time: '20:00', title: 'Entrada Jazz Lounge', description: 'Recepção instrumental com jazz clássico de New Orleans dos anos 1920, luzes suaves e LEDs simulando vaga-lumes.', icon: 'fas fa-music', order_index: 1 },
+    { id: 't-2', time: '21:30', title: 'Banquete & Estação de Beignets', description: 'Jantar com culinária típica cajun e creole, além dos famosos Beignets da Tiana servidos com calda de chocolate quente.', icon: 'fas fa-utensils', order_index: 2 },
+    { id: 't-3', time: '23:00', title: 'Visual da Debutante (Jazz Era)', description: 'Entrada oficial de recepção de Márcia vestindo seu elegante look lilás e dourado no autêntico estilo anos 20.', icon: 'fas fa-crown', order_index: 3 },
+    { id: 't-4', time: '23:15', title: 'Valsa da Estrela (Verde-Sálvia)', description: 'Márcia dança a valsa principal com o clássico vestido rodado verde-sálvia sob a luz dos vaga-lumes.', icon: 'fas fa-star', order_index: 4 },
+    { id: 't-5', time: '23:45', title: 'Mesa de Doces Iluminada', description: 'Homenagens e parabéns ao redor da mesa repleta de folhagens, luzes suspensas e nenúfares lilases e brancas.', icon: 'fas fa-heart', order_index: 5 },
+    { id: 't-6', time: '00:00', title: 'Abertura da Pista de Jazz & Ritmos', description: 'Muita dança e comemoração pela madrugada com coquetéis mágicos e ritmos contagiantes.', icon: 'fas fa-compact-disc', order_index: 6 },
+    { id: 't-7', time: '04:00', title: 'Encerramento e Lembranças', description: 'Agradecimento especial e entrega de mimos de Nova Orleans para selar esta noite inesquecível.', icon: 'fas fa-moon', order_index: 7 }
 ];
+
+const SEED_VERSION = "v4_tiana_new_venue";
 
 const MOCK_SETTINGS = {
     name: "Márcia Gorete do Carmo Medeiros",
     date: "2026-10-03T20:00:00",
-    location: "Salão Imperial Maison D'Or - Av. dos Nobres Castelos, 1500 - Jardim das Rosas, São Paulo - SP",
-    phrase: "Uma noite encantada espera por você no baile real.",
+    location: "Mansão JK - Rua Padre Eustáquio 660 - Biritiba, Poá - SP, 08562-400",
+    phrase: "Encontre sua estrela da noite e deixe a magia acontecer.",
     pix_key: "marcia15anos@pix.com.br",
-    theme: "classic-gold"
+    theme: "princess-and-the-frog",
+    seed_version: SEED_VERSION
 };
 
 const MOCK_GUESTS = [
@@ -41,7 +44,7 @@ const MOCK_GUESTS = [
 
 const MOCK_MESSAGES = [
     { id: 'm-1', author: 'Madrinha Sandra', text: 'Parabéns Márcia! Que seu dia seja tão lindo e brilhante quanto você. Que Deus abençoe seus passos.', approved: true, created_at: '2026-07-19T10:00:00Z' },
-    { id: 'm-2', author: 'Família Medeiros', text: 'Estamos muito felizes em poder compartilhar dessa data mágica com você. Um super beijo e nos vemos no castelo!', approved: true, created_at: '2026-07-19T10:05:00Z' },
+    { id: 'm-2', author: 'Família Medeiros', text: 'Estamos muito felizes em poder compartilhar dessa data mágica com você. Um super beijo e nos vemos na festa!', approved: true, created_at: '2026-07-19T10:05:00Z' },
     { id: 'm-3', author: 'Ana Clara (Escola)', text: 'Migaaa, você vai estar uma verdadeira princesa! Mal posso esperar para dançar muito na pista com você!', approved: false, created_at: '2026-07-19T10:10:00Z' }
 ];
 
@@ -49,13 +52,29 @@ const MOCK_GALLERY = [
     { id: 'gal-1', url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop', caption: 'Um ensaio sob a luz suave do entardecer', category: 'Ensaio', order_index: 1 },
     { id: 'gal-2', url: 'https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=600&auto=format&fit=crop', caption: 'Momentos de pura felicidade e sonhos', category: 'Ensaio', order_index: 2 },
     { id: 'gal-3', url: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600&auto=format&fit=crop', caption: 'A elegância de um dia inesquecível', category: 'Debutante', order_index: 3 },
-    { id: 'gal-4', url: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=600&auto=format&fit=crop', caption: 'A rosa encantada reflete sua beleza e brilho', category: 'Debutante', order_index: 4 },
+    { id: 'gal-4', url: 'https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?q=80&w=600&auto=format&fit=crop', caption: 'A flor de lótus reflete sua beleza e brilho', category: 'Debutante', order_index: 4 },
     { id: 'gal-5', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop', caption: 'Caminhos dourados de contos de fadas', category: 'Ensaio', order_index: 5 },
     { id: 'gal-6', url: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=600&auto=format&fit=crop', caption: 'À espera de uma noite espetacular', category: 'Debutante', order_index: 6 }
 ];
 
-// Helper to initialize local data if not present
+// Helper to initialize local data if not present or stale theme/seed
 function initializeLocalDB() {
+    let settings = null;
+    try {
+        settings = JSON.parse(localStorage.getItem('mb_settings'));
+    } catch(e) {}
+
+    // Force re-initialization if theme is not princess-and-the-frog or if the seed version is outdated
+    if (!settings || settings.theme !== 'princess-and-the-frog' || settings.seed_version !== SEED_VERSION) {
+        localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
+        localStorage.setItem('mb_gifts', JSON.stringify(MOCK_GIFTS));
+        localStorage.setItem('mb_timeline', JSON.stringify(MOCK_TIMELINE));
+        localStorage.setItem('mb_guests', JSON.stringify(MOCK_GUESTS));
+        localStorage.setItem('mb_messages', JSON.stringify(MOCK_MESSAGES));
+        localStorage.setItem('mb_gallery', JSON.stringify(MOCK_GALLERY));
+        return;
+    }
+
     if (!localStorage.getItem('mb_settings')) {
         localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
     }

@@ -1,4 +1,4 @@
-// 15 Anos Márcia Gorete — A Bela e a Fera
+// 15 Anos Márcia Gorete — A Princesa e o Sapo
 // Real-time Countdown and Dynamic Theme Adapters
 
 import { dbService } from '../services/db.js';
@@ -56,10 +56,10 @@ export async function initCountdown() {
 function applyDynamicThemeLevels(daysLeft) {
     const bodyClass = document.body.classList;
 
-    // Faltam 30 dias: Acender mais velas
+    // Faltam 30 dias: Mais vaga-lumes acesos
     if (daysLeft <= 30 && !bodyClass.contains('theme-candles-active')) {
         bodyClass.add('theme-candles-active');
-        console.log("Countdown Magic: Velas extras acesas no castelo.");
+        console.log("Countdown Magic: Vaga-lumes extras acesos no bayou.");
     }
 
     // Faltam 15 dias: Mais partículas
@@ -71,10 +71,10 @@ function applyDynamicThemeLevels(daysLeft) {
         }
     }
 
-    // Faltam 7 dias: Rosas florescendo
-    if (daysLeft <= 7 && !bodyClass.contains('theme-roses-bloomed')) {
-        bodyClass.add('theme-roses-bloomed');
-        console.log("Countdown Magic: Rosas desabrochando pelas passagens.");
+    // Faltam 7 dias: Flores de lótus desabrochando
+    if (daysLeft <= 7 && !bodyClass.contains('theme-lotus-bloomed')) {
+        bodyClass.add('theme-lotus-bloomed');
+        console.log("Countdown Magic: Flores de lótus desabrochando pelas passagens.");
     }
 
     // Faltam 3 dias: Luzes mais intensas
