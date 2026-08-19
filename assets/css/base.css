@@ -1,7 +1,7 @@
 /* 15 Anos Márcia Gorete — A Princesa e o Sapo */
 /* Base Styles & Resets */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Satisfy&display=swap');
 
 * {
     box-sizing: border-box;
@@ -204,6 +204,11 @@ a:hover {
     font-weight: 600 !important;
     font-size: 0.95rem !important;
     text-shadow: none !important;
+}
+
+/* Separation lines helper */
+.border-white-10 {
+    border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 

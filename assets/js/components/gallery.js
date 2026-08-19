@@ -63,12 +63,12 @@ function renderGalleryItems(grid) {
     
     galleryData.forEach(item => {
         const itemHtml = `
-            <div class="gallery-item" data-category="${item.category}" data-caption="${item.caption}">
-                <div style="overflow: hidden; width: 100%;">
+            <div class="gallery-item polaroid" data-category="${item.category}" data-caption="${item.caption}">
+                <div class="polaroid-photo-wrapper">
                     <img src="${item.url}" alt="${item.caption}" loading="lazy">
                 </div>
-                <div class="gallery-card-body" style="padding: 12px 15px; background: rgba(10, 10, 15, 0.95); border-top: 1px solid rgba(212, 175, 55, 0.35);">
-                    <p class="gallery-card-text" style="color: #ffd700; font-family: var(--font-serif); font-style: italic; font-weight: 700; font-size: 0.95rem; margin-bottom: 0; text-align: center; text-shadow: 0 1px 2px rgba(0,0,0,0.9);">${escapeHtml(item.caption)}</p>
+                <div class="polaroid-caption">
+                    ${escapeHtml(item.caption)}
                 </div>
                 <div class="gallery-overlay">
                     <span class="gallery-overlay-text"><i class="fas fa-search-plus"></i> Ampliar</span>

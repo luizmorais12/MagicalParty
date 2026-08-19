@@ -387,6 +387,30 @@
                 </p>
             </div>
 
+            <!-- Gifts Search and Category Filters -->
+            <div class="gifts-filters-container mb-4" data-aos="fade-up">
+                <div class="row g-3 justify-content-between align-items-center">
+                    <!-- Search Input -->
+                    <div class="col-md-5 col-lg-4">
+                        <div class="input-group search-gifts-group">
+                            <span class="input-group-text bg-white border-secondary text-muted" style="border-radius: 20px 0 0 20px !important;"><i class="fas fa-search"></i></span>
+                            <input type="text" class="form-control border-secondary text-dark bg-white" id="search-gifts-input" placeholder="Buscar presente por nome..." style="border-radius: 0 20px 20px 0 !important; font-size: 0.95rem;">
+                        </div>
+                    </div>
+                    
+                    <!-- Categories Tabs -->
+                    <div class="col-md-7 col-lg-7 text-md-end">
+                        <div class="d-inline-flex gap-2 flex-wrap" id="gifts-category-filters">
+                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3 active" data-category="Todos">Todos</button>
+                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Beleza">Beleza</button>
+                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Acessórios">Acessórios</button>
+                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Experiências">Experiências</button>
+                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Geral">Uso Geral</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Gifts Cards Grid -->
             <div class="row g-4" id="gift-list-grid">
                 <!-- Loaded dynamically -->
@@ -695,20 +719,20 @@
                     </div>
 
                     <!-- RSVP Dashboard panel -->
-                    <div class="glass-panel mt-5 text-center" data-aos="fade-up" style="border-color: rgba(212, 175, 55, 0.35); background: rgba(20, 92, 54, 0.55);">
-                        <h4 class="gold-text mb-3" style="font-family: var(--font-display);">Painel do Bayou de Presenças</h4>
+                    <div class="glass-panel mt-5 text-center" data-aos="fade-up" style="border-color: rgba(212, 175, 55, 0.2); background: rgba(29, 53, 31, 0.65); backdrop-filter: blur(10px); border-radius: var(--border-radius-lg); padding: 1.75rem;">
+                        <h4 class="gold-text mb-4" style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; letter-spacing: 0.5px;"><i class="fas fa-chart-line me-2"></i> Confirmados Até o Momento</h4>
                         <div class="row g-3">
-                            <div class="col-4">
-                                <div class="counter-num" id="total-confirmed" style="color: #ffd700 !important; font-weight: 800; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);">0</div>
-                                <div class="small text-uppercase mt-1" style="color: #ffffff !important; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">Total Geral</div>
+                            <div class="col-4 border-end border-white-10">
+                                <div class="counter-num" id="total-confirmed" style="color: #dfd5be !important; font-weight: 800; font-size: 2.4rem; text-shadow: 0 0 8px rgba(223, 213, 190, 0.25);">0</div>
+                                <div class="small text-uppercase mt-1" style="color: rgba(255, 255, 255, 0.85) !important; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.5px;"><i class="fas fa-users me-1 text-gold-light"></i> Total</div>
+                            </div>
+                            <div class="col-4 border-end border-white-10">
+                                <div class="counter-num" id="adults-confirmed" style="color: #ffffff !important; font-weight: 800; font-size: 2.4rem; text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);">0</div>
+                                <div class="small text-uppercase mt-1" style="color: rgba(255, 255, 255, 0.85) !important; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.5px;"><i class="fas fa-user-friends me-1 text-white-50"></i> Adultos</div>
                             </div>
                             <div class="col-4">
-                                <div class="counter-num" id="adults-confirmed" style="color: #ffffff !important; font-weight: 800; font-size: 2.2rem;">0</div>
-                                <div class="small text-uppercase mt-1" style="color: #ffffff !important; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">Adultos</div>
-                            </div>
-                            <div class="col-4">
-                                <div class="counter-num" id="kids-confirmed" style="color: #ff8fa3 !important; font-weight: 800; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255, 143, 163, 0.3);">0</div>
-                                <div class="small text-uppercase mt-1" style="color: #ffffff !important; font-weight: 700; font-size: 0.8rem; letter-spacing: 1px;">Crianças</div>
+                                <div class="counter-num" id="kids-confirmed" style="color: #e8c4ec !important; font-weight: 800; font-size: 2.4rem; text-shadow: 0 0 8px rgba(232, 196, 236, 0.25);">0</div>
+                                <div class="small text-uppercase mt-1" style="color: rgba(255, 255, 255, 0.85) !important; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.5px;"><i class="fas fa-child me-1" style="color: #e8c4ec;"></i> Crianças</div>
                             </div>
                         </div>
                     </div>

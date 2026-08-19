@@ -381,6 +381,44 @@
     transition: transform var(--transition-medium), box-shadow var(--transition-medium);
 }
 
+/* Polaroid Premium layout rules */
+.gallery-item.polaroid {
+    background-color: #ffffff !important;
+    padding: 8px 8px 18px 8px !important;
+    border-radius: 4px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.gallery-item.polaroid:hover {
+    transform: rotate(1deg) translateY(-5px) !important;
+    box-shadow: 0 8px 24px rgba(29, 53, 31, 0.18) !important;
+}
+
+.polaroid-photo-wrapper {
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.polaroid-photo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.polaroid-caption {
+    font-family: 'Satisfy', cursive !important;
+    font-size: 1.28rem !important;
+    color: var(--color-wine-dark) !important;
+    margin-top: 12px !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+    padding: 0 4px !important;
+}
+
 .gallery-item:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-lg), 0 0 15px rgba(212, 175, 55, 0.3);

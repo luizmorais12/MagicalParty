@@ -175,34 +175,51 @@
     line-height: 1.1;
 }
 
-/* 4. Table view inside admin */
 .admin-table {
     color: var(--color-wine-dark) !important;
     margin-bottom: 0 !important;
-    border-collapse: separate;
-    border-spacing: 0 6px;
+    border-collapse: separate !important;
+    border-spacing: 0 8px !important;
 }
 
 .admin-table th {
     font-family: var(--font-sans);
-    font-weight: 700;
+    font-weight: 600;
     font-size: 0.82rem;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: var(--color-wine-dark) !important;
-    background-color: var(--color-wine-light) !important;
-    border-bottom: 2px solid var(--color-gold-primary) !important;
-    padding: 14px 16px !important;
+    letter-spacing: 1px;
+    color: #ffffff !important;
+    background-color: var(--color-wine-dark) !important;
+    border: none !important;
+    padding: 10px 14px !important;
+}
+
+.admin-table th:first-child {
+    border-radius: 8px 0 0 8px !important;
+}
+.admin-table th:last-child {
+    border-radius: 0 8px 8px 0 !important;
 }
 
 .admin-table td {
-    background-color: rgba(255, 255, 255, 0.7) !important;
-    border-top: 1px solid rgba(var(--color-leaf-green-rgb), 0.1) !important;
-    border-bottom: 1px solid rgba(var(--color-leaf-green-rgb), 0.1) !important;
-    padding: 14px 16px !important;
-    font-size: 0.92rem;
+    background-color: #ffffff !important;
+    border-top: 1px solid rgba(0,0,0,0.03) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.03) !important;
+    padding: 10px 14px !important;
+    font-size: 0.88rem;
     color: var(--color-wine-dark) !important;
     vertical-align: middle;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.admin-table td:first-child {
+    border-left: 1px solid rgba(0,0,0,0.03) !important;
+    border-radius: 8px 0 0 8px !important;
+}
+.admin-table td:last-child {
+    border-right: 1px solid rgba(0,0,0,0.03) !important;
+    border-radius: 0 8px 8px 0 !important;
 }
 
 .admin-table td strong {
@@ -210,7 +227,7 @@
 }
 
 .admin-table tr:hover td {
-    background-color: rgba(var(--color-leaf-green-rgb), 0.12) !important;
+    background-color: rgba(20, 92, 54, 0.05) !important;
 }
 
 .text-light-muted {

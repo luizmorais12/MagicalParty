@@ -3,6 +3,9 @@
 
 import { dbService } from '../services/db.js';
 
+let currentCategory = 'Todos';
+let searchQuery = '';
+
 export async function initGiftsSystem() {
     const giftListGrid = document.getElementById('gift-list-grid');
     const pixGrid = document.querySelector('.virtual-pix-grid');
@@ -14,6 +17,30 @@ export async function initGiftsSystem() {
 
         // 2. Set up event listener for gift reservation click
         giftListGrid.addEventListener('click', handleGiftReservation);
+
+        // 3. Set up search input listener
+        const searchInput = document.getElementById('search-gifts-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', async (e) => {
+                searchQuery = e.target.value.trim();
+                await renderGifts(giftListGrid);
+            });
+        }
+
+        // 4. Set up category filter listeners
+        const categoryFilters = document.getElementById('gifts-category-filters');
+        if (categoryFilters) {
+            categoryFilters.addEventListener('click', async (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+
+                categoryFilters.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                currentCategory = btn.getAttribute('data-category') || 'Todos';
+                await renderGifts(giftListGrid);
+            });
+        }
     }
 
     if (reserveForm) {
@@ -31,7 +58,32 @@ async function renderGifts(container) {
     const gifts = await dbService.getGifts();
     container.innerHTML = '';
 
-    gifts.forEach(gift => {
+    // Filter gifts dynamically based on category and search query
+    const filtered = gifts.filter(gift => {
+        const matchesCategory = currentCategory === 'Todos' || 
+            (gift.category && gift.category.toLowerCase() === currentCategory.toLowerCase()) ||
+            (gift.name && gift.name.toLowerCase().includes(currentCategory.toLowerCase())) ||
+            (gift.description && gift.description.toLowerCase().includes(currentCategory.toLowerCase()));
+            
+        const matchesSearch = !searchQuery || 
+            (gift.name && gift.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+            (gift.description && gift.description.toLowerCase().includes(searchQuery.toLowerCase()));
+
+        return matchesCategory && matchesSearch;
+    });
+
+    if (filtered.length === 0) {
+        container.innerHTML = `
+            <div class="col-12 text-center text-muted py-4">
+                <p class="font-serif" style="font-size: 1.1rem; font-style: italic; color: var(--color-wine-dark);">
+                    Nenhum presente localizado com estes filtros. 🎁
+                </p>
+            </div>
+        `;
+        return;
+    }
+
+    filtered.forEach(gift => {
         const isReserved = !gift.is_available;
         const priceFormatted = Number(gift.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         

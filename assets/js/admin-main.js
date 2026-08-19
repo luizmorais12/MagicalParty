@@ -252,6 +252,24 @@ async function renderGuestsList(filterQuery = '') {
     const guests = await dbService.getGuests();
     tbody.innerHTML = '';
 
+    // Calculate dynamic tab stats (from all confirmed guests, unfiltered)
+    let tabTotalCount = 0;
+    let tabAdultsCount = 0;
+    let tabKidsCount = 0;
+    
+    guests.forEach(g => {
+        tabTotalCount += parseInt(g.guests_count || 0);
+        tabAdultsCount += parseInt(g.adults_count || 0);
+        tabKidsCount += parseInt(g.kids_count || 0);
+    });
+    
+    const tabTotalEl = document.getElementById('guest-tab-stat-total');
+    const tabAdultsEl = document.getElementById('guest-tab-stat-adults');
+    const tabKidsEl = document.getElementById('guest-tab-stat-kids');
+    if (tabTotalEl) tabTotalEl.textContent = tabTotalCount;
+    if (tabAdultsEl) tabAdultsEl.textContent = tabAdultsCount;
+    if (tabKidsEl) tabKidsEl.textContent = tabKidsCount;
+
     const query = filterQuery.toLowerCase().trim();
     const filtered = guests.filter(g => {
         return g.name.toLowerCase().includes(query) || 
@@ -263,11 +281,21 @@ async function renderGuestsList(filterQuery = '') {
     if (filtered.length === 0) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="8" class="text-center text-light-muted py-4">Nenhum convidado confirmado com os critérios de busca.</td>
+                <td colspan="6" class="text-center text-light-muted py-4">Nenhum convidado confirmado com os critérios de busca.</td>
             </tr>
         `;
         return;
     }
+
+    const getInitials = (name) => {
+        if (!name) return 'C';
+        return name
+            .split(' ')
+            .map(n => n[0])
+            .slice(0, 2)
+            .join('')
+            .toUpperCase();
+    };
 
     filtered.forEach(g => {
         const dateFormatted = new Date(g.created_at).toLocaleDateString('pt-BR', {
@@ -278,20 +306,31 @@ async function renderGuestsList(filterQuery = '') {
         window.openEditGuestModal = openEditGuestModal;
         window.deleteGuest = deleteGuest;
 
+        const avatarBg = g.guests_count > 1 ? 'var(--color-wine-primary)' : 'var(--color-royal-medium)';
+
         const row = `
             <tr>
-                <td><strong>${escapeHtml(g.name)}</strong></td>
                 <td>
-                    <div style="font-size: 0.85rem;"><i class="fas fa-phone me-1 text-muted"></i> ${escapeHtml(g.phone)}</div>
-                    <div style="font-size: 0.85rem;"><i class="far fa-envelope me-1 text-muted"></i> ${escapeHtml(g.email)}</div>
-                    <div class="small text-muted mt-1" style="font-size: 0.75rem;"><i class="far fa-calendar-alt me-1"></i> Confirmado em: ${dateFormatted}</div>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="guest-avatar d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 36px; height: 36px; border-radius: 50%; background-color: ${avatarBg}; color: #ffffff; font-size: 0.85rem; flex-shrink: 0; font-family: var(--font-sans);">
+                            ${getInitials(g.name)}
+                        </div>
+                        <div class="text-start">
+                            <strong class="text-dark d-block" style="font-size: 0.88rem; line-height: 1.2;">${escapeHtml(g.name)}</strong>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div style="font-size: 0.82rem; line-height: 1.3;"><i class="fas fa-phone me-1 text-muted" style="font-size: 0.75rem;"></i> ${escapeHtml(g.phone)}</div>
+                    <div style="font-size: 0.82rem; line-height: 1.3;"><i class="far fa-envelope me-1 text-muted" style="font-size: 0.75rem;"></i> ${escapeHtml(g.email)}</div>
+                    <div class="small text-muted mt-1" style="font-size: 0.72rem; line-height: 1.2;"><i class="far fa-calendar-alt me-1"></i> Confirmado em: ${dateFormatted}</div>
                 </td>
                 <td class="text-center">
-                    <span class="badge bg-secondary px-2">${g.guests_count} total</span>
-                    <div class="small text-muted mt-1" style="font-size: 0.75rem;">${g.adults_count} Ad. / ${g.kids_count} Cr.</div>
+                    <span class="badge bg-secondary px-2" style="font-size: 0.78rem;">${g.guests_count} total</span>
+                    <div class="small text-muted mt-1" style="font-size: 0.72rem;">${g.adults_count} Ad. / ${g.kids_count} Cr.</div>
                 </td>
-                <td style="max-width: 150px; white-space: normal; word-wrap: break-word;"><span class="small text-muted">${g.guest_names ? escapeHtml(g.guest_names) : '—'}</span></td>
-                <td style="max-width: 120px; white-space: normal; word-wrap: break-word;"><span class="small text-muted">${g.obs ? escapeHtml(g.obs) : '—'}</span></td>
+                <td style="max-width: 150px; white-space: normal; word-wrap: break-word; font-size: 0.8rem; line-height: 1.3;"><span class="text-muted">${g.guest_names ? escapeHtml(g.guest_names) : '—'}</span></td>
+                <td style="max-width: 120px; white-space: normal; word-wrap: break-word; font-size: 0.8rem; line-height: 1.3;"><span class="text-muted">${g.obs ? escapeHtml(g.obs) : '—'}</span></td>
                 <td class="text-center">
                     <div class="d-flex gap-2 justify-content-center">
                         <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="openEditGuestModal('${g.id}')" title="Editar"><i class="fas fa-edit"></i></button>
@@ -668,49 +707,118 @@ async function exportToPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Title & Header
+    // 1. Calculate general stats
+    let totalPessoas = 0;
+    let totalAdultos = 0;
+    let totalCriancas = 0;
+    guests.forEach(g => {
+        totalPessoas += parseInt(g.guests_count || 0);
+        totalAdultos += parseInt(g.adults_count || 0);
+        totalCriancas += parseInt(g.kids_count || 0);
+    });
+
+    // 2. Draw Premium Header Band
+    // Forest Green strip
+    doc.setFillColor(20, 92, 54);
+    doc.rect(0, 0, 210, 30, 'F');
+    // Gold separator line
+    doc.setFillColor(212, 175, 55);
+    doc.rect(0, 30, 210, 2, 'F');
+
+    // Header Titles
     doc.setFont("helvetica", "bold");
-    doc.setFontSize(16);
-    doc.setTextColor(212, 175, 55);
-    doc.text("Márcia Gorete — 15 Anos | Lista de Convidados", 14, 18);
+    doc.setFontSize(14);
+    doc.setTextColor(255, 255, 255);
+    doc.text("15 ANOS MÁRCIA GORETE - CONTROLE DE PORTARIA E BUFFET", 14, 18);
 
-    doc.setFontSize(10);
+    doc.setFontSize(9.5);
     doc.setFont("helvetica", "normal");
-    doc.setTextColor(100, 100, 100);
-    doc.text(`Relatório gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 25);
+    doc.setTextColor(220, 220, 220);
+    doc.text(`Mansão JK - Relatório Oficial de Presenças  |  Gerado em: ${new Date().toLocaleString('pt-BR')}`, 14, 25);
 
-    // Table Data
-    const headers = [["Nome", "Telefone", "Total", "Adultos", "Crianças", "Acompanhantes"]];
+    // Table Columns & Data
+    const headers = [["Nome Principal", "Contato", "Qtd", "Adultos / Crianças", "Acompanhantes", "Observações Alimentares"]];
     const data = guests.map(g => [
         g.name || '—',
-        g.phone || '—',
+        `${g.phone || ''}\n${g.email || ''}`,
         g.guests_count || 1,
-        g.adults_count || 1,
-        g.kids_count || 0,
-        g.guest_names || 'Nenhum'
+        `${g.adults_count || 1} Ad. / ${g.kids_count || 0} Cr.`,
+        g.guest_names || 'Nenhum',
+        g.obs || 'Nenhuma'
     ]);
 
     doc.autoTable({
         head: headers,
         body: data,
-        startY: 30,
+        startY: 42,
         theme: 'grid',
         headStyles: {
             fillColor: [20, 92, 54],
             textColor: [212, 175, 55],
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            fontSize: 9
         },
         alternateRowStyles: {
-            fillColor: [245, 245, 245]
+            fillColor: [248, 250, 248]
         },
         styles: {
-            fontSize: 9,
-            cellPadding: 3
+            fontSize: 8,
+            cellPadding: 3,
+            valign: 'middle',
+            overflow: 'linebreak'
+        },
+        columnStyles: {
+            0: { cellWidth: 35 },
+            1: { cellWidth: 40 },
+            2: { cellWidth: 12, halign: 'center' },
+            3: { cellWidth: 30, halign: 'center' },
+            4: { cellWidth: 40 },
+            5: { cellWidth: 33 }
         }
     });
 
+    // 3. Draw Summary & Signature boxes on the last page
+    let currentY = doc.previousAutoTable.finalY + 15;
+    if (currentY > 230) {
+        doc.addPage();
+        currentY = 25;
+    }
+
+    // Metrics summary panel
+    doc.setFillColor(245, 247, 245);
+    doc.setDrawColor(212, 175, 55);
+    doc.setLineWidth(0.5);
+    doc.rect(14, currentY, 182, 22, 'FD');
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9.5);
+    doc.setTextColor(20, 92, 54);
+    doc.text("RESUMO DE MÉTRIAS DO BUFFET", 20, currentY + 7);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.setTextColor(50, 50, 50);
+    doc.text(`Total Confirmado: ${totalPessoas} convidados   |   Adultos: ${totalAdultos}   |   Crianças (<10 anos): ${totalCriancas}`, 20, currentY + 15);
+    
+    // Signatures blocks
+    currentY += 40;
+    doc.setDrawColor(180, 180, 180);
+    doc.setLineWidth(0.5);
+    
+    // Left signature (Mansão JK Reception)
+    doc.line(20, currentY, 95, currentY);
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120);
+    doc.text("Responsável Mansão JK (Portaria/Buffet)", 20, currentY + 5);
+    doc.text("Nome, Assinatura e Carimbo", 20, currentY + 9);
+    
+    // Right signature (Debutante Family/Organizer)
+    doc.line(115, currentY, 190, currentY);
+    doc.text("Responsável pela Debutante (Família/Cerimonial)", 115, currentY + 5);
+    doc.text("Nome e Assinatura", 115, currentY + 9);
+
     // Direct PDF File Download
-    doc.save("Lista_de_Convidados_Marcia_Gorete.pdf");
+    doc.save("Lista_de_Convidados_Marcia_Gorete_Buffet.pdf");
 }
 
 async function generateDataRows() {

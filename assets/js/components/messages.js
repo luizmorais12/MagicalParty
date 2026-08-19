@@ -63,10 +63,12 @@ async function renderApprovedMessages(container) {
 
         const cardHtml = `
             <div class="col-md-6 message-card-wrapper" data-aos="fade-up">
-                <div class="message-card">
+                <div class="message-card position-relative">
                     <p class="message-text">"${escapeHtml(msg.text)}"</p>
                     <div class="message-author">${escapeHtml(msg.author)}</div>
                     <div class="message-date">${dateFormatted}</div>
+                    <!-- Vintage Wax Seal -->
+                    <div class="wax-seal" title="Mensagem Selada">🪷</div>
                 </div>
             </div>
         `;
