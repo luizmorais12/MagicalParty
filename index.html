@@ -114,7 +114,6 @@
                     <li class="nav-item"><a class="nav-link" href="#about">👑 Sobre</a></li>
                     <li class="nav-item"><a class="nav-link" href="#gallery">📸 Galeria</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="#gifts">🎁 Presentes</a></li>
                     <li class="nav-item"><a class="nav-link" href="#location">📍 Local</a></li>
                     <li class="nav-item"><a class="nav-link" href="#rsvp">✅ Confirmação</a></li>
                     <li class="nav-item"><a class="nav-link" href="#messages">💌 Mensagens</a></li>
@@ -165,7 +164,6 @@
 
             <div class="hero-btns mt-3">
                 <a href="#rsvp" class="btn-gold"><i class="fas fa-check-circle"></i> Confirmar Presença</a>
-                <a href="#gifts" class="btn-gold"><i class="fas fa-gift"></i> Lista de Presentes</a>
                 <a href="#location" class="btn-gold"><i class="fas fa-map-marker-alt"></i> Local da Festa</a>
             </div>
         </div>
@@ -375,178 +373,6 @@
     </div>
 
 
-
-    <section class="section-padding gifts-section bg-castle-dark text-dark" id="gifts">
-        <div class="container">
-            <div class="section-title-container" data-aos="fade-up">
-                <span class="section-subtitle">Sugestões de Presente</span>
-                <h2 class="section-title gold-text">Lista de Presentes</h2>
-                <div class="gold-divider"></div>
-                <p class="text-center mt-3 max-width-600 mx-auto font-serif text-dark" style="font-size: 1.2rem; font-weight: 500; color: var(--color-wine-dark) !important;">
-                    Sua presença é o maior presente. Mas, caso deseje nos presentear, separamos algumas sugestões abaixo (físicas ou em forma de contribuição virtual Pix).
-                </p>
-            </div>
-
-            <!-- Gifts Search and Category Filters -->
-            <div class="gifts-filters-container mb-4" data-aos="fade-up">
-                <div class="row g-3 justify-content-between align-items-center">
-                    <!-- Search Input -->
-                    <div class="col-md-5 col-lg-4">
-                        <div class="input-group search-gifts-group">
-                            <span class="input-group-text bg-white border-secondary text-muted" style="border-radius: 20px 0 0 20px !important;"><i class="fas fa-search"></i></span>
-                            <input type="text" class="form-control border-secondary text-dark bg-white" id="search-gifts-input" placeholder="Buscar presente por nome..." style="border-radius: 0 20px 20px 0 !important; font-size: 0.95rem;">
-                        </div>
-                    </div>
-                    
-                    <!-- Categories Tabs -->
-                    <div class="col-md-7 col-lg-7 text-md-end">
-                        <div class="d-inline-flex gap-2 flex-wrap" id="gifts-category-filters">
-                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3 active" data-category="Todos">Todos</button>
-                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Beleza">Beleza</button>
-                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Acessórios">Acessórios</button>
-                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Experiências">Experiências</button>
-                            <button class="btn btn-outline-dark btn-sm rounded-pill px-3" data-category="Geral">Uso Geral</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gifts Cards Grid -->
-            <div class="row g-4" id="gift-list-grid">
-                <!-- Loaded dynamically -->
-            </div>
-
-            <!-- Virtual PIX cards -->
-            <div class="mt-5 pt-5" data-aos="fade-up">
-                <h3 class="text-center gold-text mb-4" style="font-family: var(--font-display);"><i class="fas fa-coins"></i> Presentear em Pix</h3>
-                
-                <div class="virtual-pix-grid">
-                    <div class="pix-card" data-pix-value="100" data-pix-title="Maquiagem">
-                        <i class="fas fa-wand-magic-sparkles"></i>
-                        <div class="pix-value">R$ 100</div>
-                        <div class="pix-desc">Maquiagem</div>
-                    </div>
-                    <div class="pix-card" data-pix-value="200" data-pix-title="Baile">
-                        <i class="fas fa-glass-cheers"></i>
-                        <div class="pix-value">R$ 200</div>
-                        <div class="pix-desc">Baile</div>
-                    </div>
-                    <div class="pix-card" data-pix-value="500" data-pix-title="Viagem">
-                        <i class="fas fa-plane-departure"></i>
-                        <div class="pix-value">R$ 500</div>
-                        <div class="pix-desc">Viagem</div>
-                    </div>
-                    <div class="pix-card" id="pix-free-value-card" data-pix-value="0" data-pix-title="Valor Livre">
-                        <i class="fas fa-hand-holding-heart"></i>
-                        <div class="pix-value">Qualquer Valor</div>
-                        <div class="pix-desc">Valor Livre</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PIX Modal -->
-    <div class="modal fade" id="pixModal" tabindex="-1" aria-labelledby="pixModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-custom">
-                <div class="modal-header modal-header-custom">
-                    <h5 class="modal-title gold-text" id="pixModalLabel"><i class="fas fa-qrcode"></i> Presentear com Pix</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center rounded-bottom p-4 text-dark">
-                    <h4 class="gold-text fw-bold" id="modal-pix-title">Presentear</h4>
-                    
-                    <!-- Custom amount input area for Free Value Card -->
-                    <div id="pix-custom-amount-wrapper" class="d-none mb-3 mx-auto" style="max-width: 220px;">
-                        <label for="pix-custom-input" class="form-label font-serif small text-muted mb-1">Digite o valor desejado:</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-white border-secondary text-dark fw-bold" style="border-radius: 12px 0 0 12px !important;">R$</span>
-                            <input type="number" class="form-control border-secondary text-dark bg-white text-center fw-bold" id="pix-custom-input" min="1" placeholder="150" style="border-radius: 0 12px 12px 0 !important; font-size: 1.15rem;">
-                        </div>
-                    </div>
-                    
-                    <p class="small" id="modal-pix-instructions" style="color: var(--color-wine-dark); opacity: 0.75;">Escaneie o QR Code abaixo no app do seu banco ou copie a chave Pix.</p>
-                    
-                    <!-- QR Code container -->
-                    <div class="pix-qrcode">
-                        <img id="modal-pix-qr" src="" alt="QR Code Pix" class="w-100 h-100">
-                    </div>
-                    
-                    <div class="pix-key-container mb-3">
-                        <span class="pix-key-val" id="pix-key-text">marcia15anos@pix.com.br</span>
-                        <button class="btn btn-outline-gold btn-sm" id="copy-pix-btn" aria-label="Copiar chave Pix">
-                            <i class="far fa-copy"></i>
-                        </button>
-                    </div>
-                    <p class="text-success small mt-2 fw-semibold d-none" id="copy-toast">Chave Copiada com Sucesso! ✨</p>
-                    
-                    <!-- WhatsApp verification link button -->
-                    <a id="modal-pix-wa-btn" href="#" target="_blank" class="btn btn-success btn-sm rounded-pill px-4 d-none w-100 my-2"><i class="fab fa-whatsapp"></i> Enviar Comprovante por WhatsApp</a>
-                </div>
-                <div class="modal-footer modal-footer-custom justify-content-center">
-                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill px-4" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Gift Reservation Modal (Physical Gifts) -->
-    <div class="modal fade" id="reserveGiftModal" tabindex="-1" aria-labelledby="reserveGiftModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-custom">
-                <div class="modal-header modal-header-custom">
-                    <h5 class="modal-title gold-text" id="reserveGiftModalLabel"><i class="fas fa-gift"></i> Selar Reserva de Presente</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="reserve-gift-form">
-                    <input type="hidden" id="modal-reserve-gift-id">
-                    <div class="modal-body text-center rounded-bottom p-4 text-dark">
-                        <div class="mb-3">
-                            <img id="modal-reserve-gift-img" src="" alt="Presente" style="max-height: 140px; width: auto; object-fit: cover; border-radius: 12px; border: 2px solid var(--color-wine-primary); box-shadow: 0 4px 15px rgba(122, 140, 119, 0.25);">
-                        </div>
-                        <h4 class="gold-text fw-bold mb-1" id="modal-reserve-gift-title">Nome do Presente</h4>
-                        <div class="badge bg-warning text-dark mb-3 font-serif" id="modal-reserve-gift-price" style="font-size: 0.95rem; font-weight: 700;">R$ 0,00</div>
-                        
-                        <div class="text-start mt-2">
-                            <label for="modal-reserve-donor-name" class="form-label font-serif">Seu Nome Completo para a Lista de Reservas</label>
-                            <input type="text" class="form-control admin-form-control" id="modal-reserve-donor-name" placeholder="Ex: Madrinha Sandra" required style="border-radius: 12px !important;">
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-footer-custom justify-content-between">
-                        <button type="button" class="btn btn-outline-dark btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-gold btn-sm rounded-pill px-4 fw-bold"><i class="fas fa-check-circle"></i> Confirmar Reserva</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Gift Thank You Modal (Physical Gift Success) -->
-    <div class="modal fade" id="giftThankYouModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-content-custom text-center">
-                <div class="modal-header modal-header-custom justify-content-between">
-                    <h5 class="modal-title gold-text"><i class="fas fa-check-circle"></i> Reserva Confirmada</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body rounded-bottom p-4 text-dark">
-                    <div class="mb-3">
-                        <i class="fas fa-gift fa-3x gold-text"></i>
-                    </div>
-                    <h4 class="gold-text fw-bold mb-2" id="thank-you-donor-name">Obrigado!</h4>
-                    <p class="font-serif text-dark mb-3" style="font-size: 1.1rem; line-height: 1.5;" id="thank-you-gift-msg">
-                        Sua reserva foi salva com sucesso no livro de presentes de Márcia Gorete.
-                    </p>
-                    <!-- WhatsApp receipt submission button -->
-                    <a id="modal-thank-you-wa-btn" href="#" target="_blank" class="btn btn-success btn-sm rounded-pill px-4 d-none w-100 my-2"><i class="fab fa-whatsapp"></i> Enviar Comprovante por WhatsApp</a>
-                </div>
-                <div class="modal-footer modal-footer-custom justify-content-center">
-                    <button type="button" class="btn btn-outline-dark btn-sm rounded-pill px-4" data-bs-dismiss="modal">Concluir</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Message Sent Confirmation Modal -->
     <div class="modal fade" id="messageSentModal" tabindex="-1" aria-hidden="true">

@@ -4,16 +4,7 @@
 import { getSupabaseClient } from '../config/supabase.js';
 
 // Default Seed Data for local storage fallback and initial state
-const MOCK_GIFTS = [
-    { id: 'gift-1', name: 'Fragrância Imperial', description: 'Perfume sofisticado com notas de jasmim e lírio d\'água para a debutante.', price: 350.00, image_url: 'https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-2', name: 'Brincos Dourados', description: 'Um detalhe banhado a ouro para complementar o visual do grande baile.', price: 280.00, image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=400&auto=format&fit=crop', is_available: false, reserved_by: 'Madrinha Sandra', reserved_at: '2026-07-19T10:00:00Z' },
-    { id: 'gift-3', name: 'Bolsa Tiracolo', description: 'Bolsa clutch elegante para ocasiões festivas e saídas inesquecíveis.', price: 180.00, image_url: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-4', name: 'Tiara de Lótus', description: 'Um adereço reluzente em formato de vitória-régia para coroar a noite.', price: 320.00, image_url: 'https://images.unsplash.com/photo-1535083783855-76ae62b2914e?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-5', name: 'Kit de Beleza', description: 'Paleta de cores elegantes e maquiagens finas para realçar seu brilho natural.', price: 150.00, image_url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-6', name: 'Livro de Receitas da Tiana', description: 'Livro clássico com as melhores receitas cajun e creole de New Orleans.', price: 200.00, image_url: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-7', name: 'Câmera Instantânea', description: 'Para fotografar na hora os melhores momentos e guardar no mural físico.', price: 450.00, image_url: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null },
-    { id: 'gift-8', name: 'Experiência Dia de SPA', description: 'Um dia inteiro de massagens e tratamentos relaxantes antes do grande baile.', price: 500.00, image_url: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=400&auto=format&fit=crop', is_available: true, reserved_by: null, reserved_at: null }
-];
+
 
 const MOCK_TIMELINE = [
     { id: 't-1', time: '20:00', title: 'Entrada Jazz Lounge', description: 'Recepção instrumental com jazz clássico de New Orleans dos anos 1920, luzes suaves e LEDs simulando vaga-lumes.', icon: 'fas fa-music', order_index: 1 },
@@ -32,8 +23,6 @@ const MOCK_SETTINGS = {
     date: "2026-10-03T20:00:00",
     location: "Mansão JK - Rua Padre Eustáquio 660 - Biritiba, Poá - SP, 08562-400",
     phrase: "Encontre sua estrela da noite e deixe a magia acontecer.",
-    pix_key: "marcia15anos@pix.com.br",
-    contact_phone: "(11) 98765-4321",
     theme: "princess-and-the-frog",
     seed_version: SEED_VERSION
 };
@@ -58,7 +47,7 @@ const MOCK_GALLERY = [
     { id: 'gal-6', url: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=600&auto=format&fit=crop', caption: 'À espera de uma noite espetacular', category: 'Debutante', order_index: 6 }
 ];
 
-// Helper to initialize local data if not present or stale theme/seed
+    // Helper to initialize local data if not present or stale theme/seed
 function initializeLocalDB() {
     let settings = null;
     try {
@@ -68,7 +57,6 @@ function initializeLocalDB() {
     // Force re-initialization if theme is not princess-and-the-frog or if the seed version is outdated
     if (!settings || settings.theme !== 'princess-and-the-frog' || settings.seed_version !== SEED_VERSION) {
         localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
-        localStorage.setItem('mb_gifts', JSON.stringify(MOCK_GIFTS));
         localStorage.setItem('mb_timeline', JSON.stringify(MOCK_TIMELINE));
         localStorage.setItem('mb_guests', JSON.stringify(MOCK_GUESTS));
         localStorage.setItem('mb_messages', JSON.stringify(MOCK_MESSAGES));
@@ -78,9 +66,6 @@ function initializeLocalDB() {
 
     if (!localStorage.getItem('mb_settings')) {
         localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
-    }
-    if (!localStorage.getItem('mb_gifts')) {
-        localStorage.setItem('mb_gifts', JSON.stringify(MOCK_GIFTS));
     }
     if (!localStorage.getItem('mb_timeline')) {
         localStorage.setItem('mb_timeline', JSON.stringify(MOCK_TIMELINE));
@@ -272,147 +257,7 @@ export const dbService = {
         return true;
     },
 
-    // 4. GIFTS OPERATIONS
-    async getGifts() {
-        const client = getSupabaseClient();
-        const forceLocal = localStorage.getItem('mb_use_local_fallback_gifts') === 'true';
-        if (client && !forceLocal) {
-            const { data, error } = await client.from('gifts').select('*').order('name', { ascending: true });
-            if (!error && data && data.length > 0) return data;
-            console.warn("Supabase gifts fetch failed or empty, using fallback", error);
-        }
-        return JSON.parse(localStorage.getItem('mb_gifts'));
-    },
 
-    async addGift(giftData) {
-        const client = getSupabaseClient();
-        if (client) {
-            const { error } = await client.from('gifts').insert([giftData]);
-            if (!error) return true;
-            console.error("Supabase gift insertion failed", error);
-        }
-        const gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
-        gifts.push({
-            is_available: true,
-            reserved_by: null,
-            reserved_at: null,
-            ...giftData
-        });
-        localStorage.setItem('mb_gifts', JSON.stringify(gifts));
-        return true;
-    },
-
-    async deleteGift(id) {
-        const client = getSupabaseClient();
-        let supaOk = false;
-        if (client) {
-            const { error } = await client.from('gifts').delete().eq('id', id);
-            if (!error) supaOk = true;
-            else console.error("Supabase gift deletion failed, fallback to local storage", error);
-        }
-        if (!supaOk) {
-            localStorage.setItem('mb_use_local_fallback_gifts', 'true');
-        }
-        let gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
-        gifts = gifts.filter(g => String(g.id) !== String(id));
-        localStorage.setItem('mb_gifts', JSON.stringify(gifts));
-        return true;
-    },
-
-    async updateGift(id, giftData) {
-        const client = getSupabaseClient();
-        let supaOk = false;
-        if (client) {
-            const { error } = await client.from('gifts').update(giftData).eq('id', id);
-            if (!error) supaOk = true;
-            else console.error("Supabase gift update failed, fallback to local storage", error);
-        }
-        if (!supaOk) {
-            localStorage.setItem('mb_use_local_fallback_gifts', 'true');
-        }
-        const gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
-        const index = gifts.findIndex(g => String(g.id) === String(id));
-        if (index !== -1) {
-            gifts[index] = {
-                ...gifts[index],
-                ...giftData
-            };
-            localStorage.setItem('mb_gifts', JSON.stringify(gifts));
-        }
-        return true;
-    },
-
-    async reserveGift(id, reservedBy) {
-        const client = getSupabaseClient();
-        const reservedAt = new Date().toISOString();
-        let supaOk = false;
-
-        let currentReservedBy = null;
-        
-        // Fetch current state to append multiple donor names
-        if (client) {
-            const { data, error } = await client.from('gifts').select('reserved_by').eq('id', id).single();
-            if (!error && data) {
-                currentReservedBy = data.reserved_by;
-            }
-        }
-        
-        const gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
-        const index = gifts.findIndex(g => String(g.id) === String(id));
-        if (index !== -1 && !currentReservedBy) {
-            currentReservedBy = gifts[index].reserved_by;
-        }
-
-        const finalReservedBy = currentReservedBy 
-            ? `${currentReservedBy}, ${reservedBy}` 
-            : reservedBy;
-
-        if (client) {
-            const { error } = await client.from('gifts').update({
-                is_available: false,
-                reserved_by: finalReservedBy,
-                reserved_at: reservedAt
-            }).eq('id', id);
-            if (!error) supaOk = true;
-            else console.error("Supabase gift reservation failed, fallback to local storage", error);
-        }
-        if (!supaOk) {
-            localStorage.setItem('mb_use_local_fallback_gifts', 'true');
-        }
-        if (index !== -1) {
-            gifts[index].is_available = false;
-            gifts[index].reserved_by = finalReservedBy;
-            gifts[index].reserved_at = reservedAt;
-            localStorage.setItem('mb_gifts', JSON.stringify(gifts));
-        }
-        return true;
-    },
-
-    async releaseGift(id) {
-        const client = getSupabaseClient();
-        let supaOk = false;
-        if (client) {
-            const { error } = await client.from('gifts').update({
-                is_available: true,
-                reserved_by: null,
-                reserved_at: null
-            }).eq('id', id);
-            if (!error) supaOk = true;
-            else console.error("Supabase gift release failed, fallback to local storage", error);
-        }
-        if (!supaOk) {
-            localStorage.setItem('mb_use_local_fallback_gifts', 'true');
-        }
-        const gifts = JSON.parse(localStorage.getItem('mb_gifts') || '[]');
-        const index = gifts.findIndex(g => String(g.id) === String(id));
-        if (index !== -1) {
-            gifts[index].is_available = true;
-            gifts[index].reserved_by = null;
-            gifts[index].reserved_at = null;
-            localStorage.setItem('mb_gifts', JSON.stringify(gifts));
-        }
-        return true;
-    },
 
     // 5. TIMELINE OPERATIONS
     async getTimeline() {

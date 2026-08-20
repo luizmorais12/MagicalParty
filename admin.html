@@ -85,9 +85,6 @@
                             <button class="nav-link admin-nav-item" id="guests-tab" data-bs-toggle="tab" data-bs-target="#guests-panel" type="button" role="tab" aria-controls="guests-panel" aria-selected="false">
                                 <i class="fas fa-users me-2"></i> Convidados
                             </button>
-                            <button class="nav-link admin-nav-item" id="gifts-tab" data-bs-toggle="tab" data-bs-target="#gifts-panel" type="button" role="tab" aria-controls="gifts-panel" aria-selected="false">
-                                <i class="fas fa-gift me-2"></i> Presentes
-                            </button>
                             <button class="nav-link admin-nav-item" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages-panel" type="button" role="tab" aria-controls="messages-panel" aria-selected="false">
                                 <i class="fas fa-comments me-2"></i> Mensagens
                             </button>
@@ -126,7 +123,7 @@
                             
                             <!-- TAB PANEL 0: DASHBOARD -->
                             <div class="tab-pane fade show active" id="dashboard-panel" role="tabpanel" aria-labelledby="dashboard-tab">
-                                <div class="row g-3">
+                                <div class="row g-3 justify-content-center">
                                     <!-- Total Guests -->
                                     <div class="col-6 col-md-4 col-lg-2">
                                         <div class="admin-card text-center h-100">
@@ -157,14 +154,6 @@
                                             <div class="mb-2 text-success"><i class="fas fa-scroll fa-lg"></i></div>
                                             <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Famílias</h5>
                                             <p class="counter-num mb-0" id="stat-families">0</p>
-                                        </div>
-                                    </div>
-                                    <!-- Reserved Gifts -->
-                                    <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="admin-card text-center h-100">
-                                            <div class="mb-2 text-success"><i class="fas fa-gift fa-lg"></i></div>
-                                            <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Presentes Reservados</h5>
-                                            <p class="counter-num mb-0" id="stat-gifts">0</p>
                                         </div>
                                     </div>
                                     <!-- Pending Messages -->
@@ -259,36 +248,7 @@
                                 </div>
                             </div>
 
-                            <!-- TAB PANEL 2: GIFTS CONFIG -->
-                            <div class="tab-pane fade" id="gifts-panel" role="tabpanel" aria-labelledby="gifts-tab">
-                                <div class="admin-card">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="gold-text mb-0"><i class="fas fa-gift"></i> Controle de Presentes</h4>
-                                        <button class="btn btn-admin-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#addGiftModal">
-                                            <i class="fas fa-plus"></i> Novo Item
-                                        </button>
-                                    </div>
-                                    <p class="text-muted small mb-4">Veja quais presentes da corte real foram reservados pelos convidados e libere as cotas caso necessário.</p>
-                                    
-                                    <div class="table-responsive">
-                                        <table class="table admin-table align-middle">
-                                            <thead>
-                                                <tr>
-                                                    <th>Foto</th>
-                                                    <th>Presente</th>
-                                                    <th>Descrição</th>
-                                                    <th>Preço</th>
-                                                    <th>Status / Reservado Por</th>
-                                                    <th class="text-center">Ações</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="gifts-table-body">
-                                                <!-- Loaded dynamically -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <!-- TAB PANEL 3: MESSAGES CONTROL -->
                             <div class="tab-pane fade" id="messages-panel" role="tabpanel" aria-labelledby="messages-tab">
@@ -336,17 +296,9 @@
                                                 <label for="cfg-location" class="form-label font-serif">Endereço do Salão</label>
                                                 <input type="text" class="form-control admin-form-control" id="cfg-location" required>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-12">
                                                 <label for="cfg-phrase" class="form-label font-serif">Frase de Abertura (Hero)</label>
                                                 <input type="text" class="form-control admin-form-control" id="cfg-phrase" required>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="cfg-pix-key" class="form-label font-serif">Chave PIX Recebimento</label>
-                                                <input type="text" class="form-control admin-form-control" id="cfg-pix-key" required>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="cfg-contact-phone" class="form-label font-serif">WhatsApp para Comprovantes</label>
-                                                <input type="text" class="form-control admin-form-control" id="cfg-contact-phone" placeholder="Ex: (11) 99999-9999" required>
                                             </div>
 
                                             <h5 class="gold-text border-bottom border-secondary pb-2 mt-4 mb-2">Supabase Database Keys</h5>
@@ -435,82 +387,7 @@
             </div>
         </div>
 
-        <!-- Add Gift Modal -->
-        <div class="modal fade" id="addGiftModal" tabindex="-1" aria-labelledby="addGiftModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content modal-content-custom">
-                    <div class="modal-header modal-header-custom">
-                        <h5 class="modal-title gold-text" id="addGiftModalLabel"><i class="fas fa-plus-circle"></i> Cadastrar Novo Presente</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="add-gift-form">
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <label for="add-gift-name" class="form-label font-serif">Nome do Presente</label>
-                                    <input type="text" class="form-control admin-form-control" id="add-gift-name" required placeholder="Ex: Relógio de Luxo">
-                                </div>
-                                <div class="col-12">
-                                    <label for="add-gift-desc" class="form-label font-serif">Descrição / Categoria</label>
-                                    <textarea class="form-control admin-form-control" id="add-gift-desc" rows="2" required placeholder="Ex: Detalhe de luxo banhado a ouro" style="border-radius: 12px !important;"></textarea>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="add-gift-price" class="form-label font-serif">Valor Estimado (R$)</label>
-                                    <input type="number" class="form-control admin-form-control" id="add-gift-price" min="0" step="0.01" required placeholder="350.00">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="add-gift-img" class="form-label font-serif">URL da Imagem</label>
-                                    <input type="url" class="form-control admin-form-control" id="add-gift-img" required placeholder="https://images.unsplash.com/photo-...">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer modal-footer-custom">
-                            <button type="button" class="btn btn-admin-secondary rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-admin-primary rounded-pill btn-sm px-4 fw-bold">Cadastrar Item</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <!-- Edit Gift Modal -->
-        <div class="modal fade" id="editGiftModal" tabindex="-1" aria-labelledby="editGiftModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content modal-content-custom">
-                    <div class="modal-header modal-header-custom">
-                        <h5 class="modal-title gold-text" id="editGiftModalLabel"><i class="fas fa-edit"></i> Editar Presente</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="edit-gift-form">
-                        <input type="hidden" id="edit-gift-id">
-                        <div class="modal-body">
-                            <div class="row g-3">
-                                <div class="col-12">
-                                    <label for="edit-gift-name" class="form-label font-serif">Nome do Presente</label>
-                                    <input type="text" class="form-control admin-form-control" id="edit-gift-name" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="edit-gift-desc" class="form-label font-serif">Descrição / Categoria</label>
-                                    <textarea class="form-control admin-form-control" id="edit-gift-desc" rows="2" required style="border-radius: 12px !important;"></textarea>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="edit-gift-price" class="form-label font-serif">Valor Estimado (R$)</label>
-                                    <input type="number" class="form-control admin-form-control" id="edit-gift-price" min="0" step="0.01" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="edit-gift-img" class="form-label font-serif">URL da Imagem</label>
-                                    <input type="url" class="form-control admin-form-control" id="edit-gift-img" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer modal-footer-custom">
-                            <button type="button" class="btn btn-admin-secondary rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-admin-primary rounded-pill btn-sm px-4 fw-bold">Salvar Alterações</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
     </div>
 

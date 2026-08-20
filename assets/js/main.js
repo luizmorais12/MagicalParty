@@ -5,7 +5,6 @@ import { initLoadingScreen } from './components/loading.js';
 import { initCustomCursor } from './components/cursor.js';
 import { initCountdown } from './components/countdown.js';
 import { initGallery } from './components/gallery.js';
-import { initGiftsSystem } from './components/gifts.js';
 import { initRSVPSystem } from './components/rsvp.js';
 import { initMessageBoard } from './components/messages.js';
 
@@ -22,10 +21,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 4. Initialize Photo Gallery Grid & Lightbox
     initGallery();
 
-    // 5. Initialize Gifts System & virtual PIX
-    initGiftsSystem();
-
-    // 6. Initialize RSVP submission
+    // 5. Initialize RSVP submission
     initRSVPSystem();
 
     // 7. Initialize Message guestbook mural

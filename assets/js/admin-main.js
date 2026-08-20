@@ -45,15 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editGuestForm.addEventListener('submit', handleEditGuestSubmit);
     }
 
-    const addGiftForm = document.getElementById('add-gift-form');
-    if (addGiftForm) {
-        addGiftForm.addEventListener('submit', handleAddGiftSubmit);
-    }
 
-    const editGiftForm = document.getElementById('edit-gift-form');
-    if (editGiftForm) {
-        editGiftForm.addEventListener('submit', handleEditGiftSubmit);
-    }
 
     const settingsForm = document.getElementById('settings-form');
     if (settingsForm) {
@@ -155,9 +147,6 @@ function loadTabContent(tabId) {
         case 'guests':
             renderGuestsList();
             break;
-        case 'gifts':
-            renderGiftsList();
-            break;
         case 'messages':
             renderMessagesList();
             break;
@@ -172,7 +161,6 @@ function loadTabContent(tabId) {
 // ==========================================
 async function renderDashboardStats() {
     const guests = await dbService.getGuests();
-    const gifts = await dbService.getGifts();
     const messages = await dbService.getMessages(false); // get all
 
     let totalConfirmed = 0;
@@ -185,7 +173,6 @@ async function renderDashboardStats() {
         kids += parseInt(g.kids_count || 0);
     });
 
-    const reservedGifts = gifts.filter(g => !g.is_available).length;
     const pendingMessages = messages.filter(m => !m.approved).length;
 
     // Apply counters safely to DOM
@@ -193,7 +180,6 @@ async function renderDashboardStats() {
     updateDOMElement('stat-adults', adults);
     updateDOMElement('stat-kids', kids);
     updateDOMElement('stat-families', guests.length);
-    updateDOMElement('stat-gifts', reservedGifts);
     updateDOMElement('stat-messages', pendingMessages);
 
     // Draw Chart.js Donut
@@ -406,148 +392,8 @@ async function deleteGuest(id) {
 // Expose admin actions globally for inline onclick attributes
 window.approveMessage = approveMessage;
 window.deleteMessage = deleteMessage;
-window.releaseGift = releaseGift;
-window.deleteGift = deleteGift;
 window.openEditGuestModal = openEditGuestModal;
 window.deleteGuest = deleteGuest;
-window.openEditGiftModal = openEditGiftModal;
-
-// ==========================================
-// RENDER TAB: GIFTS LIST
-// ==========================================
-async function renderGiftsList() {
-    const tbody = document.getElementById('gifts-table-body');
-    if (!tbody) return;
-
-    const gifts = await dbService.getGifts();
-    tbody.innerHTML = '';
-
-    gifts.forEach(g => {
-        const isReserved = !g.is_available;
-        const priceFormatted = Number(g.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        
-        let statusHtml = '';
-        if (g.reserved_by) {
-            const names = g.reserved_by.split(',').map(n => n.trim()).filter(Boolean);
-            if (names.length > 1) {
-                statusHtml = `
-                    <div class="d-flex flex-column gap-1 align-items-start text-start">
-                        <span class="badge bg-warning text-dark"><i class="fas fa-hand-holding-heart"></i> ${names.length} pessoas</span>
-                        <div class="small text-muted mt-1" style="font-size: 0.78rem; line-height: 1.35; max-width: 200px; max-height: 90px; overflow-y: auto; width: 100%;">
-                            ${names.map(name => `<div class="text-truncate" title="${escapeHtml(name)}"><i class="fas fa-check text-success me-1"></i> ${escapeHtml(name)}</div>`).join('')}
-                        </div>
-                    </div>
-                `;
-            } else {
-                statusHtml = `<span class="badge bg-danger text-truncate" style="max-width: 180px;" title="Reservado por ${escapeHtml(g.reserved_by)}"><i class="fas fa-bookmark"></i> ${escapeHtml(g.reserved_by)}</span>`;
-            }
-        } else {
-            statusHtml = `<span class="badge bg-success">Disponível</span>`;
-        }
-
-        const actionHtml = `
-            <div class="d-flex gap-2 justify-content-center">
-                <button class="btn btn-sm btn-outline-warning rounded-circle" onclick="window.openEditGiftModal('${g.id}')" title="Editar"><i class="fas fa-edit"></i></button>
-                ${isReserved
-                    ? `<button class="btn btn-sm btn-outline-success rounded-pill btn-release-gift" onclick="window.releaseGift('${g.id}')"><i class="fas fa-undo"></i> Liberar</button>`
-                    : `<button class="btn btn-sm btn-outline-danger rounded-circle btn-delete-gift" onclick="window.deleteGift('${g.id}')"><i class="fas fa-trash-alt"></i></button>`
-                }
-            </div>
-        `;
-
-        const row = `
-            <tr>
-                <td data-label="Foto"><img src="${g.image_url}" alt="${g.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-gold-primary);"></td>
-                <td data-label="Presente"><strong>${g.name}</strong></td>
-                <td data-label="Descrição"><span class="small text-light-muted">${g.description}</span></td>
-                <td data-label="Preço">${priceFormatted}</td>
-                <td data-label="Status/Reserva">${statusHtml}</td>
-                <td data-label="Ações" class="text-center">${actionHtml}</td>
-            </tr>
-        `;
-        tbody.insertAdjacentHTML('beforeend', row);
-    });
-}
-
-async function releaseGift(id) {
-    if (confirm('Deseja liberar a cota de reserva deste presente?')) {
-        const success = await dbService.releaseGift(id);
-        if (success) {
-            await renderGiftsList();
-            renderDashboardStats();
-        }
-    }
-}
-
-async function deleteGift(id) {
-    if (confirm('Deseja deletar este item permanentemente do catálogo de presentes?')) {
-        const success = await dbService.deleteGift(id);
-        if (success) {
-            await renderGiftsList();
-            renderDashboardStats();
-        }
-    }
-}
-
-async function openEditGiftModal(id) {
-    const gifts = await dbService.getGifts();
-    const gift = gifts.find(g => String(g.id) === String(id));
-    if (!gift) return;
-
-    document.getElementById('edit-gift-id').value = gift.id;
-    document.getElementById('edit-gift-name').value = gift.name;
-    document.getElementById('edit-gift-desc').value = gift.description || '';
-    document.getElementById('edit-gift-price').value = gift.price;
-    document.getElementById('edit-gift-img').value = gift.image_url || '';
-
-    const modal = new bootstrap.Modal(document.getElementById('editGiftModal'));
-    modal.show();
-}
-
-async function handleEditGiftSubmit(e) {
-    e.preventDefault();
-
-    const id = document.getElementById('edit-gift-id').value;
-    const name = document.getElementById('edit-gift-name').value.trim();
-    const description = document.getElementById('edit-gift-desc').value.trim();
-    const price = parseFloat(document.getElementById('edit-gift-price').value);
-    const imageUrl = document.getElementById('edit-gift-img').value.trim();
-
-    if (!name || isNaN(price)) return;
-
-    const payload = {
-        name, description, price, image_url: imageUrl
-    };
-
-    const success = await dbService.updateGift(id, payload);
-    if (success) {
-        bootstrap.Modal.getInstance(document.getElementById('editGiftModal')).hide();
-        await renderGiftsList();
-        renderDashboardStats();
-    }
-}
-
-async function handleAddGiftSubmit(e) {
-    e.preventDefault();
-
-    const name = document.getElementById('add-gift-name').value.trim();
-    const description = document.getElementById('add-gift-desc').value.trim();
-    const price = parseFloat(document.getElementById('add-gift-price').value);
-    const imageUrl = document.getElementById('add-gift-img').value.trim();
-
-    const giftPayload = {
-        id: 'gift-' + Date.now(),
-        name, description, price, image_url: imageUrl
-    };
-
-    const success = await dbService.addGift(giftPayload);
-    if (success) {
-        bootstrap.Modal.getInstance(document.getElementById('addGiftModal')).hide();
-        document.getElementById('add-gift-form').reset();
-        await renderGiftsList();
-        renderDashboardStats();
-    }
-}
 
 // ==========================================
 // RENDER TAB: MESSAGES WALL MODERATION
@@ -625,8 +471,6 @@ async function loadSettingsValues() {
     document.getElementById('cfg-date').value = settings.date ? settings.date.substring(0, 16) : '';
     document.getElementById('cfg-location').value = settings.location || '';
     document.getElementById('cfg-phrase').value = settings.phrase || '';
-    document.getElementById('cfg-pix-key').value = settings.pix_key || '';
-    document.getElementById('cfg-contact-phone').value = settings.contact_phone || '';
  
     // Load Supabase LocalStorage credentials
     document.getElementById('cfg-supabase-url').value = localStorage.getItem('supabase_url') || '';
@@ -640,11 +484,9 @@ async function handleSettingsSubmit(e) {
     const date = document.getElementById('cfg-date').value;
     const locationVal = document.getElementById('cfg-location').value.trim();
     const phrase = document.getElementById('cfg-phrase').value.trim();
-    const pixKey = document.getElementById('cfg-pix-key').value.trim();
-    const contactPhone = document.getElementById('cfg-contact-phone').value.trim();
  
     const settingsPayload = {
-        name, date, location: locationVal, phrase, pix_key: pixKey, contact_phone: contactPhone,
+        name, date, location: locationVal, phrase,
         theme: "princess-and-the-frog"
     };
 
