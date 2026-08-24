@@ -163,11 +163,10 @@ ON CONFLICT DO NOTHING;
 -- Sementes da Galeria de Fotos
 INSERT INTO gallery (url, caption, category, order_index) VALUES
 ('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(1).jpeg', '', 'Debutante', 1),
-('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(2).jpeg', '', 'Debutante', 2),
-('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(3).jpeg', '', 'Debutante', 3),
-('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41.jpeg', '', 'Debutante', 4),
-('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(1).jpeg', '', 'Debutante', 5),
-('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(2).jpeg', '', 'Debutante', 6)
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(3).jpeg', '', 'Debutante', 2),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41.jpeg', '', 'Debutante', 3),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(1).jpeg', '', 'Debutante', 4),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(2).jpeg', '', 'Debutante', 5)
 ON CONFLICT DO NOTHING;
 
 -- Semente do Administrador Fictício (admin / admin123)

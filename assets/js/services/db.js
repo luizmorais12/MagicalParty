@@ -16,7 +16,7 @@ const MOCK_TIMELINE = [
     { id: 't-7', time: '04:00', title: 'Encerramento e Lembranças', description: 'Agradecimento especial e entrega de mimos de Nova Orleans para selar esta noite inesquecível.', icon: 'fas fa-moon', order_index: 7 }
 ];
 
-const SEED_VERSION = "v8_empty_captions";
+const SEED_VERSION = "v9_removed_duplicate";
 
 const MOCK_SETTINGS = {
     name: "Márcia Gorete do Carmo Medeiros",
@@ -40,11 +40,10 @@ const MOCK_MESSAGES = [
 
 const MOCK_GALLERY = [
     { id: 'gal-1', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(1).jpeg', caption: '', category: 'Debutante', order_index: 1 },
-    { id: 'gal-2', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(2).jpeg', caption: '', category: 'Debutante', order_index: 2 },
-    { id: 'gal-3', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(3).jpeg', caption: '', category: 'Debutante', order_index: 3 },
-    { id: 'gal-4', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41.jpeg', caption: '', category: 'Debutante', order_index: 4 },
-    { id: 'gal-5', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(1).jpeg', caption: '', category: 'Debutante', order_index: 5 },
-    { id: 'gal-6', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(2).jpeg', caption: '', category: 'Debutante', order_index: 6 }
+    { id: 'gal-2', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(3).jpeg', caption: '', category: 'Debutante', order_index: 2 },
+    { id: 'gal-3', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41.jpeg', caption: '', category: 'Debutante', order_index: 3 },
+    { id: 'gal-4', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(1).jpeg', caption: '', category: 'Debutante', order_index: 4 },
+    { id: 'gal-5', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(2).jpeg', caption: '', category: 'Debutante', order_index: 5 }
 ];
 
     // Helper to initialize local data if not present or stale theme/seed
