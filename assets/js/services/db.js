@@ -16,7 +16,7 @@ const MOCK_TIMELINE = [
     { id: 't-7', time: '04:00', title: 'Encerramento e Lembranças', description: 'Agradecimento especial e entrega de mimos de Nova Orleans para selar esta noite inesquecível.', icon: 'fas fa-moon', order_index: 7 }
 ];
 
-const SEED_VERSION = "v6_tiana_no_ensaio";
+const SEED_VERSION = "v8_empty_captions";
 
 const MOCK_SETTINGS = {
     name: "Márcia Gorete do Carmo Medeiros",
@@ -39,12 +39,12 @@ const MOCK_MESSAGES = [
 ];
 
 const MOCK_GALLERY = [
-    { id: 'gal-1', url: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop', caption: 'Sob a luz suave do entardecer', category: 'Debutante', order_index: 1 },
-    { id: 'gal-2', url: 'https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=600&auto=format&fit=crop', caption: 'Momentos de pura felicidade e sonhos', category: 'Debutante', order_index: 2 },
-    { id: 'gal-3', url: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600&auto=format&fit=crop', caption: 'A elegância de um dia inesquecível', category: 'Debutante', order_index: 3 },
-    { id: 'gal-4', url: 'https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?q=80&w=600&auto=format&fit=crop', caption: 'A flor de lótus reflete sua beleza e brilho', category: 'Debutante', order_index: 4 },
-    { id: 'gal-5', url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop', caption: 'Caminhos dourados de contos de fadas', category: 'Debutante', order_index: 5 },
-    { id: 'gal-6', url: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=600&auto=format&fit=crop', caption: 'À espera de uma noite espetacular', category: 'Debutante', order_index: 6 }
+    { id: 'gal-1', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(1).jpeg', caption: '', category: 'Debutante', order_index: 1 },
+    { id: 'gal-2', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(2).jpeg', caption: '', category: 'Debutante', order_index: 2 },
+    { id: 'gal-3', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(3).jpeg', caption: '', category: 'Debutante', order_index: 3 },
+    { id: 'gal-4', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41.jpeg', caption: '', category: 'Debutante', order_index: 4 },
+    { id: 'gal-5', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(1).jpeg', caption: '', category: 'Debutante', order_index: 5 },
+    { id: 'gal-6', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(2).jpeg', caption: '', category: 'Debutante', order_index: 6 }
 ];
 
     // Helper to initialize local data if not present or stale theme/seed
@@ -300,7 +300,9 @@ export const dbService = {
     async addGalleryItem(item) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('gallery').insert([item]);
+            const { id, ...supabaseItem } = item;
+            const itemToInsert = (id && String(id).startsWith('gal-')) ? supabaseItem : item;
+            const { error } = await client.from('gallery').insert([itemToInsert]);
             if (!error) return true;
             console.error("Supabase gallery item insert failed", error);
         }

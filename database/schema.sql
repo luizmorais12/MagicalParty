@@ -152,7 +152,7 @@ ON CONFLICT DO NOTHING;
 
 -- Sementes dos Vídeos da Retrospectiva
 INSERT INTO videos (type, url, thumbnail, title, is_active) VALUES
-('youtube', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?q=80&w=600&auto=format&fit=crop', 'Uma História de Determinação - Márcia Gorete', true)
+('youtube', 'https://www.youtube.com/embed/dQw4w9WgXcQ', 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40.jpeg', 'Uma História de Determinação - Márcia Gorete', true)
 ON CONFLICT DO NOTHING;
 
 -- Sementes das Músicas
@@ -162,12 +162,12 @@ ON CONFLICT DO NOTHING;
 
 -- Sementes da Galeria de Fotos
 INSERT INTO gallery (url, caption, category, order_index) VALUES
-('https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=600&auto=format&fit=crop', 'Sob a luz suave do entardecer', 'Debutante', 1),
-('https://images.unsplash.com/photo-1549417229-aa67d3263c09?q=80&w=600&auto=format&fit=crop', 'Momentos de pura felicidade e sonhos', 'Debutante', 2),
-('https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=600&auto=format&fit=crop', 'A elegância de um dia inesquecível', 'Debutante', 3),
-('https://images.unsplash.com/photo-1508873699372-7aeab60b44ab?q=80&w=600&auto=format&fit=crop', 'A flor de lótus reflete sua beleza e brilho', 'Debutante', 4),
-('https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=600&auto=format&fit=crop', 'Caminhos dourados de contos de fadas', 'Debutante', 5),
-('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=600&auto=format&fit=crop', 'À espera de uma noite espetacular', 'Debutante', 6)
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(1).jpeg', '', 'Debutante', 1),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(2).jpeg', '', 'Debutante', 2),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.40%20(3).jpeg', '', 'Debutante', 3),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41.jpeg', '', 'Debutante', 4),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(1).jpeg', '', 'Debutante', 5),
+('assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(2).jpeg', '', 'Debutante', 6)
 ON CONFLICT DO NOTHING;
 
 -- Semente do Administrador Fictício (admin / admin123)

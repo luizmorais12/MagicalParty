@@ -45,7 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
         editGuestForm.addEventListener('submit', handleEditGuestSubmit);
     }
 
-
+    // Admin Gallery Form Submission
+    const adminUploadForm = document.getElementById('admin-upload-photo-form');
+    if (adminUploadForm) {
+        adminUploadForm.addEventListener('submit', handleAdminUploadSubmit);
+    }
 
     const settingsForm = document.getElementById('settings-form');
     if (settingsForm) {
@@ -149,6 +153,9 @@ function loadTabContent(tabId) {
             break;
         case 'messages':
             renderMessagesList();
+            break;
+        case 'gallery':
+            renderAdminGalleryList();
             break;
         case 'settings':
             loadSettingsValues();
@@ -774,4 +781,104 @@ function escapeHtml(text) {
         "'": '&#039;'
     };
     return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+}
+
+// ==========================================
+// RENDER TAB: GALLERY MANAGEMENT
+// ==========================================
+async function renderAdminGalleryList() {
+    const tbody = document.getElementById('admin-gallery-table-body');
+    if (!tbody) return;
+
+    const gallery = await dbService.getGallery();
+    tbody.innerHTML = '';
+
+    if (!gallery || gallery.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="4" class="text-center text-muted py-4">Nenhuma foto na galeria ainda.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    gallery.forEach(item => {
+        const row = `
+            <tr>
+                <td data-label="Foto">
+                    <img src="${item.url}" alt="${escapeHtml(item.caption || '')}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid var(--color-gold-medium);">
+                </td>
+                <td data-label="Legenda">
+                    <span class="text-dark">${item.caption ? escapeHtml(item.caption) : '<em class="text-muted">Sem legenda</em>'}</span>
+                </td>
+                <td data-label="Categoria">
+                    <span class="badge ${item.category === 'Debutante' ? 'bg-success' : 'bg-primary'}">${item.category}</span>
+                </td>
+                <td data-label="Ações" class="text-center">
+                    <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="window.deleteAdminGalleryItem('${item.id}')" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                </td>
+            </tr>
+        `;
+        tbody.insertAdjacentHTML('beforeend', row);
+    });
+}
+
+async function deleteAdminGalleryItem(id) {
+    if (confirm('Deseja realmente excluir esta foto da galeria?')) {
+        const success = await dbService.deleteGalleryItem(id);
+        if (success) {
+            renderAdminGalleryList();
+        }
+    }
+}
+window.deleteAdminGalleryItem = deleteAdminGalleryItem;
+
+async function handleAdminUploadSubmit(e) {
+    e.preventDefault();
+    const category = document.getElementById('admin-photo-category').value;
+    const caption = document.getElementById('admin-photo-caption').value.trim();
+    const fileInput = document.getElementById('admin-photo-file');
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+        const img = new Image();
+        img.onload = async () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+            const maxWidth = 800;
+            if (width > maxWidth) {
+                height = Math.round((height * maxWidth) / width);
+                width = maxWidth;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            const compressedUrl = canvas.toDataURL('image/jpeg', 0.7);
+
+            const newGalleryItem = {
+                id: 'gal-admin-' + Date.now(),
+                url: compressedUrl,
+                caption: caption,
+                category: category,
+                order_index: Date.now()
+            };
+
+            const success = await dbService.addGalleryItem(newGalleryItem);
+            if (success) {
+                const modalEl = document.getElementById('adminUploadPhotoModal');
+                const bsModal = bootstrap.Modal.getInstance(modalEl);
+                if (bsModal) bsModal.hide();
+                
+                // Reset form
+                document.getElementById('admin-upload-photo-form').reset();
+                renderAdminGalleryList();
+            }
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
 }
