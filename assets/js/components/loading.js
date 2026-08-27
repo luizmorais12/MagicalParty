@@ -35,6 +35,13 @@ export function initLoadingScreen() {
 
     // 3. Cinematic Rose Bloom & Gates Open
     function triggerCinematicReveal() {
+        if (typeof gsap === 'undefined') {
+            console.warn("GSAP CDN failed to load. Displaying page immediately.");
+            if (loadingScreen) loadingScreen.style.display = 'none';
+            if (castleGates) castleGates.remove();
+            document.body.classList.add('gates-open');
+            return;
+        }
         const timeline = gsap.timeline();
 
         // Step A: Bloom the lotus inside the pond portal

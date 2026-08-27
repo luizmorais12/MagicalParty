@@ -46,37 +46,53 @@ const MOCK_GALLERY = [
     { id: 'gal-5', url: 'assets/img/WhatsApp%20Image%202026-08-24%20at%2000.01.41%20(2).jpeg', caption: '', category: 'Debutante', order_index: 5 }
 ];
 
-    // Helper to initialize local data if not present or stale theme/seed
-function initializeLocalDB() {
-    let settings = null;
+function safeGetLocalStorage(key, defaultValue = []) {
     try {
-        settings = JSON.parse(localStorage.getItem('mb_settings'));
-    } catch(e) {}
+        const item = localStorage.getItem(key);
+        if (!item) return defaultValue;
+        return JSON.parse(item);
+    } catch (e) {
+        console.error(`Error parsing localStorage key "${key}":`, e);
+        return defaultValue;
+    }
+}
+
+// Helper to initialize local data if not present or stale theme/seed
+function initializeLocalDB() {
+    const settings = safeGetLocalStorage('mb_settings', null);
 
     // Force re-initialization if theme is not princess-and-the-frog or if the seed version is outdated
     if (!settings || settings.theme !== 'princess-and-the-frog' || settings.seed_version !== SEED_VERSION) {
-        localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
-        localStorage.setItem('mb_timeline', JSON.stringify(MOCK_TIMELINE));
-        localStorage.setItem('mb_guests', JSON.stringify(MOCK_GUESTS));
-        localStorage.setItem('mb_messages', JSON.stringify(MOCK_MESSAGES));
-        localStorage.setItem('mb_gallery', JSON.stringify(MOCK_GALLERY));
+        try {
+            localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
+            localStorage.setItem('mb_timeline', JSON.stringify(MOCK_TIMELINE));
+            localStorage.setItem('mb_guests', JSON.stringify(MOCK_GUESTS));
+            localStorage.setItem('mb_messages', JSON.stringify(MOCK_MESSAGES));
+            localStorage.setItem('mb_gallery', JSON.stringify(MOCK_GALLERY));
+        } catch (e) {
+            console.error("Local database seed initialization failed", e);
+        }
         return;
     }
 
-    if (!localStorage.getItem('mb_settings')) {
-        localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
-    }
-    if (!localStorage.getItem('mb_timeline')) {
-        localStorage.setItem('mb_timeline', JSON.stringify(MOCK_TIMELINE));
-    }
-    if (!localStorage.getItem('mb_guests')) {
-        localStorage.setItem('mb_guests', JSON.stringify(MOCK_GUESTS));
-    }
-    if (!localStorage.getItem('mb_messages')) {
-        localStorage.setItem('mb_messages', JSON.stringify(MOCK_MESSAGES));
-    }
-    if (!localStorage.getItem('mb_gallery')) {
-        localStorage.setItem('mb_gallery', JSON.stringify(MOCK_GALLERY));
+    try {
+        if (!localStorage.getItem('mb_settings')) {
+            localStorage.setItem('mb_settings', JSON.stringify(MOCK_SETTINGS));
+        }
+        if (!localStorage.getItem('mb_timeline')) {
+            localStorage.setItem('mb_timeline', JSON.stringify(MOCK_TIMELINE));
+        }
+        if (!localStorage.getItem('mb_guests')) {
+            localStorage.setItem('mb_guests', JSON.stringify(MOCK_GUESTS));
+        }
+        if (!localStorage.getItem('mb_messages')) {
+            localStorage.setItem('mb_messages', JSON.stringify(MOCK_MESSAGES));
+        }
+        if (!localStorage.getItem('mb_gallery')) {
+            localStorage.setItem('mb_gallery', JSON.stringify(MOCK_GALLERY));
+        }
+    } catch (e) {
+        console.error("Local database seed check/write failed", e);
     }
 }
 
@@ -92,25 +108,33 @@ export const dbService = {
     async getSettings() {
         const client = getSupabaseClient();
         if (client) {
-            const { data, error } = await client.from('settings').select('*').eq('key', 'event_settings').single();
-            if (!error && data) {
-                return data.value;
+            try {
+                const { data, error } = await client.from('settings').select('*').eq('key', 'event_settings').single();
+                if (!error && data) {
+                    return data.value;
+                }
+                console.warn("Error fetching Supabase settings, using fallback", error);
+            } catch (err) {
+                console.error("Exception fetching Supabase settings", err);
             }
-            console.warn("Error fetching Supabase settings, using fallback", error);
         }
-        return JSON.parse(localStorage.getItem('mb_settings'));
+        return safeGetLocalStorage('mb_settings', MOCK_SETTINGS);
     },
 
     async updateSettings(newSettings) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('settings').upsert({
-                key: 'event_settings',
-                value: newSettings,
-                updated_at: new Date().toISOString()
-            });
-            if (!error) return true;
-            console.error("Error updating Supabase settings", error);
+            try {
+                const { error } = await client.from('settings').upsert({
+                    key: 'event_settings',
+                    value: newSettings,
+                    updated_at: new Date().toISOString()
+                });
+                if (!error) return true;
+                console.error("Error updating Supabase settings", error);
+            } catch (err) {
+                console.error("Exception updating Supabase settings", err);
+            }
         }
         localStorage.setItem('mb_settings', JSON.stringify(newSettings));
         return true;
@@ -120,24 +144,32 @@ export const dbService = {
     async getGuests() {
         const client = getSupabaseClient();
         if (client) {
-            const { data, error } = await client.from('guests').select('*').order('created_at', { ascending: false });
-            if (!error && data) return data;
-            console.warn("Supabase guest read failed, using fallback", error);
+            try {
+                const { data, error } = await client.from('guests').select('*').order('created_at', { ascending: false });
+                if (!error && data) return data;
+                console.warn("Supabase guest read failed, using fallback", error);
+            } catch (err) {
+                console.error("Exception in Supabase guest read", err);
+            }
         }
-        return JSON.parse(localStorage.getItem('mb_guests'));
+        return safeGetLocalStorage('mb_guests', MOCK_GUESTS);
     },
 
     async addGuest(guestData) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('guests').insert([{
-                ...guestData,
-                created_at: new Date().toISOString()
-            }]);
-            if (!error) return true;
-            console.error("Supabase guest insert failed", error);
+            try {
+                const { error } = await client.from('guests').insert([{
+                    ...guestData,
+                    created_at: new Date().toISOString()
+                }]);
+                if (!error) return true;
+                console.error("Supabase guest insert failed", error);
+            } catch (err) {
+                console.error("Exception in Supabase guest insert", err);
+            }
         }
-        const guests = JSON.parse(localStorage.getItem('mb_guests') || '[]');
+        const guests = safeGetLocalStorage('mb_guests', MOCK_GUESTS);
         const newGuest = {
             id: 'g-' + Date.now(),
             ...guestData,
@@ -151,11 +183,15 @@ export const dbService = {
     async updateGuest(id, updatedData) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('guests').update(updatedData).eq('id', id);
-            if (!error) return true;
-            console.error("Supabase guest update failed, using local storage fallback", error);
+            try {
+                const { error } = await client.from('guests').update(updatedData).eq('id', id);
+                if (!error) return true;
+                console.error("Supabase guest update failed, using local storage fallback", error);
+            } catch (err) {
+                console.error("Exception in Supabase guest update", err);
+            }
         }
-        const guests = JSON.parse(localStorage.getItem('mb_guests') || '[]');
+        const guests = safeGetLocalStorage('mb_guests', MOCK_GUESTS);
         const index = guests.findIndex(g => String(g.id) === String(id));
         if (index !== -1) {
             guests[index] = { ...guests[index], ...updatedData };
@@ -167,11 +203,15 @@ export const dbService = {
     async deleteGuest(id) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('guests').delete().eq('id', id);
-            if (!error) return true;
-            console.error("Supabase guest deletion failed, using local storage fallback", error);
+            try {
+                const { error } = await client.from('guests').delete().eq('id', id);
+                if (!error) return true;
+                console.error("Supabase guest deletion failed, using local storage fallback", error);
+            } catch (err) {
+                console.error("Exception in Supabase guest deletion", err);
+            }
         }
-        let guests = JSON.parse(localStorage.getItem('mb_guests') || '[]');
+        let guests = safeGetLocalStorage('mb_guests', MOCK_GUESTS);
         guests = guests.filter(g => String(g.id) !== String(id));
         localStorage.setItem('mb_guests', JSON.stringify(guests));
         return true;
@@ -182,31 +222,39 @@ export const dbService = {
         const client = getSupabaseClient();
         const forceLocal = localStorage.getItem('mb_use_local_fallback_messages') === 'true';
         if (client && !forceLocal) {
-            let query = client.from('messages').select('*').order('created_at', { ascending: false });
-            if (approvedOnly) {
-                query = query.eq('approved', true);
+            try {
+                let query = client.from('messages').select('*').order('created_at', { ascending: false });
+                if (approvedOnly) {
+                    query = query.eq('approved', true);
+                }
+                const { data, error } = await query;
+                if (!error && data && data.length > 0) return data;
+                console.warn("Supabase messages query failed or empty, using fallback", error);
+            } catch (err) {
+                console.error("Exception in Supabase messages query", err);
             }
-            const { data, error } = await query;
-            if (!error && data && data.length > 0) return data;
-            console.warn("Supabase messages query failed or empty, using fallback", error);
         }
-        const messages = JSON.parse(localStorage.getItem('mb_messages') || '[]');
+        const messages = safeGetLocalStorage('mb_messages', MOCK_MESSAGES);
         return approvedOnly ? messages.filter(m => m.approved) : messages;
     },
 
     async addMessage(author, text) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('messages').insert([{
-                author,
-                text,
-                approved: false,
-                created_at: new Date().toISOString()
-            }]);
-            if (!error) return true;
-            console.error("Supabase message insert failed", error);
+            try {
+                const { error } = await client.from('messages').insert([{
+                    author,
+                    text,
+                    approved: false,
+                    created_at: new Date().toISOString()
+                }]);
+                if (!error) return true;
+                console.error("Supabase message insert failed", error);
+            } catch (err) {
+                console.error("Exception in Supabase message insert", err);
+            }
         }
-        const messages = JSON.parse(localStorage.getItem('mb_messages') || '[]');
+        const messages = safeGetLocalStorage('mb_messages', MOCK_MESSAGES);
         const newMsg = {
             id: 'm-' + Date.now(),
             author,
@@ -223,14 +271,18 @@ export const dbService = {
         const client = getSupabaseClient();
         let supaOk = false;
         if (client) {
-            const { error } = await client.from('messages').update({ approved: true }).eq('id', id);
-            if (!error) supaOk = true;
-            else console.error("Supabase message approval failed, fallback to local storage", error);
+            try {
+                const { error } = await client.from('messages').update({ approved: true }).eq('id', id);
+                if (!error) supaOk = true;
+                else console.error("Supabase message approval failed, fallback to local storage", error);
+            } catch (err) {
+                console.error("Exception in Supabase message approval", err);
+            }
         }
         if (!supaOk) {
             localStorage.setItem('mb_use_local_fallback_messages', 'true');
         }
-        const messages = JSON.parse(localStorage.getItem('mb_messages') || '[]');
+        const messages = safeGetLocalStorage('mb_messages', MOCK_MESSAGES);
         const index = messages.findIndex(m => String(m.id) === String(id));
         if (index !== -1) {
             messages[index].approved = true;
@@ -243,40 +295,50 @@ export const dbService = {
         const client = getSupabaseClient();
         let supaOk = false;
         if (client) {
-            const { error } = await client.from('messages').delete().eq('id', id);
-            if (!error) supaOk = true;
-            else console.error("Supabase message deletion failed, fallback to local storage", error);
+            try {
+                const { error } = await client.from('messages').delete().eq('id', id);
+                if (!error) supaOk = true;
+                else console.error("Supabase message deletion failed, fallback to local storage", error);
+            } catch (err) {
+                console.error("Exception in Supabase message deletion", err);
+            }
         }
         if (!supaOk) {
             localStorage.setItem('mb_use_local_fallback_messages', 'true');
         }
-        let messages = JSON.parse(localStorage.getItem('mb_messages') || '[]');
+        let messages = safeGetLocalStorage('mb_messages', MOCK_MESSAGES);
         messages = messages.filter(m => String(m.id) !== String(id));
         localStorage.setItem('mb_messages', JSON.stringify(messages));
         return true;
     },
 
-
-
     // 5. TIMELINE OPERATIONS
     async getTimeline() {
         const client = getSupabaseClient();
         if (client) {
-            const { data, error } = await client.from('timeline').select('*').order('order_index', { ascending: true });
-            if (!error && data) return data;
-            console.warn("Supabase timeline fetch failed, using fallback", error);
+            try {
+                const { data, error } = await client.from('timeline').select('*').order('order_index', { ascending: true });
+                if (!error && data) return data;
+                console.warn("Supabase timeline fetch failed, using fallback", error);
+            } catch (err) {
+                console.error("Exception in Supabase timeline fetch", err);
+            }
         }
-        return JSON.parse(localStorage.getItem('mb_timeline'));
+        return safeGetLocalStorage('mb_timeline', MOCK_TIMELINE);
     },
 
     async updateTimelineItem(id, itemData) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('timeline').update(itemData).eq('id', id);
-            if (!error) return true;
-            console.error("Supabase timeline item update failed, fallback to local storage", error);
+            try {
+                const { error } = await client.from('timeline').update(itemData).eq('id', id);
+                if (!error) return true;
+                console.error("Supabase timeline item update failed, fallback to local storage", error);
+            } catch (err) {
+                console.error("Exception in Supabase timeline item update", err);
+            }
         }
-        const timeline = JSON.parse(localStorage.getItem('mb_timeline') || '[]');
+        const timeline = safeGetLocalStorage('mb_timeline', MOCK_TIMELINE);
         const index = timeline.findIndex(t => String(t.id) === String(id));
         if (index !== -1) {
             timeline[index] = { ...timeline[index], ...itemData };
@@ -289,42 +351,91 @@ export const dbService = {
     async getGallery() {
         const client = getSupabaseClient();
         if (client) {
-            const { data, error } = await client.from('gallery').select('*').order('order_index', { ascending: true });
-            if (!error && data) return data;
-            console.warn("Supabase gallery fetch failed, using fallback", error);
+            try {
+                const { data, error } = await client.from('gallery').select('*').order('order_index', { ascending: true });
+                if (!error && data) return data;
+                console.warn("Supabase gallery fetch failed, using fallback", error);
+            } catch (err) {
+                console.error("Exception in Supabase gallery fetch", err);
+            }
         }
-        return JSON.parse(localStorage.getItem('mb_gallery'));
+        return safeGetLocalStorage('mb_gallery', MOCK_GALLERY);
     },
 
     async addGalleryItem(item) {
         const client = getSupabaseClient();
         if (client) {
-            const { id, ...supabaseItem } = item;
-            const itemToInsert = (id && String(id).startsWith('gal-')) ? supabaseItem : item;
-            const { error } = await client.from('gallery').insert([itemToInsert]);
-            if (!error) return true;
-            console.error("Supabase gallery item insert failed", error);
+            try {
+                const { id, ...supabaseItem } = item;
+                const itemToInsert = (id && String(id).startsWith('gal-')) ? supabaseItem : item;
+                const { error } = await client.from('gallery').insert([itemToInsert]);
+                if (!error) return true;
+                console.error("Supabase gallery item insert failed", error);
+            } catch (err) {
+                console.error("Exception in Supabase gallery item insert", err);
+            }
         }
-        const gallery = JSON.parse(localStorage.getItem('mb_gallery') || '[]');
-        gallery.push({
-            id: 'gal-' + Date.now(),
-            ...item
-        });
-        localStorage.setItem('mb_gallery', JSON.stringify(gallery));
-        return true;
+        try {
+            const gallery = safeGetLocalStorage('mb_gallery', MOCK_GALLERY);
+            gallery.push({
+                id: 'gal-' + Date.now(),
+                ...item
+            });
+            localStorage.setItem('mb_gallery', JSON.stringify(gallery));
+            return true;
+        } catch (storageError) {
+            console.error("Local storage quota exceeded or failed", storageError);
+            alert("Erro: Não foi possível salvar a imagem localmente. O espaço de armazenamento do navegador está cheio (limite de 5MB do LocalStorage). Remova algumas fotos antigas ou conecte o Supabase nas Configurações.");
+            return false;
+        }
     },
 
     async deleteGalleryItem(id) {
         const client = getSupabaseClient();
         if (client) {
-            const { error } = await client.from('gallery').delete().eq('id', id);
-            if (!error) return true;
-            console.error("Supabase gallery deletion failed, fallback to local storage", error);
+            try {
+                const { error } = await client.from('gallery').delete().eq('id', id);
+                if (!error) return true;
+                console.error("Supabase gallery deletion failed, fallback to local storage", error);
+            } catch (err) {
+                console.error("Exception in Supabase gallery deletion", err);
+            }
         }
-        let gallery = JSON.parse(localStorage.getItem('mb_gallery') || '[]');
-        gallery = gallery.filter(g => String(g.id) !== String(id));
-        localStorage.setItem('mb_gallery', JSON.stringify(gallery));
-        return true;
+        try {
+            let gallery = safeGetLocalStorage('mb_gallery', MOCK_GALLERY);
+            gallery = gallery.filter(g => String(g.id) !== String(id));
+            localStorage.setItem('mb_gallery', JSON.stringify(gallery));
+            return true;
+        } catch (storageError) {
+            console.error("Local storage deletion failed", storageError);
+            return false;
+        }
+    },
+
+    async updateGalleryItem(id, updatedData) {
+        const client = getSupabaseClient();
+        if (client) {
+            try {
+                const { error } = await client.from('gallery').update(updatedData).eq('id', id);
+                if (!error) return true;
+                console.error("Supabase gallery item update failed, fallback to local storage", error);
+            } catch (err) {
+                console.error("Exception in Supabase gallery item update", err);
+            }
+        }
+        try {
+            const gallery = safeGetLocalStorage('mb_gallery', MOCK_GALLERY);
+            const index = gallery.findIndex(g => String(g.id) === String(id));
+            if (index !== -1) {
+                gallery[index] = { ...gallery[index], ...updatedData };
+                localStorage.setItem('mb_gallery', JSON.stringify(gallery));
+            }
+            return true;
+        } catch (storageError) {
+            console.error("Local storage quota exceeded or failed on update", storageError);
+            alert("Erro: Não foi possível atualizar os dados localmente. O espaço de armazenamento do navegador está cheio.");
+            return false;
+        }
     },
 
     // 7. REST DATABASE BACK TO FACTORY SEEDS

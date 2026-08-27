@@ -3,6 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("DEBUG-CRASH:", message, "at", source, ":", lineno);
+            const errDiv = document.createElement('div');
+            errDiv.style.position = 'fixed';
+            errDiv.style.top = '0';
+            errDiv.style.left = '0';
+            errDiv.style.width = '100%';
+            errDiv.style.backgroundColor = '#ff3333';
+            errDiv.style.color = '#ffffff';
+            errDiv.style.padding = '15px';
+            errDiv.style.zIndex = '9999999';
+            errDiv.style.fontFamily = 'monospace';
+            errDiv.style.fontSize = '14px';
+            errDiv.style.textAlign = 'left';
+            errDiv.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+            errDiv.innerHTML = '<strong>Erro de JavaScript detectado:</strong><br>' + 
+                               message + '<br><small>Arquivo: ' + source + ' | Linha: ' + lineno + '</small>' +
+                               '<br><br><button onclick="this.parentElement.remove()" style="background:#fff;color:#ff3333;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-weight:bold;">Fechar</button>';
+            document.documentElement.appendChild(errDiv);
+            return false;
+        };
+    </script>
     <title>Márcia Gorete — Painel Administrativo</title>
     
     <!-- Bootstrap 5 CSS -->
@@ -283,11 +306,8 @@
                                 <div class="admin-card">
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <h4 class="gold-text mb-0"><i class="fas fa-images"></i> Gerenciar Galeria de Fotos</h4>
-                                        <button class="btn btn-gold btn-sm rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#adminUploadPhotoModal">
-                                            <i class="fas fa-plus me-1"></i> Adicionar Foto
-                                        </button>
                                     </div>
-                                    <p class="text-muted small mb-4">Gerencie as fotos da galeria. Você pode adicionar novas fotos locais ou excluir as fotos enviadas pelos convidados.</p>
+                                    <p class="text-muted small mb-4">Gerencie as fotos da galeria. Você pode visualizar e excluir as fotos da lista.</p>
                                     
                                     <div class="table-responsive">
                                         <table class="table admin-table align-middle">
@@ -414,40 +434,7 @@
                             <button type="button" class="btn btn-admin-secondary rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-admin-primary rounded-pill btn-sm px-4 fw-bold">Salvar Alterações</button>
                         </div>
-        <!-- Admin Upload Photo Modal -->
-        <div class="modal fade" id="adminUploadPhotoModal" tabindex="-1" aria-labelledby="adminUploadPhotoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content modal-content-custom">
-                    <div class="modal-header modal-header-custom">
-                        <h5 class="modal-title gold-text" id="adminUploadPhotoModalLabel"><i class="fas fa-plus"></i> Adicionar Foto</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="admin-upload-photo-form">
-                        <div class="modal-body rounded-bottom p-4 text-dark">
-                            <div class="mb-3 text-start">
-                                <label for="admin-photo-category" class="form-label font-serif">Categoria</label>
-                                <select class="form-select admin-form-control" id="admin-photo-category" style="border-radius: 12px !important;">
-                                    <option value="Debutante">Debutante (Ensaio)</option>
-                                    <option value="Convidados">Convidados (Festa)</option>
-                                </select>
-                            </div>
-                            <div class="mb-3 text-start">
-                                <label for="admin-photo-caption" class="form-label font-serif">Legenda da Foto (Opcional)</label>
-                                <input type="text" class="form-control admin-form-control" id="admin-photo-caption" placeholder="Ex: Foto oficial do ensaio" style="border-radius: 12px !important;">
-                            </div>
-                            <div class="mb-3 text-start">
-                                <label for="admin-photo-file" class="form-label font-serif">Escolha a Foto</label>
-                                <input type="file" class="form-control admin-form-control" id="admin-photo-file" accept="image/*" required style="border-radius: 12px !important;">
-                            </div>
-                        </div>
-                        <div class="modal-footer modal-footer-custom bg-transparent border-0 pt-0 pb-4">
-                            <button type="button" class="btn btn-admin-secondary rounded-pill btn-sm px-3" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn btn-admin-primary rounded-pill btn-sm px-4 fw-bold">Salvar Foto</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+
 
     </div>
 
@@ -458,6 +445,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="module" src="assets/js/admin-main.js?v=tiana_v5"></script>
+    <script type="module" src="assets/js/admin-main.js?v=tiana_v6"></script>
 </body>
 </html>

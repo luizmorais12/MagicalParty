@@ -45,11 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editGuestForm.addEventListener('submit', handleEditGuestSubmit);
     }
 
-    // Admin Gallery Form Submission
-    const adminUploadForm = document.getElementById('admin-upload-photo-form');
-    if (adminUploadForm) {
-        adminUploadForm.addEventListener('submit', handleAdminUploadSubmit);
-    }
+
 
     const settingsForm = document.getElementById('settings-form');
     if (settingsForm) {
@@ -78,8 +74,33 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 // SESSION AND AUTH LOGIN
 // ==========================================
+function safeGetSessionStorage(key) {
+    try {
+        return sessionStorage.getItem(key);
+    } catch (e) {
+        console.warn("sessionStorage is blocked or inaccessible", e);
+        return null;
+    }
+}
+
+function safeSetSessionStorage(key, value) {
+    try {
+        sessionStorage.setItem(key, value);
+    } catch (e) {
+        console.warn("sessionStorage set failed", e);
+    }
+}
+
+function safeRemoveSessionStorage(key) {
+    try {
+        sessionStorage.removeItem(key);
+    } catch (e) {
+        console.warn("sessionStorage remove failed", e);
+    }
+}
+
 function checkAuthSession() {
-    const isAuthed = sessionStorage.getItem('admin_authenticated') === 'true';
+    const isAuthed = safeGetSessionStorage('admin_authenticated') === 'true';
     const loginOverlay = document.getElementById('admin-login-overlay');
     const dashboardWrapper = document.getElementById('admin-dashboard-wrapper');
 
@@ -105,13 +126,17 @@ async function handleLogin(e) {
     // Check if Supabase client is connected
     const client = getSupabaseClient();
     if (client) {
-        // Try authenticating through Supabase standard Auth
-        const { data, error } = await client.auth.signInWithPassword({
-            email: username,
-            password: password
-        });
-        if (!error && data.session) {
-            authenticated = true;
+        try {
+            // Try authenticating through Supabase standard Auth
+            const { data, error } = await client.auth.signInWithPassword({
+                email: username,
+                password: password
+            });
+            if (!error && data.session) {
+                authenticated = true;
+            }
+        } catch (err) {
+            console.error("Supabase login exception, falling back to local storage", err);
         }
     }
 
@@ -123,7 +148,7 @@ async function handleLogin(e) {
     }
 
     if (authenticated) {
-        sessionStorage.setItem('admin_authenticated', 'true');
+        safeSetSessionStorage('admin_authenticated', 'true');
         if (errMsg) errMsg.classList.add('d-none');
         checkAuthSession();
     } else {
@@ -132,7 +157,7 @@ async function handleLogin(e) {
 }
 
 function handleLogout() {
-    sessionStorage.removeItem('admin_authenticated');
+    safeRemoveSessionStorage('admin_authenticated');
     const client = getSupabaseClient();
     if (client) {
         client.auth.signOut();
@@ -815,7 +840,9 @@ async function renderAdminGalleryList() {
                     <span class="badge ${item.category === 'Debutante' ? 'bg-success' : 'bg-primary'}">${item.category}</span>
                 </td>
                 <td data-label="Ações" class="text-center">
-                    <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="window.deleteAdminGalleryItem('${item.id}')" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button class="btn btn-sm btn-outline-danger rounded-circle" onclick="window.deleteAdminGalleryItem('${item.id}')" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                    </div>
                 </td>
             </tr>
         `;
@@ -833,52 +860,4 @@ async function deleteAdminGalleryItem(id) {
 }
 window.deleteAdminGalleryItem = deleteAdminGalleryItem;
 
-async function handleAdminUploadSubmit(e) {
-    e.preventDefault();
-    const category = document.getElementById('admin-photo-category').value;
-    const caption = document.getElementById('admin-photo-caption').value.trim();
-    const fileInput = document.getElementById('admin-photo-file');
-    const file = fileInput.files[0];
-    if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = async (event) => {
-        const img = new Image();
-        img.onload = async () => {
-            const canvas = document.createElement('canvas');
-            let width = img.width;
-            let height = img.height;
-            const maxWidth = 800;
-            if (width > maxWidth) {
-                height = Math.round((height * maxWidth) / width);
-                width = maxWidth;
-            }
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0, width, height);
-            const compressedUrl = canvas.toDataURL('image/jpeg', 0.7);
-
-            const newGalleryItem = {
-                id: 'gal-admin-' + Date.now(),
-                url: compressedUrl,
-                caption: caption,
-                category: category,
-                order_index: Date.now()
-            };
-
-            const success = await dbService.addGalleryItem(newGalleryItem);
-            if (success) {
-                const modalEl = document.getElementById('adminUploadPhotoModal');
-                const bsModal = bootstrap.Modal.getInstance(modalEl);
-                if (bsModal) bsModal.hide();
-                
-                // Reset form
-                document.getElementById('admin-upload-photo-form').reset();
-                renderAdminGalleryList();
-            }
-        };
-        img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-}

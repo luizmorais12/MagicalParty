@@ -3,6 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("DEBUG-CRASH:", message, "at", source, ":", lineno);
+            const errDiv = document.createElement('div');
+            errDiv.style.position = 'fixed';
+            errDiv.style.top = '0';
+            errDiv.style.left = '0';
+            errDiv.style.width = '100%';
+            errDiv.style.backgroundColor = '#ff3333';
+            errDiv.style.color = '#ffffff';
+            errDiv.style.padding = '15px';
+            errDiv.style.zIndex = '9999999';
+            errDiv.style.fontFamily = 'monospace';
+            errDiv.style.fontSize = '14px';
+            errDiv.style.textAlign = 'left';
+            errDiv.style.boxShadow = '0 4px 10px rgba(0,0,0,0.3)';
+            errDiv.innerHTML = '<strong>Erro de JavaScript detectado:</strong><br>' + 
+                               message + '<br><small>Arquivo: ' + source + ' | Linha: ' + lineno + '</small>' +
+                               '<br><br><button onclick="this.parentElement.remove()" style="background:#fff;color:#ff3333;border:none;padding:5px 10px;border-radius:4px;cursor:pointer;font-weight:bold;">Fechar</button>';
+            document.documentElement.appendChild(errDiv);
+            return false;
+        };
+    </script>
     <title>Márcia Gorete — 15 Anos | Convite Real</title>
     
     <!-- Meta Tags SEO -->

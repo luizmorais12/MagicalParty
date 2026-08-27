@@ -92,13 +92,15 @@ function renderGalleryItems(grid) {
     }
 
     // Animate item entrance with GSAP
-    gsap.from(".gallery-item", {
-        opacity: 0,
-        y: 35,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out"
-    });
+    if (typeof gsap !== 'undefined') {
+        gsap.from(".gallery-item", {
+            opacity: 0,
+            y: 35,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power2.out"
+        });
+    }
 }
 
 function filterGrid() {
@@ -109,16 +111,27 @@ function filterGrid() {
         if (activeFilter === 'Todos' || cat === activeFilter) {
             // Reveal matching
             item.style.display = 'block';
-            gsap.to(item, { scale: 1, opacity: 1, duration: 0.4, ease: "power2.out" });
+            if (typeof gsap !== 'undefined') {
+                gsap.to(item, { scale: 1, opacity: 1, duration: 0.4, ease: "power2.out" });
+            } else {
+                item.style.opacity = 1;
+                item.style.transform = 'scale(1)';
+            }
         } else {
             // Hide non-matching
-            gsap.to(item, { 
-                scale: 0.85, 
-                opacity: 0, 
-                duration: 0.3, 
-                ease: "power2.in", 
-                onComplete: () => { item.style.display = 'none'; } 
-            });
+            if (typeof gsap !== 'undefined') {
+                gsap.to(item, { 
+                    scale: 0.85, 
+                    opacity: 0, 
+                    duration: 0.3, 
+                    ease: "power2.in", 
+                    onComplete: () => { item.style.display = 'none'; } 
+                });
+            } else {
+                item.style.opacity = 0;
+                item.style.transform = 'scale(0.85)';
+                item.style.display = 'none';
+            }
         }
     });
 }
@@ -165,23 +178,35 @@ function initLightbox() {
         lightbox.style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Lock scrolling
         
-        gsap.fromTo(lightboxImg, 
-            { scale: 0.8, opacity: 0 }, 
-            { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.2)" }
-        );
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo(lightboxImg, 
+                { scale: 0.8, opacity: 0 }, 
+                { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.2)" }
+            );
+        } else {
+            lightboxImg.style.opacity = 1;
+            lightboxImg.style.transform = 'scale(1)';
+        }
     }
 
     function closeLightbox() {
-        gsap.to(lightboxImg, {
-            scale: 0.8,
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.in",
-            onComplete: () => {
-                lightbox.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Unlock scroll
-            }
-        });
+        if (typeof gsap !== 'undefined') {
+            gsap.to(lightboxImg, {
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.3,
+                ease: "power2.in",
+                onComplete: () => {
+                    lightbox.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Unlock scroll
+                }
+            });
+        } else {
+            lightboxImg.style.opacity = 0;
+            lightboxImg.style.transform = 'scale(0.8)';
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
     }
 
     function nextImage() {
@@ -261,7 +286,7 @@ function initGuestPhotoUpload() {
         if (success) {
             // Hide modal
             const modalEl = document.getElementById('uploadPhotoModal');
-            const bsModal = bootstrap.Modal.getInstance(modalEl);
+            const bsModal = bootstrap.Modal.getInstance(modalEl) || bootstrap.Modal.getOrCreateInstance(modalEl);
             if (bsModal) bsModal.hide();
 
             uploadForm.reset();
