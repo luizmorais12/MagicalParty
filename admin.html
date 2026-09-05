@@ -139,7 +139,8 @@
                                 <h1 class="gold-text mb-2" style="font-family: var(--font-display); font-weight: 700;">Administração do Bayou</h1>
                                 <p class="text-muted font-serif mb-0">Controle de RSVP, moderação de mensagens e reservas da lista de presentes.</p>
                             </div>
-                            <div class="col-md-4 text-end d-none d-md-block">
+                            <div class="col-md-4 text-end d-none d-md-flex align-items-center justify-content-end gap-2">
+                                <span id="admin-db-status-pill" class="badge bg-secondary px-3 py-2" style="font-size: 0.8rem;"><i class="fas fa-circle-notch fa-spin me-1"></i> Verificando Supabase...</span>
                                 <a href="index.html" class="btn btn-glass rounded-pill px-4"><i class="fas fa-eye"></i> Ver Convite</a>
                             </div>
                         </div>
@@ -184,10 +185,10 @@
                                     </div>
                                     <!-- Pending Messages -->
                                     <div class="col-6 col-md-4 col-lg-2">
-                                        <div class="admin-card text-center h-100">
-                                            <div class="mb-2 text-success"><i class="fas fa-envelope-open-text fa-lg"></i></div>
+                                        <div class="admin-card text-center h-100" style="cursor: pointer; transition: transform 0.2s;" onclick="document.getElementById('messages-tab').click();" title="Clique para abrir as mensagens">
+                                            <div class="mb-2 text-warning"><i class="fas fa-envelope-open-text fa-lg"></i></div>
                                             <h5 class="small text-uppercase mb-1 text-muted fw-bold" style="letter-spacing: 1px; font-size: 0.72rem;">Cartas a Moderar</h5>
-                                            <p class="counter-num mb-0" id="stat-messages">0</p>
+                                            <p class="counter-num mb-0 text-warning" id="stat-messages">0</p>
                                         </div>
                                     </div>
                                 </div>
@@ -279,8 +280,27 @@
                             <!-- TAB PANEL 3: MESSAGES CONTROL -->
                             <div class="tab-pane fade" id="messages-panel" role="tabpanel" aria-labelledby="messages-tab">
                                 <div class="admin-card">
-                                    <h4 class="gold-text mb-3"><i class="fas fa-comments"></i> Moderação do Livro de Mensagens</h4>
-                                    <p class="text-muted small mb-4">Mensagens enviadas pelos súditos aparecem aqui. Aprove-as para exibi-las no livro público de assinaturas ou remova se necessário.</p>
+                                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-3">
+                                        <div>
+                                            <h4 class="gold-text mb-1"><i class="fas fa-comments me-2"></i> Moderação do Livro de Mensagens</h4>
+                                            <p class="text-muted small mb-0">Mensagens enviadas pelos convidados aparecem aqui. Aprove para exibi-las no mural público.</p>
+                                        </div>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <button type="button" class="btn btn-outline-warning btn-sm rounded-pill px-3" onclick="window.renderMessagesList()">
+                                                <i class="fas fa-sync-alt me-1"></i> Atualizar
+                                            </button>
+                                            <button type="button" class="btn btn-admin-primary btn-sm rounded-pill px-3 fw-bold" onclick="window.approveAllMessages()">
+                                                <i class="fas fa-check-double me-1"></i> Aprovar Todas as Pendentes
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Quick Counters for Messages -->
+                                    <div class="d-flex gap-2 mb-4 flex-wrap">
+                                        <span class="badge bg-secondary px-3 py-2" id="msg-tab-stat-total" style="font-size: 0.8rem;">0 mensagens</span>
+                                        <span class="badge bg-warning text-dark px-3 py-2" id="msg-tab-stat-pending" style="font-size: 0.8rem;">0 pendentes de moderação</span>
+                                        <span class="badge bg-success px-3 py-2" id="msg-tab-stat-approved" style="font-size: 0.8rem;">0 visíveis no mural</span>
+                                    </div>
                                     
                                     <div class="table-responsive">
                                         <table class="table admin-table align-middle">
@@ -329,6 +349,39 @@
 
                             <!-- TAB PANEL 4: SETTINGS CONFIG -->
                             <div class="tab-pane fade" id="settings-panel" role="tabpanel" aria-labelledby="settings-tab">
+                                
+                                <!-- Diagnostic & SQL Permissions Tool -->
+                                <div class="admin-card mb-4" id="supabase-diagnostics-card" style="border: 1px solid rgba(212, 175, 55, 0.4); background: rgba(20, 92, 54, 0.15);">
+                                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2 mb-3">
+                                        <div>
+                                            <h4 class="gold-text mb-1" style="font-size: 1.15rem;"><i class="fas fa-database me-2"></i> Status do Banco de Dados (Supabase)</h4>
+                                            <p class="text-muted small mb-0">Verifique a comunicação em tempo real e resolva permissões de gravação/leitura.</p>
+                                        </div>
+                                        <button type="button" class="btn btn-sm btn-outline-warning rounded-pill px-3" id="btn-test-db-connection">
+                                            <i class="fas fa-sync-alt me-1"></i> Testar Conexão
+                                        </button>
+                                    </div>
+
+                                    <div id="db-health-status-box" class="p-3 rounded mb-3" style="background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.1);">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span class="spinner-border spinner-border-sm text-warning" role="status"></span>
+                                            <span class="small text-white">Analisando conexão com o Supabase...</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-3 rounded" style="background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(212, 175, 55, 0.25);">
+                                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-2">
+                                            <span class="gold-text fw-bold small"><i class="fas fa-magic me-1"></i> Script SQL de Correção Rápida (Liberar RLS)</span>
+                                            <button type="button" class="btn btn-sm btn-admin-primary rounded-pill px-3 fw-bold" id="btn-copy-sql-fix">
+                                                <i class="fas fa-copy me-1"></i> Copiar Código SQL
+                                            </button>
+                                        </div>
+                                        <p class="small text-light-muted mb-0" style="font-size: 0.8rem; line-height: 1.4;">
+                                            Caso os convidados confirmem e não apareça no contador ou painel, clique em <strong>Copiar Código SQL</strong>, abra o <a href="https://supabase.com/dashboard" target="_blank" class="text-warning text-decoration-underline">painel do Supabase</a> &gt; <strong>SQL Editor</strong> &gt; Cole o script e clique em <strong>Run</strong>. Isso libera as permissões públicas instantaneamente.
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div class="admin-card">
                                     <h4 class="gold-text mb-3"><i class="fas fa-cogs"></i> Ajustes Gerais do Evento</h4>
                                     <p class="text-muted small mb-4">Atualize as informações exibidas no convite real e as chaves de conexão do banco de dados Supabase.</p>
@@ -445,6 +498,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="module" src="assets/js/admin-main.js?v=tiana_v6"></script>
+    <script type="module" src="assets/js/admin-main.js?v=tiana_v11_messages"></script>
 </body>
 </html>

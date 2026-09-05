@@ -6,6 +6,67 @@ import { getSupabaseClient } from './config/supabase.js';
 
 let chartInstance = null;
 let currentTab = 'dashboard';
+let guestsRealtimeChannel = null;
+let messagesRealtimeChannel = null;
+let pollInterval = null;
+
+const SQL_FIX_SCRIPT = `-- ========================================================
+-- SCRIPT DE LIBERAÇÃO DE PERMISSÕES SUPABASE (RLS)
+-- 15 Anos Márcia Gorete — A Princesa e o Sapo
+-- ========================================================
+
+-- GUESTS (Convidados RSVP)
+ALTER TABLE IF EXISTS guests ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em guests" ON guests;
+DROP POLICY IF EXISTS "Inserção pública de RSVP" ON guests;
+DROP POLICY IF EXISTS "Controle total de convidados por administradores" ON guests;
+CREATE POLICY "Permitir tudo em guests" ON guests FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- MESSAGES (Livro de Visitas / Mural)
+ALTER TABLE IF EXISTS messages ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em messages" ON messages;
+DROP POLICY IF EXISTS "Inserção pública de mensagens" ON messages;
+DROP POLICY IF EXISTS "Moderação total de mensagens por administradores" ON messages;
+CREATE POLICY "Permitir tudo em messages" ON messages FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- SETTINGS (Configurações Gerais)
+ALTER TABLE IF EXISTS settings ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em settings" ON settings;
+CREATE POLICY "Permitir tudo em settings" ON settings FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- GALLERY (Galeria de Fotos)
+ALTER TABLE IF EXISTS gallery ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em gallery" ON gallery;
+CREATE POLICY "Permitir tudo em gallery" ON gallery FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- TIMELINE (Cronograma)
+ALTER TABLE IF EXISTS timeline ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em timeline" ON timeline;
+CREATE POLICY "Permitir tudo em timeline" ON timeline FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- GIFTS (Presentes)
+ALTER TABLE IF EXISTS gifts ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em gifts" ON gifts;
+CREATE POLICY "Permitir tudo em gifts" ON gifts FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- VIDEOS (Retrospectiva)
+ALTER TABLE IF EXISTS videos ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em videos" ON videos;
+CREATE POLICY "Permitir tudo em videos" ON videos FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- MUSIC (Músicas)
+ALTER TABLE IF EXISTS music ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Permitir tudo em music" ON music;
+CREATE POLICY "Permitir tudo em music" ON music FOR ALL TO public USING (true) WITH CHECK (true);
+
+-- PRIVILÉGIOS NO SCHEMA PUBLIC
+GRANT USAGE ON SCHEMA public TO anon, authenticated, service_role;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO anon, authenticated, service_role;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;
+GRANT ALL ON ALL ROUTINES IN SCHEMA public TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO anon, authenticated, service_role;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON ROUTINES TO anon, authenticated, service_role;`;
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Session check on page load
@@ -17,19 +78,28 @@ document.addEventListener('DOMContentLoaded', () => {
         loginForm.addEventListener('submit', handleLogin);
     }
 
-    // 3. Tab switching events
+    // 3. Tab switching events (both click and Bootstrap shown.bs.tab)
     const tabEl = document.getElementById('adminTabs');
     if (tabEl) {
         tabEl.addEventListener('click', (e) => {
             const btn = e.target.closest('.admin-nav-item');
             if (!btn || btn.id === 'admin-logout-btn') return;
             
-            // Switch tabs visually and reload content
             const tabId = btn.id.replace('-tab', '');
             currentTab = tabId;
             loadTabContent(tabId);
         });
     }
+
+    // Support Bootstrap 5 tab change event
+    document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tabBtn => {
+        tabBtn.addEventListener('shown.bs.tab', (e) => {
+            const target = e.target.getAttribute('data-bs-target') || e.target.id;
+            const tabId = target.replace('#', '').replace('-panel', '').replace('-tab', '');
+            currentTab = tabId;
+            loadTabContent(tabId);
+        });
+    });
 
     // 4. Guest search filter
     const searchInput = document.getElementById('search-guests-input');
@@ -44,8 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (editGuestForm) {
         editGuestForm.addEventListener('submit', handleEditGuestSubmit);
     }
-
-
 
     const settingsForm = document.getElementById('settings-form');
     if (settingsForm) {
@@ -64,12 +132,53 @@ document.addEventListener('DOMContentLoaded', () => {
     // 8. Exports init
     initExportEvents();
 
-    // 9. Logout button event
+    // 9. Database diagnostics and tools init
+    initDatabaseDiagnostics();
+
+    // 10. Realtime synchronization setup
+    initAdminRealtime();
+
+    // 11. Logout button event
     const logoutBtn = document.getElementById('admin-logout-btn');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', handleLogout);
     }
 });
+
+// ==========================================
+// REALTIME SYNC & AUTO-REFRESH
+// ==========================================
+function initAdminRealtime() {
+    if (!guestsRealtimeChannel) {
+        guestsRealtimeChannel = dbService.subscribeToGuests((payload) => {
+            console.log("⚡ Novo evento em convidados:", payload);
+            if (currentTab === 'dashboard') renderDashboardStats();
+            if (currentTab === 'guests') renderGuestsList();
+        });
+    }
+
+    if (!messagesRealtimeChannel) {
+        messagesRealtimeChannel = dbService.subscribeToMessages((payload) => {
+            console.log("⚡ Novo evento em mensagens:", payload);
+            if (currentTab === 'dashboard') renderDashboardStats();
+            if (currentTab === 'messages') renderMessagesList();
+        });
+    }
+
+    // Backup polling every 20 seconds
+    if (!pollInterval) {
+        pollInterval = setInterval(() => {
+            if (safeGetSessionStorage('admin_authenticated') === 'true') {
+                if (currentTab === 'dashboard') renderDashboardStats();
+                if (currentTab === 'guests') {
+                    const searchInput = document.getElementById('search-guests-input');
+                    const query = searchInput ? searchInput.value : '';
+                    renderGuestsList(query);
+                }
+            }
+        }, 20000);
+    }
+}
 
 // ==========================================
 // SESSION AND AUTH LOGIN
@@ -107,8 +216,13 @@ function checkAuthSession() {
     if (isAuthed) {
         if (loginOverlay) loginOverlay.style.display = 'none';
         if (dashboardWrapper) dashboardWrapper.classList.remove('d-none');
-        // Initial load of content
+        // Initial load of content and pre-populate all tabs
         loadTabContent('dashboard');
+        renderGuestsList();
+        renderMessagesList();
+        renderAdminGalleryList();
+        // Run database health check
+        checkDatabaseStatusUI();
     } else {
         if (loginOverlay) loginOverlay.style.display = 'flex';
         if (dashboardWrapper) dashboardWrapper.classList.add('d-none');
@@ -127,7 +241,6 @@ async function handleLogin(e) {
     const client = getSupabaseClient();
     if (client) {
         try {
-            // Try authenticating through Supabase standard Auth
             const { data, error } = await client.auth.signInWithPassword({
                 email: username,
                 password: password
@@ -136,11 +249,11 @@ async function handleLogin(e) {
                 authenticated = true;
             }
         } catch (err) {
-            console.error("Supabase login exception, falling back to local storage", err);
+            console.error("Supabase login exception, checking local credentials", err);
         }
     }
 
-    // Local / Offline credential check (admin / sapo2026)
+    // Local / Master credential check (admin / sapo2026)
     if (!authenticated) {
         if (username === 'admin' && password === 'sapo2026') {
             authenticated = true;
@@ -184,6 +297,7 @@ function loadTabContent(tabId) {
             break;
         case 'settings':
             loadSettingsValues();
+            checkDatabaseStatusUI();
             break;
     }
 }
@@ -192,30 +306,36 @@ function loadTabContent(tabId) {
 // RENDER TAB: DASHBOARD
 // ==========================================
 async function renderDashboardStats() {
-    const guests = await dbService.getGuests();
-    const messages = await dbService.getMessages(false); // get all
+    try {
+        const guests = await dbService.getGuests();
+        const messages = await dbService.getMessages(false); // get all
 
-    let totalConfirmed = 0;
-    let adults = 0;
-    let kids = 0;
+        let totalConfirmed = 0;
+        let adults = 0;
+        let kids = 0;
 
-    guests.forEach(g => {
-        totalConfirmed += parseInt(g.guests_count || 0);
-        adults += parseInt(g.adults_count || 0);
-        kids += parseInt(g.kids_count || 0);
-    });
+        if (Array.isArray(guests)) {
+            guests.forEach(g => {
+                totalConfirmed += parseInt(g.guests_count || 0);
+                adults += parseInt(g.adults_count || 0);
+                kids += parseInt(g.kids_count || 0);
+            });
+        }
 
-    const pendingMessages = messages.filter(m => !m.approved).length;
+        const pendingMessages = Array.isArray(messages) ? messages.filter(m => !m.approved).length : 0;
 
-    // Apply counters safely to DOM
-    updateDOMElement('stat-total', totalConfirmed);
-    updateDOMElement('stat-adults', adults);
-    updateDOMElement('stat-kids', kids);
-    updateDOMElement('stat-families', guests.length);
-    updateDOMElement('stat-messages', pendingMessages);
+        // Apply counters safely to DOM
+        updateDOMElement('stat-total', totalConfirmed);
+        updateDOMElement('stat-adults', adults);
+        updateDOMElement('stat-kids', kids);
+        updateDOMElement('stat-families', Array.isArray(guests) ? guests.length : 0);
+        updateDOMElement('stat-messages', pendingMessages);
 
-    // Draw Chart.js Donut
-    renderAttendanceChart(adults, kids);
+        // Draw Chart.js Donut
+        renderAttendanceChart(adults, kids);
+    } catch (e) {
+        console.error("Erro ao renderizar métricas do painel:", e);
+    }
 }
 
 function updateDOMElement(id, value) {
@@ -270,16 +390,17 @@ async function renderGuestsList(filterQuery = '') {
     const guests = await dbService.getGuests();
     tbody.innerHTML = '';
 
-    // Calculate dynamic tab stats (from all confirmed guests, unfiltered)
     let tabTotalCount = 0;
     let tabAdultsCount = 0;
     let tabKidsCount = 0;
     
-    guests.forEach(g => {
-        tabTotalCount += parseInt(g.guests_count || 0);
-        tabAdultsCount += parseInt(g.adults_count || 0);
-        tabKidsCount += parseInt(g.kids_count || 0);
-    });
+    if (Array.isArray(guests)) {
+        guests.forEach(g => {
+            tabTotalCount += parseInt(g.guests_count || 0);
+            tabAdultsCount += parseInt(g.adults_count || 0);
+            tabKidsCount += parseInt(g.kids_count || 0);
+        });
+    }
     
     const tabTotalEl = document.getElementById('guest-tab-stat-total');
     const tabAdultsEl = document.getElementById('guest-tab-stat-adults');
@@ -289,12 +410,12 @@ async function renderGuestsList(filterQuery = '') {
     if (tabKidsEl) tabKidsEl.textContent = tabKidsCount;
 
     const query = filterQuery.toLowerCase().trim();
-    const filtered = guests.filter(g => {
-        return g.name.toLowerCase().includes(query) || 
-               g.email.toLowerCase().includes(query) ||
+    const filtered = Array.isArray(guests) ? guests.filter(g => {
+        return (g.name && g.name.toLowerCase().includes(query)) || 
+               (g.email && g.email.toLowerCase().includes(query)) ||
                (g.guest_names && g.guest_names.toLowerCase().includes(query)) ||
                (g.obs && g.obs.toLowerCase().includes(query));
-    });
+    }) : [];
 
     if (filtered.length === 0) {
         tbody.innerHTML = `
@@ -363,7 +484,7 @@ async function renderGuestsList(filterQuery = '') {
 
 async function openEditGuestModal(id) {
     const guests = await dbService.getGuests();
-    const guest = guests.find(g => g.id === id);
+    const guest = guests.find(g => String(g.id) === String(id));
     if (!guest) return;
 
     document.getElementById('edit-guest-id').value = guest.id;
@@ -411,13 +532,21 @@ async function handleEditGuestSubmit(e) {
     if (success) {
         bootstrap.Modal.getInstance(document.getElementById('editGuestModal')).hide();
         renderGuestsList();
+        renderDashboardStats();
+    } else {
+        alert("Falha ao atualizar dados no banco. Verifique as permissões de acesso.");
     }
 }
 
 async function deleteGuest(id) {
     if (confirm('Tem certeza absoluta que deseja remover este convidado?')) {
         const success = await dbService.deleteGuest(id);
-        if (success) renderGuestsList();
+        if (success) {
+            renderGuestsList();
+            renderDashboardStats();
+        } else {
+            alert("Falha ao remover convidado no banco de dados.");
+        }
     }
 }
 
@@ -434,45 +563,62 @@ async function renderMessagesList() {
     const tbody = document.getElementById('messages-table-body');
     if (!tbody) return;
 
-    const messages = await dbService.getMessages(false); // get all
-    tbody.innerHTML = '';
+    try {
+        const messages = await dbService.getMessages(false); // get all
+        tbody.innerHTML = '';
 
-    if (messages.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="5" class="text-center text-light-muted py-4">Nenhuma mensagem no livro ainda.</td>
-            </tr>
-        `;
-        return;
-    }
+        const totalCount = Array.isArray(messages) ? messages.length : 0;
+        const pendingCount = Array.isArray(messages) ? messages.filter(m => !m.approved).length : 0;
+        const approvedCount = Array.isArray(messages) ? messages.filter(m => m.approved).length : 0;
 
-    messages.forEach(msg => {
-        const dateFormatted = new Date(msg.created_at).toLocaleDateString('pt-BR', {
-            day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+        // Update tab statistics badges
+        const statTotalEl = document.getElementById('msg-tab-stat-total');
+        const statPendingEl = document.getElementById('msg-tab-stat-pending');
+        const statApprovedEl = document.getElementById('msg-tab-stat-approved');
+
+        if (statTotalEl) statTotalEl.textContent = `${totalCount} mensagens`;
+        if (statPendingEl) statPendingEl.textContent = `${pendingCount} pendentes de moderação`;
+        if (statApprovedEl) statApprovedEl.textContent = `${approvedCount} visíveis no mural`;
+
+        if (!messages || messages.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="text-center text-light-muted py-4">Nenhuma mensagem no livro ainda.</td>
+                </tr>
+            `;
+            return;
+        }
+
+        messages.forEach(msg => {
+            const dateFormatted = msg.created_at ? new Date(msg.created_at).toLocaleDateString('pt-BR', {
+                day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+            }) : 'Data recente';
+
+            const statusHtml = msg.approved
+                ? `<span class="badge bg-success"><i class="fas fa-check"></i> Visível no Mural</span>`
+                : `<span class="badge bg-warning text-dark"><i class="fas fa-clock"></i> Pendente</span>`;
+
+            const approveBtn = msg.approved
+                ? ''
+                : `<button class="btn btn-sm btn-outline-success rounded-circle me-1 btn-approve-msg" data-msg-id="${msg.id}" onclick="window.approveMessage('${msg.id}')" title="Aprovar"><i class="fas fa-check-circle"></i></button>`;
+
+            const row = `
+                <tr>
+                    <td data-label="Autor"><strong class="text-dark">${escapeHtml(msg.author || 'Anônimo')}</strong></td>
+                    <td data-label="Mensagem"><p class="mb-0 text-dark font-serif" style="font-size: 0.95rem; line-height: 1.4;">"${escapeHtml(msg.text || '')}"</p></td>
+                    <td data-label="Envio"><span style="font-size: 0.8rem;" class="text-muted">${dateFormatted}</span></td>
+                    <td data-label="Status">${statusHtml}</td>
+                    <td data-label="Ações" class="text-center" style="min-width: 100px;">
+                        ${approveBtn}
+                        <button class="btn btn-sm btn-outline-danger rounded-circle btn-delete-msg" data-msg-id="${msg.id}" onclick="window.deleteMessage('${msg.id}')" title="Remover"><i class="fas fa-trash-alt"></i></button>
+                    </td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
         });
-
-        const statusHtml = msg.approved
-            ? `<span class="badge bg-success"><i class="fas fa-check"></i> Visível no Mural</span>`
-            : `<span class="badge bg-warning text-dark"><i class="fas fa-clock"></i> Pendente</span>`;
-
-        const approveBtn = msg.approved
-            ? ''
-            : `<button class="btn btn-sm btn-outline-success rounded-circle me-1 btn-approve-msg" data-msg-id="${msg.id}" onclick="window.approveMessage('${msg.id}')" title="Aprovar"><i class="fas fa-check-circle"></i></button>`;
-
-        const row = `
-            <tr>
-                <td data-label="Autor"><strong>${escapeHtml(msg.author)}</strong></td>
-                <td data-label="Mensagem"><p class="mb-0 text-light-muted font-serif" style="font-size: 0.95rem; line-height: 1.4;">"${escapeHtml(msg.text)}"</p></td>
-                <td data-label="Envio"><span style="font-size: 0.8rem;">${dateFormatted}</span></td>
-                <td data-label="Status">${statusHtml}</td>
-                <td data-label="Ações" class="text-center" style="min-width: 100px;">
-                    ${approveBtn}
-                    <button class="btn btn-sm btn-outline-danger rounded-circle btn-delete-msg" data-msg-id="${msg.id}" onclick="window.deleteMessage('${msg.id}')" title="Remover"><i class="fas fa-trash-alt"></i></button>
-                </td>
-            </tr>
-        `;
-        tbody.insertAdjacentHTML('beforeend', row);
-    });
+    } catch (e) {
+        console.error("Erro ao renderizar lista de mensagens:", e);
+    }
 }
 
 async function approveMessage(id) {
@@ -480,7 +626,31 @@ async function approveMessage(id) {
     if (success) {
         await renderMessagesList();
         renderDashboardStats();
+    } else {
+        alert("Falha ao aprovar mensagem no banco. Verifique permissões RLS.");
     }
+}
+
+async function approveAllMessages() {
+    const messages = await dbService.getMessages(false);
+    const pendings = Array.isArray(messages) ? messages.filter(m => !m.approved) : [];
+    
+    if (pendings.length === 0) {
+        alert("Todas as mensagens já estão aprovadas!");
+        return;
+    }
+
+    if (!confirm(`Deseja aprovar todas as ${pendings.length} mensagens pendentes para exibição no mural público?`)) {
+        return;
+    }
+
+    for (const msg of pendings) {
+        await dbService.approveMessage(msg.id);
+    }
+
+    await renderMessagesList();
+    renderDashboardStats();
+    alert("Todas as mensagens foram aprovadas e já estão visíveis no mural!");
 }
 
 async function deleteMessage(id) {
@@ -489,9 +659,15 @@ async function deleteMessage(id) {
         if (success) {
             await renderMessagesList();
             renderDashboardStats();
+        } else {
+            alert("Falha ao excluir mensagem no banco.");
         }
     }
 }
+
+// Global window functions for inline callbacks
+window.approveAllMessages = approveAllMessages;
+window.renderMessagesList = renderMessagesList;
 
 // ==========================================
 // RENDER TAB: SETTINGS & ADJUSTS
@@ -542,6 +718,7 @@ async function handleSettingsSubmit(e) {
             location.reload();
         } else {
             loadSettingsValues();
+            checkDatabaseStatusUI();
         }
     }
 }
@@ -550,6 +727,96 @@ function handleResetDatabase() {
     if (confirm('Atenção: Esta ação apagará todas as presenças, mensagens de visitas e reservas de presentes salvos localmente, restaurando os padrões de fábrica. Deseja prosseguir?')) {
         dbService.resetDatabase();
         location.reload();
+    }
+}
+
+// ==========================================
+// DATABASE DIAGNOSTICS & PERMISSIONS TOOLS
+// ==========================================
+function initDatabaseDiagnostics() {
+    const testBtn = document.getElementById('btn-test-db-connection');
+    const copyBtn = document.getElementById('btn-copy-sql-fix');
+
+    if (testBtn) {
+        testBtn.addEventListener('click', async () => {
+            const origHtml = testBtn.innerHTML;
+            testBtn.disabled = true;
+            testBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Testando...';
+            await checkDatabaseStatusUI(true);
+            testBtn.disabled = false;
+            testBtn.innerHTML = origHtml;
+        });
+    }
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(SQL_FIX_SCRIPT);
+                const origHtml = copyBtn.innerHTML;
+                copyBtn.classList.remove('btn-admin-primary');
+                copyBtn.classList.add('btn-success');
+                copyBtn.innerHTML = '<i class="fas fa-check me-1"></i> Código Copiado!';
+                setTimeout(() => {
+                    copyBtn.classList.remove('btn-success');
+                    copyBtn.classList.add('btn-admin-primary');
+                    copyBtn.innerHTML = origHtml;
+                }, 3000);
+            } catch (err) {
+                // Fallback prompt if clipboard API blocked
+                prompt("Copie o código SQL abaixo:", SQL_FIX_SCRIPT);
+            }
+        });
+    }
+}
+
+async function checkDatabaseStatusUI(showAlertOnSuccess = false) {
+    const statusPill = document.getElementById('admin-db-status-pill');
+    const statusBox = document.getElementById('db-health-status-box');
+
+    const health = await dbService.testDatabaseHealth();
+    const guests = await dbService.getGuests();
+    const guestCount = Array.isArray(guests) ? guests.length : 0;
+
+    if (health.ok) {
+        if (statusPill) {
+            statusPill.className = 'badge bg-success px-3 py-2';
+            statusPill.innerHTML = `<i class="fas fa-check-circle me-1"></i> Supabase Online (${guestCount} convidados)`;
+        }
+        if (statusBox) {
+            statusBox.innerHTML = `
+                <div class="d-flex align-items-center gap-2 text-success fw-bold mb-1">
+                    <i class="fas fa-check-circle"></i> Supabase Conectado & Sincronizado
+                </div>
+                <div class="small text-light-muted">
+                    Total de registros encontrados no banco: <strong>${guestCount} confirmações</strong>.
+                    As atualizações estão sendo transmitidas em tempo real.
+                </div>
+            `;
+        }
+        if (showAlertOnSuccess) {
+            alert(`Conexão com o Supabase testada com sucesso! ${guestCount} convidados encontrados no banco.`);
+        }
+    } else {
+        if (statusPill) {
+            statusPill.className = 'badge bg-danger px-3 py-2';
+            statusPill.innerHTML = `<i class="fas fa-exclamation-triangle me-1"></i> Supabase com Erro RLS`;
+        }
+        if (statusBox) {
+            statusBox.innerHTML = `
+                <div class="d-flex align-items-center gap-2 text-danger fw-bold mb-1">
+                    <i class="fas fa-exclamation-triangle"></i> Atenção: Bloqueio de Permissões no Supabase
+                </div>
+                <div class="small text-danger mb-2">
+                    ${escapeHtml(health.message || 'Erro de leitura/escrita no banco.')}
+                </div>
+                <div class="small text-light-muted">
+                    <strong>Como resolver:</strong> Clique no botão <em>Copiar Código SQL</em> abaixo, abra o <strong>SQL Editor</strong> no painel do Supabase, cole e execute com o botão <strong>Run</strong>.
+                </div>
+            `;
+        }
+        if (showAlertOnSuccess) {
+            alert(`Atenção: Falha na conexão com o Supabase.\n\n${health.message}\n\nExecute o script SQL fornecido no painel Supabase para corrigir.`);
+        }
     }
 }
 
@@ -591,11 +858,9 @@ async function exportToPDF() {
         totalCriancas += parseInt(g.kids_count || 0);
     });
 
-    // 2. Draw Premium Header Band
-    // Forest Green strip
+    // 2. Draw Header Band
     doc.setFillColor(20, 92, 54);
     doc.rect(0, 0, 210, 30, 'F');
-    // Gold separator line
     doc.setFillColor(212, 175, 55);
     doc.rect(0, 30, 210, 2, 'F');
 
@@ -658,7 +923,6 @@ async function exportToPDF() {
         currentY = 25;
     }
 
-    // Metrics summary panel
     doc.setFillColor(245, 247, 245);
     doc.setDrawColor(212, 175, 55);
     doc.setLineWidth(0.5);
@@ -674,29 +938,26 @@ async function exportToPDF() {
     doc.setTextColor(50, 50, 50);
     doc.text(`Total Confirmado: ${totalPessoas} convidados   |   Adultos: ${totalAdultos}   |   Crianças (<10 anos): ${totalCriancas}`, 20, currentY + 15);
     
-    // Signatures blocks
     currentY += 40;
     doc.setDrawColor(180, 180, 180);
     doc.setLineWidth(0.5);
     
-    // Left signature (Mansão JK Reception)
     doc.line(20, currentY, 95, currentY);
     doc.setFontSize(8);
     doc.setTextColor(120, 120, 120);
     doc.text("Responsável Mansão JK (Portaria/Buffet)", 20, currentY + 5);
     doc.text("Nome, Assinatura e Carimbo", 20, currentY + 9);
     
-    // Right signature (Debutante Family/Organizer)
     doc.line(115, currentY, 190, currentY);
     doc.text("Responsável pela Debutante (Família/Cerimonial)", 115, currentY + 5);
     doc.text("Nome e Assinatura", 115, currentY + 9);
 
-    // Direct PDF File Download
     doc.save("Lista_de_Convidados_Marcia_Gorete_Buffet.pdf");
 }
 
 async function generateDataRows() {
     const guests = await dbService.getGuests();
+    if (!Array.isArray(guests)) return [];
     return guests.map(g => {
         return {
             Nome: g.name,
@@ -721,7 +982,7 @@ async function exportToCSV() {
 
     const headers = Object.keys(rows[0]);
     const csvContent = [
-        headers.join(';'), // Excel direct separation for standard PT-BR
+        headers.join(';'),
         ...rows.map(row => headers.map(field => {
             let cell = row[field] === null || row[field] === undefined ? '' : row[field];
             cell = String(cell).replace(/"/g, '""').replace(/[\n\r]+/g, ' ');
@@ -787,7 +1048,6 @@ function initMobileSidebar() {
     if (closeBtn) closeBtn.addEventListener('click', () => toggle(false));
     if (overlay) overlay.addEventListener('click', () => toggle(false));
 
-    // Collapse on sidebar menu click in mobile layouts
     document.querySelectorAll('.admin-nav-item').forEach(btn => {
         btn.addEventListener('click', () => {
             if (window.innerWidth < 768) toggle(false);
@@ -859,5 +1119,3 @@ async function deleteAdminGalleryItem(id) {
     }
 }
 window.deleteAdminGalleryItem = deleteAdminGalleryItem;
-
-

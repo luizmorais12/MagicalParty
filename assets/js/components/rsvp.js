@@ -3,12 +3,16 @@
 
 import { dbService } from '../services/db.js';
 
+let realtimeChannel = null;
+let pollInterval = null;
+
 export function initRSVPSystem() {
     const form = document.getElementById('rsvp-form');
     const countSelect = document.getElementById('rsvp-count');
     const guestsContainer = document.getElementById('rsvp-guests-container');
     const rsvpOverlay = document.getElementById('rsvp-lotus-overlay');
     const closeOverlayBtn = document.getElementById('close-lotus-overlay-btn');
+    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
 
     if (!form) return;
 
@@ -44,6 +48,13 @@ export function initRSVPSystem() {
             return;
         }
 
+        // Loading state on button
+        const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Selando Presença Real...';
+        }
+
         const guestPayload = {
             name,
             phone,
@@ -56,33 +67,47 @@ export function initRSVPSystem() {
             obs
         };
 
-        // Submit to database service layer
-        const success = await dbService.addGuest(guestPayload);
+        try {
+            // Submit to database service layer
+            const success = await dbService.addGuest(guestPayload);
 
-        if (success) {
-            // Also submit message to guestbook if message text is present
-            if (message !== '') {
-                await dbService.addMessage(name, message);
+            if (success) {
+                // Also submit message to guestbook if message text is present
+                if (message !== '') {
+                    await dbService.addMessage(name, message);
+                }
+
+                // Sync public scoreboard counters immediately
+                await updatePublicAttendanceCounters();
+
+                // Set WhatsApp confirmation message
+                const waBtn = document.getElementById('rsvp-whatsapp-share-btn');
+                if (waBtn) {
+                    const waMsg = encodeURIComponent(`Olá! Confirmando presença no Baile de 15 Anos de Márcia Gorete! ✨\n\nConvidado: ${name}\nTotal de Pessoas: ${count} (${adults} Adulto(s), ${kids} Criança(s))\nData: 03/10/2026 às 20:00`);
+                    waBtn.href = `https://api.whatsapp.com/send?text=${waMsg}`;
+                }
+
+                // Trigger success overlay (Rose Bloom screen)
+                if (rsvpOverlay) {
+                    rsvpOverlay.style.display = 'flex';
+                    triggerRSVPConfetti();
+                }
+            } else {
+                const lastErr = dbService.lastError;
+                if (lastErr && (lastErr.code === '42501' || lastErr.message?.includes('policy') || lastErr.message?.includes('security'))) {
+                    alert("Atenção: O banco de dados do evento precisa de atualização de permissões (RLS). Por favor, avise o cerimonial/anfitrião para executar o script de permissões no Supabase!");
+                } else {
+                    alert("Ocorreu uma falha ao selar sua presença. Por favor, verifique sua conexão e tente novamente.");
+                }
             }
-
-            // Sync public scoreboard counters
-            updatePublicAttendanceCounters();
-
-            // Set WhatsApp confirmation message
-            const waBtn = document.getElementById('rsvp-whatsapp-share-btn');
-            if (waBtn) {
-                const waMsg = encodeURIComponent(`Olá! Confirmando presença no Baile de 15 Anos de Márcia Gorete! ✨\n\nConvidado: ${name}\nTotal de Pessoas: ${count} (${adults} Adulto(s), ${kids} Criança(s))\nData: 03/10/2026 às 20:00`);
-                waBtn.href = `https://api.whatsapp.com/send?text=${waMsg}`;
+        } catch (error) {
+            console.error("Erro no envio do RSVP:", error);
+            alert("Ocorreu um erro inesperado. Por favor, tente novamente.");
+        } finally {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHtml;
             }
-
-            // Trigger success overlay (Rose Bloom screen)
-            if (rsvpOverlay) {
-                rsvpOverlay.style.display = 'flex';
-                // Trigger canvas confetti bursts
-                triggerRSVPConfetti();
-            }
-        } else {
-            alert("Ocorreu uma falha ao selar sua presença. Por favor, tente novamente.");
         }
     });
 
@@ -96,28 +121,48 @@ export function initRSVPSystem() {
 
     // Initialize public counters right away on load
     updatePublicAttendanceCounters();
+
+    // Setup Supabase Realtime channel for live counter updates
+    if (!realtimeChannel) {
+        realtimeChannel = dbService.subscribeToGuests(() => {
+            updatePublicAttendanceCounters();
+        });
+    }
+
+    // Background polling every 25 seconds as backup
+    if (!pollInterval) {
+        pollInterval = setInterval(() => {
+            updatePublicAttendanceCounters();
+        }, 25000);
+    }
 }
 
-async function updatePublicAttendanceCounters() {
-    const guests = await dbService.getGuests();
-    
-    let total = 0;
-    let adults = 0;
-    let kids = 0;
+export async function updatePublicAttendanceCounters() {
+    try {
+        const guests = await dbService.getGuests();
+        
+        let total = 0;
+        let adults = 0;
+        let kids = 0;
 
-    guests.forEach(g => {
-        total += parseInt(g.guests_count || 0);
-        adults += parseInt(g.adults_count || 0);
-        kids += parseInt(g.kids_count || 0);
-    });
+        if (Array.isArray(guests)) {
+            guests.forEach(g => {
+                total += parseInt(g.guests_count || 0);
+                adults += parseInt(g.adults_count || 0);
+                kids += parseInt(g.kids_count || 0);
+            });
+        }
 
-    const totalEl = document.getElementById('total-confirmed');
-    const adultsEl = document.getElementById('adults-confirmed');
-    const kidsEl = document.getElementById('kids-confirmed');
+        const totalEl = document.getElementById('total-confirmed');
+        const adultsEl = document.getElementById('adults-confirmed');
+        const kidsEl = document.getElementById('kids-confirmed');
 
-    if (totalEl) totalEl.textContent = total;
-    if (adultsEl) adultsEl.textContent = adults;
-    if (kidsEl) kidsEl.textContent = kids;
+        if (totalEl) totalEl.textContent = total;
+        if (adultsEl) adultsEl.textContent = adults;
+        if (kidsEl) kidsEl.textContent = kids;
+    } catch (e) {
+        console.warn("Erro ao atualizar contadores públicos:", e);
+    }
 }
 
 function triggerRSVPConfetti() {
